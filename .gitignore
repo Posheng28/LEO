@@ -1,0 +1,8 @@
+.tmp*/
+*.log
+Thumbs.db
+.DS_Store
+
+# 研究筆記與計畫（含券商報告的整理，不公開）
+research/
+docs/

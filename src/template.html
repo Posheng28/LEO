@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>低軌衛星產業地圖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f4; --card:#fffdf9; --ink:#1c1f26; --mute:#6a6f7a; --line:#e4dfd5;
+  --teal:#0e6e8c; --teal-soft:#e3f0f3; --red:#b3362c; --amber:#a96812; --amber-soft:#f6ecd9;
+  --sky:#2b6cb0; --gnd:#a96812; --d2c:#b0356b; --lau:#6b4fa8; --ops:#3d7a4a; --geo:#8a8f98;
+  --glow:#f4b648; --night:#050b14;
+  --serif:"Noto Serif TC","Songti TC",serif; --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:64px}
+body{margin:0;background:var(--night);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif);line-height:1.3;margin:0}
+p{margin:.6em 0}
+.num{font-family:var(--serif);font-weight:900;font-variant-numeric:tabular-nums}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+/* 導覽 */
+nav.top{position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(250,248,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);transition:background .3s,border-color .3s}
+nav.top .wrap{max-width:1240px;display:flex;gap:4px;align-items:center;overflow-x:auto;scrollbar-width:none}
+nav.top .wrap::-webkit-scrollbar{display:none}
+nav.top .brand{font-family:var(--serif);font-weight:900;margin-right:14px;white-space:nowrap;padding:12px 0;font-size:18px}
+nav.top a{color:var(--mute);text-decoration:none;font-size:15.5px;padding:14px 11px;white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer}
+nav.top a:hover,nav.top a.on{color:var(--teal);border-bottom-color:var(--teal)}
+nav.top.dark{background:linear-gradient(rgba(5,11,20,.82),rgba(5,11,20,0));border-bottom-color:transparent;backdrop-filter:none}
+nav.top.dark .brand{color:#fff}
+nav.top.dark a{color:#a9bdd0}
+nav.top.dark a:hover,nav.top.dark a.on{color:var(--glow);border-bottom-color:var(--glow)}
+
+/* ===== 3D 主場景 ===== */
+#story{position:relative;background:var(--night)}
+.sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(2,6,12,.7) 100%)}
+.hero{position:absolute;left:max(28px,6vw);top:50%;transform:translateY(-52%);max-width:560px;color:#fff;will-change:opacity,transform}
+.hero::before{content:"";position:absolute;inset:-60vh -22vw -60vh -12vw;background:linear-gradient(90deg,rgba(5,11,20,.9) 0%,rgba(5,11,20,.72) 52%,rgba(5,11,20,0) 100%);z-index:-1;pointer-events:none}
+.kicker{font-size:15px;letter-spacing:.32em;color:var(--glow);font-weight:700}
+.hero h1{font-size:clamp(58px,8.2vw,128px);font-weight:900;letter-spacing:.02em;line-height:1.08;margin:10px 0 6px;text-shadow:0 0 40px rgba(80,170,255,.35)}
+.hero h1 span{display:block;font-size:.36em;font-weight:700;letter-spacing:.08em;color:#cfe1f3;margin-top:10px}
+.hero .lede{font-size:18.5px;color:#b9cbdd;max-width:500px;line-height:1.8}
+.hstats{display:grid;grid-template-columns:repeat(2,auto);gap:14px 34px;margin:26px 0 0;justify-content:start}
+.hstats div{border-left:2px solid var(--glow);padding-left:12px}
+.hstats b{font-family:var(--serif);font-weight:900;font-size:32px;color:#fff;display:block;line-height:1.15}
+.hstats b small{font-size:16px;margin-left:3px;color:#cfe1f3}
+.hstats span{font-size:14.5px;color:#9fb4c9}
+.hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);color:#cfe1f3;font-size:15px;letter-spacing:.14em;text-align:center;pointer-events:none}
+.hint i{display:block;width:1px;height:38px;margin:8px auto 0;background:linear-gradient(var(--glow),transparent);animation:drop 1.6s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+.cardbox{position:absolute;right:max(24px,4.5vw);top:50%;transform:translateY(-50%);width:min(430px,38vw);color:#eaf2fb;pointer-events:none;will-change:opacity,transform}
+.cardbox .in{pointer-events:auto;background:linear-gradient(160deg,rgba(18,34,54,.82),rgba(8,17,29,.86));border:1px solid rgba(140,190,240,.22);border-radius:20px;padding:24px 26px 22px;backdrop-filter:blur(10px);box-shadow:0 20px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08)}
+.c-eye{font-size:14px;letter-spacing:.22em;color:var(--glow);font-weight:700;display:flex;justify-content:space-between}
+.c-eye span{color:#7f95ab;letter-spacing:.08em}
+.cardbox h3{font-size:31px;font-weight:900;margin:6px 0 8px;color:#fff}
+.cardbox p{margin:0 0 12px;font-size:16.5px;line-height:1.75;color:#c3d3e3}
+.c-k{display:flex;flex-wrap:wrap;gap:2px 14px;align-items:center;border-top:1px solid rgba(140,190,240,.18);border-bottom:1px solid rgba(140,190,240,.18);padding:10px 0;margin:4px 0 14px}
+.c-k b{font-family:var(--serif);font-weight:900;font-size:34px;color:var(--glow);white-space:nowrap;line-height:1.1}
+.c-k span{font-size:14.5px;color:#a9bdd0;line-height:1.5}
+.c-sub{font-size:13.5px;letter-spacing:.2em;color:#7f95ab;margin:0 0 8px}
+.blk{margin-top:12px}
+.blk h4{margin:0 0 6px;font-size:16.5px;display:flex;gap:8px;align-items:center;color:#fff;font-family:var(--sans)}
+.blk h4 em{font-style:normal;flex:none;width:22px;height:22px;border-radius:50%;background:var(--glow);color:#1a1305;font-size:13px;font-weight:700;display:grid;place-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:14.5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:2px 11px;cursor:pointer;color:var(--ink);line-height:1.65}
+.chip b{color:var(--teal);font-weight:700;margin-left:5px}
+.chip:hover{border-color:var(--teal)}
+.chip.z{color:var(--mute);border-style:dashed}
+.chip.z b{color:var(--mute);font-weight:400}
+.cardbox .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
+.cardbox .chip b{color:var(--glow)}
+.cardbox .chip:hover{border-color:var(--glow);background:rgba(244,182,72,.12)}
+.cardbox .chip.z{color:#8ea3b8}
+.cardbox .chip.z b{color:#8ea3b8}
+.cardbox .more{font-size:14px;color:#8ea3b8;align-self:center;margin-left:2px}
+.keys{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14.5px;color:#a9bdd0}
+.keys i{display:inline-block;width:20px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+
+.lb{position:absolute;left:0;top:0;pointer-events:none;color:#fff;font-size:15.5px;font-weight:500;white-space:nowrap;text-shadow:0 1px 8px #000,0 0 2px #000;will-change:transform,opacity}
+.lb::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px var(--glow);margin-right:8px;vertical-align:1px}
+.lb.n{width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--glow);color:#1a1305;font-weight:700;font-size:14px;display:grid;place-items:center;text-shadow:none;box-shadow:0 0 0 4px rgba(244,182,72,.25),0 0 18px rgba(244,182,72,.6)}
+.lb.n::before{display:none}
+.mark{position:absolute;left:0;top:0;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;border:2px solid var(--glow);pointer-events:none;box-shadow:0 0 18px rgba(244,182,72,.5),inset 0 0 12px rgba(244,182,72,.3);animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{outline:0 solid rgba(244,182,72,.5)}100%{outline:16px solid rgba(244,182,72,0)}}
+
+.rail{position:absolute;left:22px;top:50%;transform:translateY(-50%);list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.rail button{display:flex;align-items:center;gap:10px;background:none;border:0;padding:2px;cursor:pointer;color:#7f95ab;font:inherit;font-size:13.5px}
+.rail button i{width:9px;height:9px;border-radius:50%;border:1.5px solid #6f879e;transition:.2s;flex:none}
+.rail button span{opacity:0;transform:translateX(-4px);transition:.2s;white-space:nowrap}
+.rail button:hover span{opacity:1;transform:none}
+.rail button.on{color:#fff}
+.rail button.on i{background:var(--glow);border-color:var(--glow);box-shadow:0 0 10px var(--glow);transform:scale(1.25)}
+.rail li.gap{height:6px}
+
+/* 沒有 3D 時 */
+#story.nogl .sticky{position:static;height:auto;padding:90px 0 40px}
+#story.nogl #gl,#story.nogl .vig,#story.nogl .rail,#story.nogl .hint,#story.nogl .lbls{display:none}
+#story.nogl .hero{position:static;transform:none;margin:0 auto;max-width:1080px;padding:0 28px;opacity:1!important}
+#story.nogl .cardbox{display:none}
+#fb{display:none;max-width:1080px;margin:30px auto 0;padding:0 28px;grid-template-columns:repeat(2,1fr);gap:14px;color:#eaf2fb}
+#story.nogl #fb{display:grid}
+#fb .in{background:rgba(18,34,54,.82);border:1px solid rgba(140,190,240,.22);border-radius:16px;padding:18px 20px}
+#fb h3{font-size:22px;color:#fff;margin:4px 0 6px}
+#fb p{margin:0 0 8px;font-size:15.5px;color:#c3d3e3}
+#fb .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
+#fb .chip b{color:var(--glow)}
+
+/* ===== 下半：紙本章節 ===== */
+main.paper{background:var(--paper);position:relative;z-index:2;border-radius:26px 26px 0 0;margin-top:-26px;padding-top:8px}
+@media(min-width:900px){main.paper{zoom:1.08}}
+section.ch{padding:54px 0 10px}
+.ch-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+.ch-no{font-family:var(--serif);font-weight:900;font-size:17px;color:#fff;background:var(--teal);border-radius:8px;padding:2px 10px}
+.ch-head h2{font-size:31px;font-weight:900}
+.ch-sub{color:#3a3f4a;max-width:780px;margin:4px 0 18px}
+h3.sec{font-size:21px;margin:30px 0 10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h4{margin:0 0 8px;font-size:17px}
+.card .cap{font-size:14.5px;color:var(--mute);margin-top:8px;line-height:1.55}
+.callout{background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:12px 16px;margin:16px 0;font-size:16px}
+.callout.t{background:var(--teal-soft);border-left-color:var(--teal)}
+.inline{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px;font-size:15px;color:#454a55}
+.split{display:flex;height:44px;border-radius:10px;overflow:hidden;margin:8px 0 6px}
+.split div{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;white-space:nowrap}
+.splitk{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:14.5px;color:#454a55}
+.splitk i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px}
+.gen{display:grid;grid-template-columns:76px 1fr 1fr;gap:6px 14px;align-items:center;font-size:15px}
+.gen .h{font-size:13.5px;color:var(--mute)}
+.gen .bar{height:18px;border-radius:5px;background:var(--teal);min-width:3px;display:inline-block;vertical-align:middle}
+.gen .bar.w{background:#8fa3b5}
+.gen .v{margin-left:8px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gen>span:not(.h):not(.g){display:flex;align-items:center}
+.gen .bar{flex:0 1 auto}
+.gen .g{font-weight:700}
+.cols{display:flex;align-items:flex-end;gap:10px;height:190px;padding-top:22px}
+.cols .c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.cols .c b{font-size:14px;font-variant-numeric:tabular-nums;margin-bottom:3px}
+.cols .c i{display:block;width:100%;max-width:64px;border-radius:6px 6px 0 0;background:var(--teal)}
+.cols .c.f i{background:repeating-linear-gradient(135deg,var(--teal) 0 6px,#5ea2b6 6px 10px)}
+.cols .c span{font-size:13.5px;color:var(--mute);margin-top:4px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.vs .num{font-size:30px;line-height:1.15}
+.vs .a .num{color:#7c8794}.vs .b .num{color:var(--teal)}
+.vs small{display:block;font-size:13.5px;color:var(--mute)}
+.pl{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.pl .card h4{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pl .card h4 small{font-weight:400;color:var(--mute);font-size:14px}
+.prog{height:10px;background:#ece7dc;border-radius:5px;overflow:hidden;margin:6px 0}
+.prog i{display:block;height:100%;background:var(--teal);border-radius:5px;min-width:2px}
+.pl .row{display:flex;justify-content:space-between;font-size:14.5px;color:#454a55}
+.pl ul{margin:6px 0 0;padding-left:18px;font-size:15px;color:#454a55}
+.tl{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin-top:8px;position:relative}
+.tl::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:var(--line)}
+.tl div{position:relative;padding:26px 8px 0 0;font-size:14.5px;line-height:1.5;color:#454a55}
+.tl div::before{content:"";position:absolute;left:0;top:3px;width:14px;height:14px;border-radius:50%;background:var(--teal);border:3px solid var(--paper)}
+.tl div.f::before{background:var(--paper);border-color:var(--teal)}
+.tl b{display:block;font-family:var(--serif);color:var(--ink);font-size:16px}
+.flt{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 8px}
+.flt button{font:inherit;font-size:15px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 14px;cursor:pointer;color:var(--ink)}
+.flt button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rk-key{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14.5px;color:var(--mute);margin:4px 0 6px}
+.rk-key i{display:inline-block;width:26px;height:10px;border-radius:3px;vertical-align:middle;margin-right:6px}
+.tier{margin-top:18px}
+.tier>h3{font-size:18px;display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:4px}
+.tier>h3 small{font-family:var(--sans);font-weight:400;font-size:14.5px;color:var(--mute)}
+.rk-row{display:grid;grid-template-columns:30px 218px 1fr 76px;gap:10px;align-items:center;width:100%;font:inherit;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 4px;cursor:pointer;color:var(--ink)}
+.rk-row:hover{background:#f3efe6}
+.rk-row.hit{background:#f9e9c6;transition:background 1.2s}
+.rk-no{font-family:var(--serif);font-weight:700;color:var(--mute);font-size:15px;text-align:right}
+.rk-name{font-weight:700;line-height:1.35}
+.rk-name small{font-weight:400;color:var(--mute);font-size:13.5px;margin-left:6px}
+.tags{display:inline-flex;gap:3px;margin-left:6px;vertical-align:1px}
+.tg{font-size:11.5px;font-weight:700;color:#fff;border-radius:4px;padding:0 4px;line-height:1.55}
+.tg.sky{background:var(--sky)}.tg.gnd{background:var(--gnd)}.tg.d2c{background:var(--d2c)}.tg.lau{background:var(--lau)}.tg.ops{background:var(--ops)}.tg.geo{background:var(--geo)}
+.rk-bar{position:relative;height:16px;background:#efeadf;border-radius:4px}
+.rk-bar .f{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--teal);min-width:2px}
+.rk-bar .f.est{background:repeating-linear-gradient(135deg,var(--teal) 0 5px,#69a9bb 5px 9px)}
+.rk-bar .f.nd{opacity:.45}
+.rk-bar .f.geo{background:#a9aeb6}
+.rk-bar .f.geo.est{background:repeating-linear-gradient(135deg,#a9aeb6 0 5px,#c9cdd3 5px 9px)}
+.rk-bar .r{position:absolute;top:50%;height:2px;background:var(--ink);transform:translateY(-50%)}
+.rk-bar .r::before,.rk-bar .r::after{content:"";position:absolute;top:-4px;width:2px;height:10px;background:var(--ink)}
+.rk-bar .r::before{left:0}.rk-bar .r::after{right:0}
+.rk-pct{font-family:var(--serif);font-weight:900;font-size:19px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rk-pct.sm{font-size:16px;font-weight:700;color:#454a55}
+.rk-d{background:var(--card);border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;padding:12px 16px 14px 44px;margin-bottom:6px;font-size:15.5px}
+.rk-d dl{display:grid;grid-template-columns:76px 1fr;gap:4px 12px;margin:0}
+.rk-d dt{color:var(--mute)}
+.rk-d dd{margin:0}
+.more-btn{font:inherit;font-size:15px;margin:10px 0 0;border:1px dashed #b9b2a3;background:none;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--teal);width:100%}
+details.fold{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 16px;margin-top:12px}
+details.fold summary{cursor:pointer;font-weight:700}
+details.fold p{font-size:15.5px;color:#454a55;margin:8px 0 4px}
+.lev{display:grid;grid-template-columns:190px 1fr;gap:14px 14px;align-items:center;font-size:15px;padding-top:12px}
+.lev .trk{position:relative;height:26px}
+.lev .trk::before{content:"";position:absolute;left:0;right:0;top:12px;height:2px;background:#e4dfd5}
+.lev .trk .ln{position:absolute;top:11px;height:4px;background:#d7c9ab;border-radius:2px}
+.lev .trk .d{position:absolute;top:5px;width:16px;height:16px;border-radius:50%;transform:translateX(-50%)}
+.lev .trk .d.a{background:#fff;border:3px solid var(--amber)}
+.lev .trk .d.b{background:var(--teal)}
+.lev .trk span{position:absolute;top:-13px;font-size:13px;transform:translateX(-50%);white-space:nowrap;color:#454a55}
+.deb{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.deb .pp{display:grid;grid-template-columns:22px 1fr;gap:4px 8px;font-size:15.5px;line-height:1.6}
+.deb .pp i{font-style:normal;font-weight:700;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;color:#fff;margin-top:3px}
+.deb .pp i.u{background:var(--teal)}.deb .pp i.dn{background:var(--red)}
+footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
+
+/* ===== 手機 ===== */
+@media(max-width:700px){
+  body{font-size:16.5px}
+  .wrap{padding:0 16px}
+  nav.top a{padding:12px 9px;font-size:15px}
+  .hero{left:18px;right:18px;top:74px;transform:none;max-width:none}
+  .hero h1{font-size:54px}
+  .hero .lede{font-size:16.5px;line-height:1.7}
+  .hstats{gap:10px 20px;margin-top:16px}
+  .hstats b{font-size:25px}
+  .hstats span{font-size:13.5px}
+  .cardbox{left:12px;right:12px;top:auto;bottom:14px;width:auto;transform:none}
+  .cardbox .in{padding:16px 16px 14px;border-radius:16px}
+  .cardbox h3{font-size:24px;margin:4px 0 6px}
+  .cardbox p{font-size:15.5px;line-height:1.65;margin-bottom:8px}
+  .c-k{padding:7px 0;margin:2px 0 10px}
+  .c-k b{font-size:26px}
+  .blk{margin-top:8px}
+  .blk h4{font-size:15.5px;margin-bottom:4px}
+  .blk.row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;margin-top:7px}
+  .blk.row h4{margin:0}
+  .rail{display:none}
+  .hint{bottom:14px;font-size:14px}
+  .lb{font-size:14px}
+  #fb{grid-template-columns:1fr}
+  main.paper{border-radius:18px 18px 0 0;margin-top:-18px}
+  section.ch{padding:38px 0 6px}
+  .ch-head h2{font-size:25px}
+  .grid2,.grid3,.pl,.deb{grid-template-columns:1fr}
+  .gen{grid-template-columns:62px 1fr 1fr;gap:6px 8px;font-size:14px}
+  .cols{gap:5px;height:170px}
+  .cols .c b,.cols .c span{font-size:12px}
+  .tl{grid-template-columns:1fr}
+  .tl::before{left:6px;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .tl div{padding:0 0 14px 28px}
+  .tl div::before{top:5px}
+  .rk-row{grid-template-columns:24px 1fr 70px;gap:4px 8px;padding:9px 0}
+  .rk-row .rk-bar{grid-column:2/4;grid-row:2}
+  .rk-pct{font-size:18px}
+  .rk-d{padding:10px 12px 12px}
+  .rk-d dl{grid-template-columns:64px 1fr}
+  .lev{grid-template-columns:1fr;gap:4px}
+  .lev .nm{margin-top:12px;font-weight:700}
+  .lev .trk{margin-top:14px}
+  .vs .num{font-size:25px}
+}
+</style>
+</head>
+<body>
+
+<nav class="top dark"><div class="wrap">
+  <span class="brand">低軌衛星</span>
+  <a data-st="net">總覽</a><a data-st="s1">天空端</a><a data-st="ut">地面端</a><a data-st="d2c">手機直連</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
+</div></nav>
+
+<div id="story">
+  <div class="sticky">
+    <canvas id="gl"></canvas>
+    <div class="vig"></div>
+    <div class="hero" id="hero">
+      <div class="kicker">產業地圖</div>
+      <h1>低軌衛星<span>把網路搬到天上</span></h1>
+      <p class="lede">幾千顆衛星繞在離地 350 到 550 公里的軌道上，用天線、雷射和地面站接成一張網。往下捲，把這顆衛星一塊一塊拆開，看台股誰在做、衛星占它營收多少。</p>
+      <div class="hstats">
+        <div><b>11,100<small>顆</small></b><span>Starlink 在軌衛星</span></div>
+        <div><b>1,360<small>萬戶</small></b><span>Starlink 消費者訂戶</span></div>
+        <div><b>10<small>倍</small></b><span>新一代單顆容量</span></div>
+        <div><b>2.2<small>倍</small></b><span>2028 年發射量對 2025 年</span></div>
+      </div>
+    </div>
+    <div class="lbls" id="lbls"></div>
+    <aside class="cardbox" id="card"></aside>
+    <ol class="rail" id="rail"></ol>
+    <div class="hint" id="hint">往下捲，拆開這顆衛星<i></i></div>
+  </div>
+  <div id="fb"></div>
+</div>
+
+<main class="paper">
+<section class="ch" id="scale"><div class="wrap">
+  <div class="ch-head"><span class="ch-no">1</span><h2>規模：錢在哪、衛星長多大</h2></div>
+  <div class="grid2">
+    <div class="card">
+      <h4>全球衛星產業的錢在哪一段</h4>
+      <div class="split"><div style="width:54.5%;background:#a96812">地面設備 54.5%</div><div style="width:34.7%;background:#0e6e8c">衛星服務 34.7%</div><div style="width:10.8%;background:#2b6cb0">10.6%</div></div>
+      <div class="splitk"><span><i style="background:#a96812"></i>地面設備（終端、閘道站）</span><span><i style="background:#0e6e8c"></i>衛星服務</span><span><i style="background:#2b6cb0"></i>衛星製造＋發射</span></div>
+      <div class="cap">2025 年約 3,030 億美元。造衛星和發射只占一成，地面設備超過一半。</div>
+    </div>
+    <div class="card">
+      <h4>Starlink 四代衛星</h4>
+      <div class="gen">
+        <span class="h">世代</span><span class="h">重量</span><span class="h">下行容量</span>
+        <span class="g">V1.0</span><span><i class="bar w" style="width:8%"></i><span class="v">260 kg</span></span><span><i class="bar" style="width:1.4%"></i><span class="v">17 Gbps</span></span>
+        <span class="g">V1.5</span><span><i class="bar w" style="width:9%"></i><span class="v">300 kg</span></span><span><i class="bar" style="width:1.6%"></i><span class="v">20–24 Gbps</span></span>
+        <span class="g">V2 Mini</span><span><i class="bar w" style="width:24%"></i><span class="v">約 800 kg</span></span><span><i class="bar" style="width:5.5%"></i><span class="v">約 96 Gbps</span></span>
+        <span class="g">V3</span><span><i class="bar w" style="width:54%"></i><span class="v">1,800 kg</span></span><span><i class="bar" style="width:57%"></i><span class="v">1,000 Gbps</span></span>
+      </div>
+      <div class="cap">V3 飛得更低（約 350 公里），延遲壓到 20 毫秒以下；因為太重，只能用 Starship 發射。</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="launch"><div class="wrap">
+  <div class="ch-head"><span class="ch-no">2</span><h2>發射：決定節奏的那一關</h2></div>
+  <p class="ch-sub">台股沒有做火箭的公司，但零件什麼時候出貨，看的是火箭什麼時候飛。V3 要等 Starship。</p>
+  <div class="grid3">
+    <div class="card"><h4>每公斤送上軌道的成本</h4><div class="vs"><div class="a"><span class="num">1,439</span><small>Falcon 9（美元）</small></div><div class="b"><span class="num">258</span><small>Starship（美元）</small></div></div><div class="cap">SpaceX 自用成本，少約八成。</div></div>
+    <div class="card"><h4>一次載幾顆</h4><div class="vs"><div class="a"><span class="num">24–29</span><small>Falcon 9 載 V2 Mini</small></div><div class="b"><span class="num">60</span><small>Starship 載 V3</small></div></div><div class="cap">顆數兩倍，每顆容量十倍。</div></div>
+    <div class="card"><h4>一次送上去的總容量</h4><div class="vs"><div class="a"><span class="num">2.6</span><small>Tbps</small></div><div class="b"><span class="num">61</span><small>Tbps</small></div></div><div class="cap">約 20 倍以上。</div></div>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card">
+      <h4>歐美低軌衛星每年發射量（顆）</h4>
+      <div class="cols" id="cols"></div>
+      <div class="cap">Starlink 加 Amazon Leo。斜紋是預估；2028 年起假設 Starship 進入量產發射。</div>
+    </div>
+    <div class="card">
+      <h4>眼前的空窗</h4>
+      <p style="margin-top:0">2026 年第三季 Starlink 只部署 <b>598 顆</b>，比去年同期少 18.8%。舊款減產、新款還沒放量，零件廠這幾季的出貨跟著停頓。</p>
+      <div class="callout t" style="margin-bottom:0">2026 年 9 月 Starship 第一次把 26 顆 V3 送進軌道。之後看三件事：兩節火箭都回收、每季發射次數、V3 累計顆數。</div>
+      <div class="inline" data-chips="l1">台股沾到發射的：</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="ch" id="players"><div class="wrap">
+  <div class="ch-head"><span class="ch-no">3</span><h2>誰在蓋星系、蓋到哪</h2></div>
+  <p class="ch-sub">台廠的訂單幾乎都跟著美系星系走。中國的千帆、國網自成一套供應鏈，台廠進不去。</p>
+  <div class="pl" id="pl"></div>
+  <div class="inline" data-chips="o1">台股的營運與檢測：</div>
+  <h3 class="sec">接下來幾年</h3>
+  <div class="tl">
+    <div><b>2026 年 9 月</b>Starship 首次入軌，放出 26 顆 V3</div>
+    <div><b>2026 年底</b>V3 開始部署；Amazon Leo 開始商轉</div>
+    <div class="f"><b>2027 上半年</b>V3 累計上看 1,000 顆</div>
+    <div class="f"><b>2027 年</b>V3 與第二代直連衛星大量部署；地面站改版；終端內建小型基地台</div>
+    <div class="f"><b>2027 年 10 月</b>Amazon 要補齊半數衛星的最後期限</div>
+    <div class="f"><b>2028 年初</b>美國手機直連擴大服務</div>
+    <div class="f"><b>2029 年 7 月</b>Amazon Leo 第一代全數建置期限</div>
+  </div>
+</div></section>
+
+<section class="ch" id="rank"><div class="wrap">
+  <div class="ch-head"><span class="ch-no">4</span><h2>台股衛星純度排行</h2></div>
+  <p class="ch-sub">排序只看一件事：衛星相關營收占這家公司合併營收多少。占比高，衛星的好壞才會直接反映在它身上；產品市占再高，占自己營收小，影響就小。</p>
+  <div class="card">
+    <h4>市占高，不等於槓桿高</h4>
+    <div class="lev" id="lev"></div>
+    <div class="cap"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;border:3px solid var(--amber);vertical-align:-2px;margin-right:4px"></span>在這個零件的市占　<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--teal);vertical-align:-2px;margin:0 4px 0 12px"></span>這塊業務占自己營收</div>
+  </div>
+  <div class="flt" id="flt"></div>
+  <div class="rk-key"><span><i style="background:var(--teal)"></i>公司、券商或報導給的數字</span><span><i style="background:repeating-linear-gradient(135deg,var(--teal) 0 5px,#69a9bb 5px 9px)"></i>公司沒揭露，推算</span><span>├─┤ 各方估計的範圍</span></div>
+  <div id="rk"></div>
+  <details class="fold"><summary>有衛星題材、但找不到出貨證據的公司</summary>
+    <p><b>被歸進衛星概念，查不到衛星出貨：</b>聯亞、IET-KY、立積、訊芯-KY、台星科、京元電、華邦電、光聖、亞光、先進光、今國光、金居、臻鼎-KY、欣興、高技、定穎投控、敬鵬、博智、千附精密、晟田、寶一、駐龍、漢翔、長榮航太、雷虎、茂迪、聯合再生、台達電、康舒、友達、佳世達、中磊、正文、明泰、神準、建漢、仲琦、瑞昱、雍智、笙科、良維、宣德、建舜電、和碩。</p>
+    <p><b>跟著太空題材上漲，業務不在衛星：</b>環球晶、台勝科、合晶、嘉晶（矽晶圓）；華星光、波若威、前鼎（光通訊，做的是資料中心）；廣達、緯創、和碩（接的是 SpaceX 的算力機櫃，不是衛星）；群翊（封裝設備出貨給 SpaceX，不是衛星零件）。</p>
+    <p><b>還沒上市櫃的台灣衛星公司：</b>創未來（相位陣列終端、立方衛星）、芳興（立方衛星）、星相（相位陣列晶片）、濰元（地面天線模組）、円通（通訊酬載基頻模組）、正于微波與川升（天線與量測）、晉陞太空（火箭）、亞旭（終端組裝）。</p>
+  </details>
+</div></section>
+
+<section class="ch" id="debate"><div class="wrap">
+  <div class="ch-head"><span class="ch-no">5</span><h2>看法分歧的地方</h2></div>
+  <p class="ch-sub">同一件事，樂觀與保守的人各看到什麼。</p>
+  <div class="deb" id="deb"></div>
+</div></section>
+<footer><div class="wrap">占比＝衛星相關營收 ÷ 公司合併營收。公司沒有單獨揭露的，以所屬部門或產品線推算，圖上以斜紋標示。3D 模型是示意，不是實際比例。內容為產業整理，不是投資建議。</div></footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/*@CO@*/
+const SEG={
+ s1:{g:'sky',t:'相位陣列天線、射頻晶片'}, s2:{g:'sky',t:'波導、濾波器'}, s3:{g:'sky',t:'星間雷射'}, s4:{g:'sky',t:'衛星板、銅箔基板'},
+ s5:{g:'sky',t:'結構件'}, s6:{g:'sky',t:'太陽能、電池、線束'}, s7:{g:'sky',t:'被動元件、記憶體、時脈、感測'}, s8:{g:'sky',t:'推進、散熱'}, s9:{g:'sky',t:'整顆衛星組裝'},
+ l1:{g:'lau',t:'發射'},
+ u1:{g:'gnd',t:'整機組裝'}, u2:{g:'gnd',t:'天線板、銅箔基板'}, u3:{g:'gnd',t:'晶片、天線、測試'}, u5:{g:'gnd',t:'機構件'}, u4:{g:'gnd',t:'電源、線材'},
+ g1:{g:'gnd',t:'閘道天線、收發器'}, g2:{g:'gnd',t:'網通、電源'},
+ d1:{g:'d2c',t:'直連衛星的零件'}, d2:{g:'d2c',t:'手機端'},
+ o1:{g:'ops',t:'營運與檢測'}, x1:{g:'geo',t:'傳統同步衛星'},
+};
+const GRP={sky:'天空端',gnd:'地面端',d2c:'手機直連',lau:'發射',ops:'營運與檢測',geo:'傳統衛星'};
+const GTAG={sky:'天',gnd:'地',d2c:'機',lau:'射',ops:'營',geo:'傳'};
+// 3D 場景的每一站。cam：t＝看哪裡、az／pol＝方位與俯仰、r＝距離；e＝衛星拆開、e2＝終端拆開；ox／oy＝主體往左（正）或往右讓開的比例
+const ST=[
+ {id:'hero',nav:'開場',cam:{t:[0,2.5,0],az:1.02,pol:1.4,r:17.5},ox:-.19,my:-.2},
+ {id:'net',nav:'總覽',eye:'總覽',t:'一張接在天上的網',d:'用戶的天線把資料往上送，衛星之間用雷射接力，最後由閘道站接進光纖。回程走同一條路的反方向。',keys:1,cam:{t:[1.5,-6.5,1],az:1.2,pol:1.5,r:46},ox:.15,my:.16},
+ {id:'s1',seg:'s1',eye:'天空端',d:'整面天線由上千個小單元組成，用電子方式把波束打到地面，不用轉動。每個單元後面都要一組放大器晶片。',k:'4–5 倍',ks:'新一代每顆衛星的射頻晶片，約 7,500 顆 → 3.3 萬顆',cam:{t:[0,-.2,0],az:1.05,pol:2.5,r:7.2},an:[0,-.2,0],ox:.16,my:.17},
+ {id:'s2',seg:'s2',eye:'天空端',d:'衛星對閘道站的回傳走更高的頻段。訊號靠波導送到天線，再用濾波器把各個頻道分開。',k:'8 → 30 顆',ks:'新一代高頻回傳模組，每台用的微波元件',cam:{t:[2.3,-.5,.1],az:.35,pol:1.95,r:4.4},an:[2.3,-.55,.7],ox:.16,my:.17},
+ {id:'s3',seg:'s3',eye:'天空端',d:'衛星之間用雷射直接傳資料，不佔無線電頻譜。海上、沙漠沒有地面站，也能一顆接一顆送回去。',k:'3–4 個',ks:'每顆衛星的雷射終端',cam:{t:[1.5,.35,.9],az:1.05,pol:1.22,r:4.2},an:[1.75,.34,1.05],ox:.16,my:.17},
+ {id:'s4',seg:'s4',eye:'天空端',d:'天線、射頻、運算都做在電路板上。要耐真空與冷熱循環，層數與材料等級一路往上。',k:'約 2 倍',ks:'新一代單顆電路板價值；手機直連衛星再加四到五成',e:1,cam:{t:[0,-.6,0],az:1.2,pol:2.12,r:8},an:[.9,-.55,.9],ox:.16,my:.17},
+ {id:'s5',seg:'s5',eye:'天空端',d:'撐住所有零件的骨架與外殼。衛星越做越大，加工精度與公差的要求跟著提高。',k:'800 → 1,800 kg',ks:'單顆衛星重量',e:.6,extra:['s9'],cam:{t:[0,-.2,0],az:2.05,pol:1.38,r:8},an:[-1.6,.05,1.3],ox:.16,my:.17},
+ {id:'s6',seg:'s6',eye:'天空端',d:'太陽能板發電、電池儲電，線束把電與訊號送到每個角落。',cam:{t:[0,3.2,-.4],az:1.32,pol:1.5,r:12.5},an:[0,3.6,-.7],ox:.17,my:.17},
+ {id:'s7',seg:'s7',eye:'天空端',d:'電阻、振盪器、記憶體、感測器。單價低，但太空認證要好幾年，打進去就不容易被換掉。',cam:{t:[.95,.15,.3],az:1.25,pol:.62,r:3.3},an:[.95,.2,.3],ox:.16,my:.17},
+ {id:'s8',seg:'s8',eye:'天空端',d:'離子推進器把氣體電離後噴出，負責升軌、避碰與退役。氣瓶已有台廠出貨；散熱還在送樣。',cam:{t:[-2.2,.2,-.3],az:-1.9,pol:1.28,r:6.2},an:[-2.3,0,0],ox:.16,my:.17},
+ {id:'ut',nav:'地面端',eye:'地面端',t:'用戶終端',d:'一戶一台的碟型天線加路由器。量大、價格壓得低，是台廠衛星營收的大宗。',blocks:['u1','u2','u3','u5','u4'],e2:1,cam:{t:[3.3,-13.7,2],az:1.15,pol:1.4,r:6.6},ox:.17,my:.17},
+ {id:'gw',eye:'地面端',t:'閘道站',d:'把衛星流量接進光纖的地面站。單顆衛星容量變大後，回傳改用更高的頻段，設備跟著升級。',blocks:['g1','g2'],cam:{t:[-7,-13.6,-3],az:1.75,pol:1.42,r:9.5},ox:.17,my:.17},
+ {id:'d2c',nav:'手機直連',eye:'手機直連',t:'不換手機也能連衛星',d:'手機天線小、功率低，所以把難題丟給衛星：裝一面超大的天線，用電信商的低頻段直接跟一般手機通訊。',k:'2,600 → 15,000 顆',ks:'直連衛星的射頻晶片，第一代到第二代',blocks:['d1','d2'],cam:{t:[10.4,-10.3,5.7],az:1.0,pol:1.52,r:20},ox:.17,my:.2},
+];
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const grpOf=c=>[...new Set(c.seg.map(s=>SEG[s].g))];
+const pctTxt=c=>c.st==='dev'?'—':(c.lbl||((c.p%1?c.p.toFixed(1):c.p)+'%'));
+const MOB=()=>innerWidth<=700;
+function chipsOf(seg,max){
+  const cos=CO.filter(c=>c.seg.includes(seg)).sort((a,b)=>b.p-a.p);
+  const show=max?cos.slice(0,max):cos;
+  return show.map(c=>`<button class="chip${c.st==='dev'?' z':''}" data-go="${c.c}">${c.n}<b>${c.st==='dev'?'未量產':pctTxt(c)}</b></button>`).join('')+(cos.length>show.length?`<span class="more">＋${cos.length-show.length} 家</span>`:'');
+}
+function cardHTML(i,full){
+  const s=ST[i]; if(i===0)return '';
+  const title=s.t||SEG[s.seg].t, grpIdx=ST.filter(x=>x.eye===s.eye), n=grpIdx.indexOf(s)+1;
+  const m=MOB()&&!full, tight=m&&s.blocks&&s.blocks.length>2;
+  let h=`<div class="in"><div class="c-eye">${s.eye}${grpIdx.length>1?`<span>${String(n).padStart(2,'0')} / ${String(grpIdx.length).padStart(2,'0')}</span>`:''}</div><h3>${title}</h3>${tight?'':`<p>${s.d}</p>`}`;
+  if(s.k)h+=`<div class="c-k"><b>${s.k}</b><span>${s.ks}</span></div>`;
+  if(s.keys)h+=`<div class="keys"><span><i style="background:#f4b648"></i>用戶鏈路</span><span><i style="background:#62d8ff"></i>星間雷射</span><span><i style="background:#4fe0b5"></i>閘道回傳</span><span><i style="background:#ff86ad"></i>手機直連</span></div>`;
+  if(s.seg){h+=`<div class="c-sub">台股誰在做</div><div class="chips">${chipsOf(s.seg,full?0:(m?5:9))}</div>`;
+    (s.extra||[]).forEach(x=>h+=`<div class="blk"><h4>${SEG[x].t}</h4><div class="chips">${chipsOf(x,full?0:(m?2:4))}</div></div>`);}
+  if(s.blocks)s.blocks.forEach((b,j)=>h+=`<div class="blk${tight?' row':''}"><h4><em>${j+1}</em>${SEG[b].t}</h4><div class="chips">${chipsOf(b,full?0:(tight?1:(m?3:4)))}</div></div>`);
+  return h+'</div>';
+}
+
+/* ================= 3D 場景 ================= */
+(function(){
+const story=$('#story'), sticky=$('.sticky'), cv=$('#gl'), nav=$('nav.top'), hero=$('#hero'), cardEl=$('#card'), lbls=$('#lbls'), hint=$('#hint');
+const Q=new URLSearchParams(location.search), FZ=Q.has('s'), FS=parseFloat(Q.get('s')||0), FT=parseFloat(Q.get('t')||2.4);
+const N=ST.length, PER=.9;
+if(Q.has('skip')){story.style.display='none';nav.classList.remove('dark');document.querySelector('main.paper').style.marginTop='52px';return;}
+function fallback(){story.classList.add('nogl');$('#fb').innerHTML=ST.map((s,i)=>cardHTML(i,1)).join('');nav.classList.remove('dark');}
+let R=null;
+try{ if(!window.THREE)throw 0; R=new THREE.WebGLRenderer({canvas:cv,antialias:true,powerPreference:'high-performance'}); }catch(e){fallback();return;}
+R.outputEncoding=THREE.sRGBEncoding; R.setClearColor(0x050b14,1);
+const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(35,1,.1,3000);
+const V=(x,y,z)=>new THREE.Vector3(x,y,z), Y=V(0,1,0);
+let seed=7; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+function ctex(w,h,fn){const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;return t;}
+const std=o=>new THREE.MeshStandardMaterial(o);
+function box(w,h,d,m,x,y,z,p){const b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);b.position.set(x,y,z);p.add(b);return b;}
+function cyl(rt,rb,h,m,x,y,z,p,seg=24){const b=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),m);b.position.set(x,y,z);p.add(b);return b;}
+function sph(r,m,x,y,z,p){const b=new THREE.Mesh(new THREE.SphereGeometry(r,32,20),m);b.position.set(x,y,z);p.add(b);return b;}
+const glowT=ctex(128,128,(g,w)=>{const r=g.createRadialGradient(64,64,0,64,64,64);r.addColorStop(0,'rgba(255,255,255,1)');r.addColorStop(.22,'rgba(255,255,255,.5)');r.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=r;g.fillRect(0,0,w,w);});
+function glow(color,size,x,y,z,p,op=1){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:glowT,color,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:op}));s.scale.set(size,size,1);s.position.set(x,y,z);p.add(s);return s;}
+const beams=[];
+function beam(a,b,color,r1,r2,n,op=.5,psize=0){const d=b.clone().sub(a),len=d.length();
+  const m=new THREE.Mesh(new THREE.CylinderGeometry(r2,r1,len,16,1,true),new THREE.MeshBasicMaterial({color,transparent:true,opacity:op,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+  m.position.copy(a).addScaledVector(d,.5);m.quaternion.setFromUnitVectors(Y,d.clone().normalize());scene.add(m);
+  const ps=[];for(let i=0;i<n;i++)ps.push(glow(color,psize||(.2+len*.009),0,0,0,scene,.95));
+  beams.push({a,d,ps,sp:(.12+rnd()*.06)*(20/Math.max(len,6))+.05,rev:rnd()>.5});return m;}
+
+/* ---- 貼圖 ---- */
+const dotTex=col=>ctex(256,256,(g,w)=>{g.fillStyle='#050d18';g.fillRect(0,0,w,w);g.fillStyle=col;for(let i=0;i<12;i++)for(let j=0;j<12;j++){g.beginPath();g.arc(11+i*21.3,11+j*21.3,5.2,0,7);g.fill();}});
+const dotT=dotTex('#6fe3ff'), dotP=dotTex('#ff9dc0'), dotG=dotTex('#6dffcf');
+const cellT=ctex(512,1024,(g,w,h)=>{const gr=g.createLinearGradient(0,0,w,h);gr.addColorStop(0,'#10336e');gr.addColorStop(.5,'#1c57b8');gr.addColorStop(1,'#0d2a5c');g.fillStyle=gr;g.fillRect(0,0,w,h);
+  g.strokeStyle='rgba(5,14,36,.95)';g.lineWidth=5;for(let x=0;x<=w;x+=64){g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();}for(let y=0;y<=h;y+=64){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();}
+  g.strokeStyle='rgba(190,220,255,.35)';g.lineWidth=1.2;for(let y=21;y<h;y+=21.33){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();}});
+const pcbT=ctex(512,512,(g,w)=>{g.fillStyle='#0b3d2a';g.fillRect(0,0,w,w);g.strokeStyle='#2fae78';g.lineWidth=2.4;
+  for(let i=0;i<70;i++){let x=rnd()*w,y=rnd()*w;g.beginPath();g.moveTo(x,y);for(let k=0;k<4;k++){if(rnd()>.5)x+= (rnd()-.5)*160;else y+=(rnd()-.5)*160;g.lineTo(x,y);}g.stroke();}
+  g.fillStyle='#e8c35a';for(let i=0;i<160;i++){g.beginPath();g.arc(rnd()*w,rnd()*w,2.6,0,7);g.fill();}
+  g.fillStyle='#101418';for(let i=0;i<26;i++){g.fillRect(rnd()*w,rnd()*w,18+rnd()*26,14+rnd()*20);}});
+const earthT=ctex(2048,1024,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#0a2a4a');gr.addColorStop(.5,'#0d3a63');gr.addColorStop(1,'#08233f');g.fillStyle=gr;g.fillRect(0,0,w,h);
+  for(let i=0;i<46;i++){const x=rnd()*w,y=h*.12+rnd()*h*.76,r=40+rnd()*150;g.fillStyle=`rgba(${20+rnd()*26|0},${70+rnd()*40|0},${62+rnd()*26|0},.55)`;for(let k=0;k<14;k++){g.beginPath();g.ellipse(x+(rnd()-.5)*r*1.6,y+(rnd()-.5)*r,r*(.25+rnd()*.5),r*(.15+rnd()*.35),rnd()*3,0,7);g.fill();}}
+  for(let i=0;i<220;i++){g.fillStyle=`rgba(255,255,255,${.03+rnd()*.06})`;g.beginPath();g.ellipse(rnd()*w,rnd()*h,60+rnd()*200,8+rnd()*26,rnd()*.6-.3,0,7);g.fill();}
+  for(let i=0;i<1500;i++){g.fillStyle=`rgba(255,${200+rnd()*40|0},${130+rnd()*60|0},${.35+rnd()*.5})`;const x=rnd()*w,y=h*.18+rnd()*h*.64;g.fillRect(x,y,1.6+rnd()*1.6,1.6+rnd()*1.6);}});
+const gridT=ctex(1024,1024,(g,w)=>{g.clearRect(0,0,w,w);const r=g.createRadialGradient(512,512,40,512,512,512);r.addColorStop(0,'rgba(12,44,60,.96)');r.addColorStop(.6,'rgba(9,30,46,.9)');r.addColorStop(1,'rgba(6,20,34,0)');g.fillStyle=r;g.fillRect(0,0,w,w);
+  g.globalCompositeOperation='source-atop';g.strokeStyle='rgba(90,220,230,.22)';g.lineWidth=1.5;for(let i=0;i<=w;i+=32){g.beginPath();g.moveTo(i,0);g.lineTo(i,w);g.stroke();g.beginPath();g.moveTo(0,i);g.lineTo(w,i);g.stroke();}});
+const phoneT=ctex(128,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#ff6fa3');gr.addColorStop(1,'#7a1f52');g.fillStyle=gr;g.fillRect(0,0,w,h);g.fillStyle='#fff';for(let i=0;i<4;i++)g.fillRect(34+i*17,150-i*18,11,30+i*18);g.beginPath();g.arc(64,70,16,0,7);g.fill();});
+
+/* ---- 背景：星星、太陽、地球 ---- */
+{const n=MOB()?900:2200,pos=new Float32Array(n*3);for(let i=0;i<n;i++){const u=rnd()*2-1,th=rnd()*6.283,s=Math.sqrt(1-u*u),r=900;pos[i*3]=r*s*Math.cos(th);pos[i*3+1]=r*u;pos[i*3+2]=r*s*Math.sin(th);}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));scene.add(new THREE.Points(g,new THREE.PointsMaterial({color:0xcfe3ff,size:1.7,sizeAttenuation:false,transparent:true,opacity:.85})));}
+glow(0xfff2d6,520,-560,230,-640,scene,.9);glow(0xffffff,150,-560,230,-640,scene,1);
+const ER=300, EC=V(0,-15-ER,0);
+const earth=sph(ER,std({map:earthT,emissiveMap:earthT,emissive:0xffffff,emissiveIntensity:.42,roughness:.95,metalness:0}),EC.x,EC.y,EC.z,scene);
+earth.geometry=new THREE.SphereGeometry(ER,160,100);earth.rotation.z=.4;
+const atm=new THREE.Mesh(new THREE.SphereGeometry(ER*1.012,128,80),new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.BackSide,
+  vertexShader:'varying vec3 n;varying vec3 v;void main(){n=normalize(normalMatrix*normal);vec4 p=modelViewMatrix*vec4(position,1.);v=normalize(-p.xyz);gl_Position=projectionMatrix*p;}',
+  fragmentShader:'varying vec3 n;varying vec3 v;void main(){float f=pow(clamp(1.-abs(dot(n,v)),0.,1.),2.2);gl_FragColor=vec4(.22,.55,1.,1.)*f*.95;}'}));
+atm.position.copy(EC);scene.add(atm);
+scene.add(new THREE.AmbientLight(0x7d9cc0,.62));
+const sun=new THREE.DirectionalLight(0xfff0dc,2.1);sun.position.set(-7,5,9);scene.add(sun);
+const rim=new THREE.DirectionalLight(0x4fb8ff,1.1);rim.position.set(7,-3,-8);scene.add(rim);
+const fill=new THREE.DirectionalLight(0x9fd0ff,.5);fill.position.set(3,-8,4);scene.add(fill);
+
+/* ---- 主衛星 ---- */
+const sat=new THREE.Group();scene.add(sat);
+const PART={};
+function part(key,ex){const g=new THREE.Group();g.userData={key,k:1,ex:ex||V(0,0,0)};sat.add(g);(PART[key]=PART[key]||[]).push(g);return g;}
+// 結構
+{const g=part('s5');const shell=std({color:0x46525f,metalness:.8,roughness:.36});box(4,.22,2.6,shell,0,0,0,g);
+ const foil=std({color:0xc4933a,metalness:.95,roughness:.4,emissive:0x3a2606,emissiveIntensity:.7});
+ box(4.02,.17,.02,foil,0,0,1.305,g);box(4.02,.17,.02,foil,0,0,-1.305,g);box(.02,.17,2.6,foil,2.005,0,0,g);box(.02,.17,2.6,foil,-2.005,0,0,g);
+ const rail=std({color:0xd5dee8,metalness:.92,roughness:.22});
+ [[0,.12,1.3],[0,.12,-1.3],[0,-.12,1.3],[0,-.12,-1.3]].forEach(p=>box(4.1,.05,.05,rail,p[0],p[1],p[2],g));
+ [[2,.12,0],[-2,.12,0],[2,-.12,0],[-2,-.12,0]].forEach(p=>box(.05,.05,2.65,rail,p[0],p[1],p[2],g));
+ for(let i=-1;i<=1;i++)box(.04,.03,2.6,rail,i*1,.125,0,g);}
+// 相位陣列
+{const g=part('s1',V(0,-.95,0));const m=std({color:0x1c3a57,metalness:.35,roughness:.55,emissive:0x59d2ff,emissiveMap:dotT,emissiveIntensity:1.05});
+ const fr=std({color:0x9fb3c8,metalness:.9,roughness:.3});
+ for(let i=0;i<4;i++)for(let j=0;j<2;j++){const x=-1.41+i*.94,z=j?.63:-.63;box(.86,.05,1.16,m,x,-.145,z,g);box(.9,.02,1.2,fr,x,-.125,z,g);}}
+// 衛星板
+{const g=part('s4',V(0,-.47,0));box(3.84,.05,2.44,std({color:0xffffff,map:pcbT,metalness:.25,roughness:.6,emissive:0x2bbf82,emissiveMap:pcbT,emissiveIntensity:.95}),0,-.07,0,g);
+ const cu=std({color:0xd9a441,metalness:1,roughness:.3});box(3.88,.012,2.48,cu,0,-.038,0,g);}
+// 回傳天線與波導
+{const g=part('s2');const white=std({color:0xeef3f8,metalness:.5,roughness:.35,side:THREE.DoubleSide}), brass=std({color:0xd3a94c,metalness:1,roughness:.28,emissive:0x3a2a08,emissiveIntensity:.6}), dk=std({color:0x5b6a7a,metalness:.8,roughness:.4});
+ const pts=[];for(let i=0;i<=10;i++){const r=i/10*.4;pts.push(new THREE.Vector2(r,r*r*1.1));}
+ [[1,.7],[1,-.7],[-1,.7],[-1,-.7]].forEach(([sx,z])=>{const x=sx*2.32;
+  box(.56,.06,.5,dk,sx*2.22,-.06,z,g);box(.2,.2,.42,brass,x,-.2,z,g);box(.12,.12,.2,brass,x-sx*.16,-.2,z+.12,g);cyl(.035,.035,.28,brass,x,-.42,z,g,12);
+  const d=new THREE.Mesh(new THREE.LatheGeometry(pts,32),white);d.position.set(x,-.74,z);d.rotation.z=sx*.28;d.rotation.x=Math.PI;d.position.y=-.56;g.add(d);
+  const horn=cyl(.03,.07,.14,brass,x,-.6,z,g,12);horn.rotation.z=sx*.28;});}
+// 星間雷射
+const LZ=[V(1.75,.2,1.05),V(-1.75,.2,1.05),V(1.75,.2,-1.05)];
+{const g=part('s3');const dk=std({color:0x222d3a,metalness:.85,roughness:.3}), lens=std({color:0x0a2030,emissive:0x62d8ff,emissiveIntensity:2.2,metalness:.2,roughness:.2}), gold=std({color:0xc9a04a,metalness:1,roughness:.3});
+ LZ.forEach(p=>{cyl(.15,.17,.14,gold,p.x,p.y-.02,p.z,g);sph(.135,dk,p.x,p.y+.12,p.z,g);const l=cyl(.07,.07,.06,lens,p.x+(p.x>0?.11:-.11),p.y+.13,p.z,g,20);l.rotation.z=Math.PI/2;});}
+// 太陽能、電池、線束
+{const g=part('s6');const al=std({color:0xcdd6df,metalness:.9,roughness:.25});
+ cyl(.05,.05,.9,al,0,.55,-.7,g,12);
+ box(2.96,7.06,.03,al,0,4.5,-.72,g);
+ const cell=std({color:0xffffff,map:cellT,metalness:.55,roughness:.28,emissive:0x1a4fae,emissiveMap:cellT,emissiveIntensity:.5});
+ box(2.86,6.96,.035,cell,0,4.5,-.7,g);
+ const bat=std({color:0x2e3947,metalness:.7,roughness:.4}), amb=std({color:0xf0a83a,metalness:.4,roughness:.5,emissive:0xa8650f,emissiveIntensity:.8});
+ box(.95,.2,.62,bat,-.95,.22,.3,g);for(let i=0;i<4;i++)box(.04,.21,.63,amb,-1.28+i*.22,.22,.3,g);
+ const mk=(pts)=>{const c=new THREE.CatmullRomCurve3(pts.map(p=>V(...p)));g.add(new THREE.Mesh(new THREE.TubeGeometry(c,40,.022,8),amb));};
+ mk([[0,.14,-.7],[-.3,.16,-.4],[-.7,.16,0],[-.95,.2,.05]]);mk([[.05,.14,-.7],[.3,.15,-.3],[.6,.15,0],[.95,.15,.05]]);mk([[-.5,.15,.45],[.1,.15,.75],[1.2,.15,.9],[1.7,.18,1.02]]);}
+// 被動元件、記憶體、時脈、感測
+{const g=part('s7');box(1.3,.03,.98,std({color:0xffffff,map:pcbT,metalness:.2,roughness:.6,emissive:0x1f8a5e,emissiveMap:pcbT,emissiveIntensity:.45}),.95,.135,.3,g);
+ const ic=std({color:0x15191f,metalness:.4,roughness:.5}), can=std({color:0xdfe6ee,metalness:1,roughness:.2}), res=std({color:0x2d6fd6,metalness:.3,roughness:.5,emissive:0x1b4fa8,emissiveIntensity:.6}), cap=std({color:0xc98f3a,metalness:.6,roughness:.4});
+ box(.3,.05,.3,ic,.7,.175,.2,g);box(.22,.05,.22,ic,1.2,.175,.5,g);box(.26,.05,.16,ic,1.25,.175,.05,g);box(.16,.05,.26,ic,.55,.175,.6,g);
+ for(let i=0;i<3;i++)cyl(.045,.045,.09,can,.5+i*.14,.195,-.05,g,14);
+ for(let i=0;i<7;i++){box(.05,.03,.1,res,.95+i*.07,.165,.66,g);box(.05,.03,.08,cap,.6+i*.07,.165,.42,g);}
+ const st=cyl(.09,.09,.26,std({color:0x2a3542,metalness:.85,roughness:.3}),1.72,.27,-.75,g);const ln=cyl(.07,.07,.02,std({color:0x06101c,emissive:0x3f7bff,emissiveIntensity:1.2}),1.72,.41,-.75,g);}
+// 推進、散熱
+let plume;
+{const g=part('s8');const me=std({color:0xaab7c5,metalness:.95,roughness:.25});
+ const nz=cyl(.2,.13,.26,me,-2.14,0,0,g);nz.rotation.z=Math.PI/2;
+ const ring=cyl(.15,.15,.02,std({color:0x1a1030,emissive:0xa98bff,emissiveIntensity:2.4}),-2.275,0,0,g);ring.rotation.z=Math.PI/2;
+ const tk=sph(.27,me,-1.3,.37,-.8,g);tk.scale.set(1.5,1,1);box(.5,.06,.1,std({color:0x5b6a7a,metalness:.8,roughness:.4}),-1.3,.14,-.8,g);
+ const tube=new THREE.CatmullRomCurve3([V(-1.7,.3,-.8),V(-1.98,.24,-.45),V(-2.03,.07,-.06)]);g.add(new THREE.Mesh(new THREE.TubeGeometry(tube,20,.02,8),me));
+ const rad=std({color:0xf2f5f8,metalness:.2,roughness:.5,emissive:0x8fa6bd,emissiveIntensity:.25});box(2.3,.5,.03,rad,.4,.36,-1.33,g);for(let i=0;i<5;i++)box(2.3,.012,.036,me,.4,.18+i*.09,-1.33,g);
+ const plT=ctex(8,128,(c,w,h)=>{const q=c.createLinearGradient(0,0,0,h);q.addColorStop(0,'rgba(255,255,255,0)');q.addColorStop(.75,'rgba(255,255,255,.55)');q.addColorStop(1,'rgba(255,255,255,1)');c.fillStyle=q;c.fillRect(0,0,w,h);});
+ plume=new THREE.Mesh(new THREE.CylinderGeometry(.34,.09,2.4,24,1,true),new THREE.MeshBasicMaterial({color:0x9d7bff,map:plT,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+ plume.rotation.z=Math.PI/2;plume.position.set(-3.46,0,0);sat.add(plume);glow(0xb59cff,1.3,-2.4,0,0,sat,.9);}
+// 記下原色，之後可以壓暗
+Object.values(PART).flat().forEach(g=>{g.userData.ms=[];g.traverse(o=>{if(o.isMesh&&o.material.isMeshStandardMaterial&&!o.material.userData.c0){o.material.userData.c0=o.material.color.clone();o.material.userData.e0=o.material.emissiveIntensity;g.userData.ms.push(o.material);}});});
+LZ.forEach(p=>glow(0x62d8ff,.7,p.x+(p.x>0?.16:-.16),p.y+.13,p.z,sat,.9));
+
+/* ---- 其他衛星 ---- */
+function miniSat(p,s=1){const g=new THREE.Group();box(4*s,.22*s,2.6*s,std({color:0x56667a,metalness:.8,roughness:.4}),0,0,0,g);box(2.9*s,7*s,.04,std({color:0xffffff,map:cellT,emissive:0x1a4fae,emissiveMap:cellT,emissiveIntensity:.6,metalness:.5,roughness:.3}),0,4.4*s,-.7*s,g);box(3.6*s,.03,2.3*s,std({color:0x10263a,emissive:0x59d2ff,emissiveMap:dotT,emissiveIntensity:.9}),0,-.13*s,0,g);g.position.copy(p);scene.add(g);glow(0x9fd8ff,3,p.x,p.y,p.z,scene,.35);return g;}
+const S2=V(-30,11,-20),S3=V(31,7,-16);miniSat(S2).rotation.y=.5;miniSat(S3).rotation.y=-.4;
+// 手機直連衛星：一大面天線
+const D=V(11,-5.6,6.4);
+{const g=new THREE.Group();g.position.copy(D);g.rotation.set(.12,.5,-.08);scene.add(g);
+ box(5.6,.07,5.6,std({color:0x2a1830,metalness:.4,roughness:.5,emissive:0xff86ad,emissiveMap:dotP,emissiveIntensity:1.05}),0,-.05,0,g);
+ const fr=std({color:0xc9d3de,metalness:.9,roughness:.25});box(5.7,.05,5.7,fr,0,0,0,g);for(let i=-1;i<=1;i++){box(5.6,.09,.05,fr,0,-.05,i*1.87,g);box(.05,.09,5.6,fr,i*1.87,-.05,0,g);}
+ box(1,.3,.8,std({color:0xc4933a,metalness:.95,roughness:.4,emissive:0x3a2606,emissiveIntensity:.7}),0,.2,0,g);
+ box(1.4,2.6,.03,std({color:0xffffff,map:cellT,emissive:0x1a4fae,emissiveMap:cellT,emissiveIntensity:.6,metalness:.5,roughness:.3}),0,1.7,-.3,g);}
+
+/* ---- 地面 ---- */
+const GY=-15, T=V(3.3,GY,2), G=V(-7,GY,-3), P=V(10,GY,5.2);
+{const d=new THREE.Mesh(new THREE.CircleGeometry(24,64),new THREE.MeshBasicMaterial({map:gridT,transparent:true,depthWrite:false}));d.rotation.x=-Math.PI/2;d.position.set(1,GY+.03,1);scene.add(d);}
+const utG=[];  // 終端分層
+{const g=new THREE.Group();g.position.copy(T);scene.add(g);
+ const al=std({color:0xcfd8e2,metalness:.9,roughness:.3});
+ cyl(.05,.06,.95,al,0,.47,0,g,14);cyl(.3,.34,.05,al,0,.03,0,g);
+ const head=new THREE.Group();head.position.set(0,1.02,0);head.rotation.set(-.42,.25,0);g.add(head);
+ const L=[[std({color:0xf4f6f9,metalness:.15,roughness:.45}),.05,.5],[std({color:0xffffff,map:pcbT,emissive:0x6dffcf,emissiveMap:dotG,emissiveIntensity:.85,metalness:.3,roughness:.5}),.03,.17],[std({color:0x18222e,metalness:.5,roughness:.5}),.03,-.17],[std({color:0xb9c5d1,metalness:.9,roughness:.3}),.09,-.5]];
+ L.forEach(([m,h,o],i)=>{const l=new THREE.Group();head.add(l);box(1.62,h,1.02,m,0,0,0,l);l.userData.o=o;utG.push(l);
+  if(i===2){const ch=std({color:0xf0a83a,metalness:.6,roughness:.4,emissive:0xa8650f,emissiveIntensity:.9});for(let a=0;a<5;a++)for(let b=0;b<3;b++)box(.13,.03,.13,ch,-.6+a*.3,.03,-.3+b*.3,l);}});
+ // 路由器、電源、線
+ const wh=std({color:0xf4f6f9,metalness:.1,roughness:.5});box(.34,.56,.2,wh,1.5,.28,.5,g);glow(0x4fe0b5,.25,1.5,.12,.62,g,.9);
+ box(.3,.12,.16,std({color:0x1b232d,metalness:.4,roughness:.6}),.85,.06,.75,g);
+ const amb=std({color:0xf0a83a,metalness:.4,roughness:.5,emissive:0xa8650f,emissiveIntensity:.9});
+ const c=new THREE.CatmullRomCurve3([V(0,.08,.1),V(.3,.03,.55),V(.85,.07,.75),V(1.2,.03,.8),V(1.45,.08,.6)]);g.add(new THREE.Mesh(new THREE.TubeGeometry(c,40,.02,8),amb));
+ // 屋子
+ const hs=std({color:0x0f1a26,metalness:.3,roughness:.9});box(2.4,1.2,1.6,hs,.6,.6,-2.8,g);
+ const roof=new THREE.Mesh(new THREE.CylinderGeometry(0,1.75,.8,4),std({color:0x16263a,metalness:.3,roughness:.9}));roof.position.set(.6,1.6,-2.8);roof.rotation.y=Math.PI/4;roof.scale.set(1,1,.75);g.add(roof);
+ box(.4,.5,.02,std({color:0x3a2a08,emissive:0xffc766,emissiveIntensity:1.6}),.1,.65,-1.99,g);box(.4,.5,.02,std({color:0x3a2a08,emissive:0xffc766,emissiveIntensity:1.6}),1.1,.65,-1.99,g);glow(0xffc766,2.2,.6,.7,-1.9,g,.35);}
+{const g=new THREE.Group();g.position.copy(G);scene.add(g);
+ const rdT=ctex(512,256,(c,w,h)=>{c.fillStyle='#b9c6d3';c.fillRect(0,0,w,h);c.strokeStyle='rgba(60,80,104,.75)';c.lineWidth=2;for(let y=0;y<=h;y+=32){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke();}for(let r=0;r<h/32;r++)for(let x=(r%2)*16;x<=w;x+=32){c.beginPath();c.moveTo(x,r*32);c.lineTo(x+16,r*32+32);c.lineTo(x+32,r*32);c.stroke();}});
+ const rd=std({color:0xc2ccd6,map:rdT,metalness:.25,roughness:.62}), base=std({color:0x3a4a5c,metalness:.6,roughness:.5});
+ [[0,0,1.05],[2.3,.3,.85],[-2,-.8,.8],[1,-2.2,.7]].forEach(([x,z,r])=>{cyl(r*.55,r*.62,.5,base,x,.25,z,g);sph(r,rd,x,.5+r*.8,z,g);});
+ box(2,.9,1.1,std({color:0x101c29,metalness:.5,roughness:.7}),-.3,.45,2.3,g);
+ const led=std({color:0x06281f,emissive:0x4fe0b5,emissiveIntensity:2});for(let i=0;i<7;i++)for(let j=0;j<2;j++)box(.12,.06,.02,led,-1.05+i*.25,.35+j*.25,2.86,g);
+ glow(0x4fe0b5,2.4,-.3,.5,2.9,g,.3);}
+{const g=new THREE.Group();g.position.copy(P);scene.add(g);
+ const ph=new THREE.Group();ph.position.set(0,.95,0);ph.rotation.set(-.25,.55,0);g.add(ph);
+ box(.72,1.44,.08,std({color:0x10161e,metalness:.7,roughness:.3}),0,0,0,ph);box(.64,1.3,.02,std({color:0xffffff,map:phoneT,emissive:0xffffff,emissiveMap:phoneT,emissiveIntensity:.95}),0,0,.045,ph);
+ cyl(.04,.05,.3,std({color:0xcfd8e2,metalness:.9,roughness:.3}),0,.15,0,g,12);cyl(.26,.3,.04,std({color:0xcfd8e2,metalness:.9,roughness:.3}),0,.02,0,g);glow(0xff86ad,2.6,0,1,0,g,.4);}
+
+/* ---- 鏈路 ---- */
+const Tt=T.clone().add(V(0,1.15,0)), Pt=P.clone().add(V(0,1.3,0));
+beam(V(0,-.2,0),Tt,0xf4b648,.06,.06,5,.5);beam(V(0,-.2,0),Tt,0xf4b648,.2,2.2,0,.045);
+beam(V(-2.32,-.6,.7),G.clone().add(V(0,2,0)),0x4fe0b5,.05,.05,5,.5);beam(V(-2.32,-.6,-.7),G.clone().add(V(2.3,2,.3)),0x4fe0b5,.04,.04,4,.4);
+beam(V(2.32,-.6,-.7),V(40,-14.5,-34),0x4fe0b5,.04,.04,4,.25);
+beam(D,Pt,0xff86ad,.06,.06,5,.55);beam(D,Pt,0xff86ad,2.6,.2,0,.06);
+beam(LZ[1].clone().add(V(-.2,.13,0)),S2,0x62d8ff,.022,.022,6,.7);beam(LZ[2].clone().add(V(.2,.13,0)),S3,0x62d8ff,.022,.022,6,.7);
+beam(LZ[0].clone().add(V(.2,.13,0)),D.clone().add(V(-.4,.3,0)),0x62d8ff,.022,.022,4,.7);
+beam(S2,V(-90,10,-60),0x62d8ff,.03,.03,3,.35);beam(S3,V(95,8,-70),0x62d8ff,.03,.03,3,.35);
+beam(G.clone().add(V(.7,.3,2.3)),V(-10,GY+.1,22),0xdfe8f2,.03,.03,5,.5);
+
+/* ---- 標籤 ---- */
+const LB=[];
+function lab(st,text,pos,num){const el=document.createElement('div');el.className='lb'+(num?' n':'');el.textContent=text;lbls.appendChild(el);LB.push({st,el,pos,num});}
+const iNet=1,iUt=ST.findIndex(s=>s.id==='ut'),iGw=iUt+1,iD=iUt+2;
+lab(iNet,'衛星',V(.2,1.2,1.3));lab(iNet,'星間雷射',LZ[1].clone().lerp(S2,.42));lab(iNet,'用戶終端',Tt.clone().add(V(.9,.2,0)));lab(iNet,'閘道站',G.clone().add(V(-1.5,2.6,0)));lab(iNet,'手機直連',Pt.clone().add(V(.6,.2,0)));lab(iNet,'光纖',V(-8.2,GY+.2,8));
+const headPos=o=>T.clone().add(V(0,1.02,0)).add(V(.25*o*.2,o*.9,-o*.42));
+lab(iUt,'1',T.clone().add(V(-.75,1.9,0)),1);lab(iUt,'2',headPos(.2).add(V(.86,0,.2)),1);lab(iUt,'3',headPos(-.2).add(V(.86,0,.2)),1);lab(iUt,'4',T.clone().add(V(-.5,.45,.2)),1);lab(iUt,'5',T.clone().add(V(1.5,.72,.5)),1);
+lab(iGw,'1',G.clone().add(V(0,2.6,0)),1);lab(iGw,'2',G.clone().add(V(-.3,1.15,2.3)),1);
+lab(iD,'1',D.clone().add(V(0,.5,0)),1);lab(iD,'2',Pt.clone().add(V(0,.75,0)),1);
+const mark=document.createElement('div');mark.className='mark';lbls.appendChild(mark);
+
+/* ---- 版面、捲動 ---- */
+let W=1,H=1,p=0,active=-1,mx=0,my=0;
+function layout(){W=sticky.clientWidth;H=sticky.clientHeight;story.style.height=(H*(1+(N-1)*PER))+'px';R.setPixelRatio(Math.min(devicePixelRatio||1,MOB()?1.5:2));R.setSize(W,H,false);cam.aspect=W/H;cam.fov=W/H<.8?52:(W/H<1.25?44:35);active=-1;}
+addEventListener('resize',layout);layout();
+const rail=$('#rail');rail.innerHTML=ST.map((s,i)=>`${i&&ST[i-1].eye!==s.eye&&s.eye?'<li class="gap"></li>':''}<li><button data-i="${i}"><i></i><span>${s.nav||s.t||SEG[s.seg].t}</span></button></li>`).join('');
+function goStage(i){scrollTo({top:story.offsetTop+i*H*PER+2,behavior:'smooth'});}
+rail.addEventListener('click',e=>{const b=e.target.closest('button');if(b)goStage(+b.dataset.i);});
+$$('nav.top a[data-st]').forEach(a=>a.addEventListener('click',()=>goStage(ST.findIndex(s=>s.id===a.dataset.st))));
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
+const cur={};
+const ss=(a,b,x)=>{x=Math.min(1,Math.max(0,(x-a)/(b-a)));return x*x*(3-2*x);};
+const lerp=(a,b,t)=>a+(b-a)*t;
+function goal(pp){const i=Math.min(N-2,Math.floor(pp)),t=ss(.14,.86,pp-i),A=ST[i],B=ST[i+1],m=W/H<.8;
+  const f=k=>lerp(A.cam[k],B.cam[k],t);
+  return {tx:lerp(A.cam.t[0],B.cam.t[0],t),ty:lerp(A.cam.t[1],B.cam.t[1],t),tz:lerp(A.cam.t[2],B.cam.t[2],t),az:f('az'),pol:f('pol'),r:f('r')*(m?1.18:1),
+    e:lerp(A.e||0,B.e||0,t),e2:lerp(A.e2||0,B.e2||0,t),ox:m?0:lerp(A.ox||0,B.ox||0,t),oy:m?lerp(A.my||0,B.my||0,t):0};}
+let last=performance.now(),time=0,vis=true;
+new IntersectionObserver(es=>{vis=es[0].isIntersecting;},{rootMargin:'100px'}).observe(story);
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(!vis&&!FZ)return;
+  time=FZ?FT:time+dt;
+  p=FZ?FS:Math.min(N-1,Math.max(0,(scrollY-story.offsetTop)/(H*PER)));
+  const ins=scrollY<story.offsetTop+story.offsetHeight-90;nav.classList.toggle('dark',ins);
+  if(!ins&&!FZ){if(active!==-2){active=-2;$$('nav.top a[data-st]').forEach(x=>x.classList.toggle('on',false));}return;}
+  const g=goal(p),a=FZ||cur.r===undefined?1:1-Math.exp(-dt*7);
+  for(const k in g)cur[k]=cur[k]===undefined?g[k]:lerp(cur[k],g[k],a);
+  // 鏡頭
+  const hw=Math.max(0,1-p), az=cur.az+Math.sin(time*.22)*.22*hw+mx*.1, pol=Math.min(3,Math.max(.15,cur.pol+my*.06));
+  cam.position.set(cur.tx+cur.r*Math.sin(pol)*Math.cos(az),cur.ty+cur.r*Math.cos(pol),cur.tz+cur.r*Math.sin(pol)*Math.sin(az));
+  cam.lookAt(cur.tx,cur.ty,cur.tz);
+  cam.setViewOffset(W,H,cur.ox*W,cur.oy*H,W,H);
+  // 拆解、聚焦
+  const ai=Math.round(p),fk=ST[ai].seg,fw=fk?Math.max(0,1-Math.abs(p-ai)*2.2):0;
+  for(const key in PART)PART[key].forEach(gp=>{gp.position.copy(gp.userData.ex).multiplyScalar(cur.e);
+    const tk=fw>0?(key===fk?1:lerp(1,.26,fw)):1;gp.userData.k=lerp(gp.userData.k,tk,FZ?1:.14);const k=gp.userData.k,hi=key===fk?1+fw*.5:k;
+    gp.userData.ms.forEach(m=>{m.color.copy(m.userData.c0).multiplyScalar(k);m.emissiveIntensity=m.userData.e0*hi;});});
+  utG.forEach(l=>l.position.y=l.userData.o*cur.e2);
+  plume.material.opacity=.5+Math.sin(time*9)*.08;plume.scale.x=plume.scale.z=1+Math.sin(time*13)*.04;
+  earth.rotation.y=time*.006;
+  beams.forEach(b=>b.ps.forEach((s,i)=>{let t=(time*b.sp+i/b.ps.length)%1;if(b.rev)t=1-t;s.position.copy(b.a).addScaledVector(b.d,t);}));
+  R.render(scene,cam);
+  // 疊在上面的字
+  hero.style.opacity=Math.max(0,1-p*2.2);hero.style.pointerEvents=p<.3?'auto':'none';hint.style.opacity=Math.max(0,1-p*4);
+  if(ai!==active){active=ai;cardEl.innerHTML=cardHTML(ai);$$('#rail button').forEach((b,i)=>b.classList.toggle('on',i===ai));
+    $$('nav.top a[data-st]').forEach(x=>{const j=ST.findIndex(s=>s.id===x.dataset.st),nx=$$('nav.top a[data-st]').map(y=>ST.findIndex(s=>s.id===y.dataset.st)).filter(v=>v>j)[0]||N;x.classList.toggle('on',ai>=j&&ai<nx);});}
+  const co=Math.min(1,Math.max(0,1.75-Math.abs(p-ai)*4.4));cardEl.style.opacity=ai?co:0;
+  cardEl.style.transform=MOB()?`translateY(${(1-co)*26}px)`:`translateY(-50%) translateX(${(1-co)*34}px)`;
+  cardEl.style.visibility=co>0&&ai?'visible':'hidden';
+  const pr=v=>{const q=v.clone().project(cam);return [(q.x*.5+.5)*W,(-q.y*.5+.5)*H,q.z<1];};
+  LB.forEach(l=>{const o=Math.max(0,1-Math.abs(p-l.st)*3.2);if(o<=0){l.el.style.opacity=0;return;}const [x,y,ok]=pr(l.pos);l.el.style.opacity=ok?o:0;l.el.style.transform=`translate(${x}px,${y}px)`+(l.num?'':' translate(10px,-50%)');});
+  const s=ST[ai];if(s.an&&fw>.05){const [x,y]=pr(sat.localToWorld(V(...s.an)));mark.style.opacity=fw;mark.style.transform=`translate(${x}px,${y}px)`;}else mark.style.opacity=0;
+}
+requestAnimationFrame(frame);
+})();
+
+/* ================= 下半頁 ================= */
+$$('[data-chips]').forEach(el=>el.insertAdjacentHTML('beforeend',chipsOf(el.dataset.chips)));
+const LA=[['2023',2116],['2024',2004],['2025',3387],['2026',3398,1],['2027',3760,1],['2028',7360,1],['2029',10640,1]];
+$('#cols').innerHTML=LA.map(([y,v,f])=>`<div class="c${f?' f':''}"><b>${v.toLocaleString()}</b><i style="height:${v/10640*100}%"></i><span>${y}</span></div>`).join('');
+const PL=[
+ {n:'Starlink',o:'SpaceX',a:11100,t:19000,tl:'已核准約 1.9 萬顆',li:['訂戶 1,360 萬，已商轉六年','V3 開始部署，另申請第三代 10 萬顆','台廠主要客戶']},
+ {n:'Amazon Leo',o:'原名 Kuiper',a:390,t:3232,tl:'第一代 3,232 顆',li:['2026 年底到 2027 年初商轉','卡在火箭不夠：單季只發射 29 顆','錯過半數期限，獲主管機關豁免']},
+ {n:'AST SpaceMobile',o:'手機直連',a:13,t:60,tl:'2026 年計畫 60–80 顆',li:['與 AT&T、Verizon 試營運','衛星陣列是上一代的三倍以上','台廠：廌家、事欣科、昇達科']},
+ {n:'OneWeb',o:'Eutelsat',a:654,t:654,tl:'已建置完成',li:['軌道較高，約 1,200 公里','做企業與政府，沒有星間雷射','中華電是台灣代理']},
+ {n:'Telesat Lightspeed',o:'加拿大',a:0,t:198,tl:'規劃 198 顆',li:['做企業與政府','首批發射延後，服務延到 2028 年','用 Ka 頻段']},
+ {n:'千帆、國網',o:'中國',a:500,t:13648,tl:'一期合計約 1.36 萬顆',li:['千帆在軌 274 顆，2026 年底商轉','國網規劃 1.3 萬顆','自成供應鏈，台廠不供應']},
+];
+$('#pl').innerHTML=PL.map(p=>`<div class="card"><h4>${p.n}<small>${p.o}</small></h4><div class="prog"><i style="width:${Math.min(100,p.a/p.t*100)}%"></i></div><div class="row"><span>在軌約 <b>${p.a.toLocaleString()}</b> 顆</span><span>${p.tl}</span></div><ul>${p.li.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+const LEV=[['華通　衛星本體電路板',90,6,'市占逾 90%','占營收約 6%'],['光寶科　終端與地面站電源',50,2,'市占逾 50%','占營收約 2%'],['昇達科　衛星微波元件',null,74,'','占營收約 74%']];
+$('#lev').innerHTML=LEV.map(([n,a,b,ta,tb])=>`<div class="nm">${n}</div><div class="trk">${a?`<i class="ln" style="left:${b}%;width:${a-b}%"></i><i class="d a" style="left:${a}%"></i><span style="left:${a}%">${ta}</span>`:''}<i class="d b" style="left:${b}%"></i><span style="left:${Math.max(b,9)}%">${tb}</span></div>`).join('');
+
+let F='all'; const OPEN={t4:false,t5:false};
+const TIERS=[['t1','過半','衛星就是本業',c=>!c.geo&&c.p>=50],['t2','一到五成','衛星是主要成長來源之一',c=>!c.geo&&c.p>=10&&c.p<50],['t3','5% 到 10%','看得到，但左右不了全局',c=>!c.geo&&c.p>=5&&c.p<10],['t4','5% 以下','有出貨，槓桿小',c=>!c.geo&&c.p>0&&c.p<5],['t5','還沒量產','開發、送樣或暫停',c=>c.st==='dev'],['t6','傳統同步衛星','衛星電視、海事寬頻，不在低軌供應鏈',c=>c.geo]];
+$('#flt').innerHTML=[['all','全部'],...Object.entries(GRP)].map(([k,v])=>`<button data-f="${k}"${k==='all'?' class="on"':''}>${v}</button>`).join('');
+function row(c,i){
+  const g=grpOf(c), est=c.q==='c'?' est':'', geo=c.geo?' geo':'';
+  const bar=c.st==='dev'?'':c.nd?`<span class="f est nd" style="left:${c.lo}%;width:${c.hi-c.lo}%"></span>`:`<span class="f${geo}${est}" style="width:${c.p}%"></span>${c.hi&&c.hi-(c.lo||0)>=2?`<span class="r" style="left:${c.lo||0}%;width:${c.hi-(c.lo||0)}%"></span>`:''}`;
+  return `<button class="rk-row" data-c="${c.c}" aria-expanded="false"><span class="rk-no">${i}</span><span class="rk-name">${c.n}<small>${c.c}・${c.m}</small><span class="tags">${g.map(x=>`<span class="tg ${x}" title="${GRP[x]}">${GTAG[x]}</span>`).join('')}</span></span><span class="rk-bar">${bar}</span><span class="rk-pct${c.p<5||c.nd?' sm':''}">${pctTxt(c)}</span></button>
+  <div class="rk-d" hidden><dl><dt>做什麼</dt><dd>${c.d}</dd>${c.cu?`<dt>客戶</dt><dd>${c.cu}</dd>`:''}${c.per?`<dt>占比</dt><dd>${pctTxt(c)}${!c.nd&&c.hi&&c.lo!=null&&c.hi!==c.lo?`（範圍 ${c.lo}–${c.hi}%）`:''}，${c.per}${c.q==='c'?'；公司沒有單獨揭露，由相關部門或產品線推算':''}</dd>`:''}<dt>位置</dt><dd>${c.seg.map(s=>SEG[s].t).join('、')}</dd>${c.w?`<dt>留意</dt><dd>${c.w}</dd>`:''}</dl></div>`;
+}
+function draw(){
+  const list=CO.filter(c=>F==='all'||grpOf(c).includes(F)).sort((a,b)=>b.p-a.p);
+  let n=0,h='';
+  for(const [id,t,sub,fn] of TIERS){
+    const rows=list.filter(fn); if(!rows.length)continue;
+    const fold=(id in OPEN)&&!OPEN[id]&&F==='all';
+    h+=`<div class="tier" data-t="${id}"><h3>${t}<small>${sub}・${rows.length} 家</small></h3>`;
+    if(fold){h+=`<button class="more-btn" data-more="${id}">展開 ${rows.length} 家</button>`;n+=rows.length;}
+    else h+=rows.map(c=>row(c,++n)).join('');
+    h+='</div>';
+  }
+  $('#rk').innerHTML=h||'<p>這個分類沒有公司。</p>';
+}
+draw();
+$('#flt').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;F=b.dataset.f;$$('#flt button').forEach(x=>x.classList.toggle('on',x===b));draw();});
+$('#rk').addEventListener('click',e=>{
+  const m=e.target.closest('[data-more]'); if(m){OPEN[m.dataset.more]=true;draw();return;}
+  const r=e.target.closest('.rk-row'); if(!r)return;
+  const d=r.nextElementSibling,o=d.hidden; d.hidden=!o; r.setAttribute('aria-expanded',o);
+});
+function go(code){
+  F='all'; $$('#flt button').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));
+  OPEN.t4=OPEN.t5=true; draw();
+  const r=$(`.rk-row[data-c="${code}"]`); if(!r)return;
+  r.nextElementSibling.hidden=false; r.setAttribute('aria-expanded',true);
+  r.scrollIntoView({block:'center',behavior:'smooth'}); r.classList.add('hit'); setTimeout(()=>r.classList.remove('hit'),2600);
+}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-go]');if(c)go(c.dataset.go);});
+if(new URLSearchParams(location.search).has('open')){OPEN.t4=OPEN.t5=true;draw();const r=$('.rk-row');r.nextElementSibling.hidden=false;}
+const DEB=[
+ ['SpaceX 自己做多少','驗證門檻高，打進去就不容易被換掉','約八成零組件自製，外包的份額隨時可能收回'],
+ ['換代空窗多長','V3 一次能送 60 顆，放量後追得很快','2026 年第三季部署量年減 18.8%，零件廠出貨跟著停'],
+ ['Starship 進度','已成功入軌並放出 V3，年底拚兩節回收','進度比原先預期慢；V3 沒有第二種火箭可用'],
+ ['Amazon 追不追得上','有雲端與企業客戶當通路，衛星產能不是問題','火箭不夠，單季只發射 29 顆，已錯過半數期限'],
+ ['閘道站會變多還是變少','容量變大、頻段變高，閘道設備要升級','星間雷射越多，需要落地的站越少'],
+ ['市場有多大','訂戶三年成長近六倍，每戶月費還在升','都市有遮蔽與干擾，主力仍是鄉村；訂戶數低於市場預期'],
+];
+$('#deb').innerHTML=DEB.map(([t,u,d])=>`<div class="card"><h4>${t}</h4><div class="pp"><i class="u">多</i><span>${u}</span><i class="dn">空</i><span>${d}</span></div></div>`).join('');
+const pl=$$('nav.top a[href^="#"]'), ps=pl.map(a=>$(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>es.forEach(e=>pl.forEach(a=>{if(a.getAttribute('href')==='#'+e.target.id)a.classList.toggle('on',e.isIntersecting);})),{rootMargin:'-30% 0px -60% 0px'});
+ps.forEach(s=>s&&io.observe(s));
+</script>
+</body>
+</html>

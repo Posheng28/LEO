@@ -75,11 +75,11 @@ nav.top.dark a:hover,nav.top.dark a.on{color:var(--glow);border-bottom-color:var
 .chip:hover{border-color:var(--teal)}
 .chip.z{color:var(--mute);border-style:dashed}
 .chip.z b{color:var(--mute);font-weight:400}
-.cardbox .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
-.cardbox .chip b{color:var(--glow)}
-.cardbox .chip:hover{border-color:var(--glow);background:rgba(244,182,72,.12)}
-.cardbox .chip.z{color:#8ea3b8}
-.cardbox .chip.z b{color:#8ea3b8}
+.cardbox .chip,#frontier .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
+.cardbox .chip b,#frontier .chip b{color:var(--glow)}
+.cardbox .chip:hover,#frontier .chip:hover{border-color:var(--glow);background:rgba(244,182,72,.12)}
+.cardbox .chip.z,#frontier .chip.z{color:#8ea3b8}
+.cardbox .chip.z b,#frontier .chip.z b{color:#8ea3b8}
 .cardbox .more{font-size:14px;color:#8ea3b8;align-self:center;margin-left:2px}
 .keys{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14.5px;color:#a9bdd0}
 .keys i{display:inline-block;width:20px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
@@ -112,6 +112,39 @@ nav.top.dark a:hover,nav.top.dark a.on{color:var(--glow);border-bottom-color:var
 #fb p{margin:0 0 8px;font-size:15.5px;color:#c3d3e3}
 #fb .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
 #fb .chip b{color:var(--glow)}
+
+/* ===== 前沿技術（深色） ===== */
+#frontier{background:linear-gradient(#050b14,#0a1727 55%,#0c1c30);color:#eaf2fb;padding:84px 0 110px;position:relative;z-index:1}
+#frontier .wrap{max-width:1200px}
+#frontier .kicker{font-size:14px}
+#frontier h2{font-size:40px;font-weight:900;color:#fff;margin-top:6px}
+#frontier .sub{color:#a9bdd0;max-width:760px;margin:8px 0 14px;font-size:17.5px}
+.mkey{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px;color:#8ea3b8;margin:0 0 22px}
+.mkey b{color:var(--glow);font-weight:700;margin-right:6px}
+.ft{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fc{background:linear-gradient(160deg,rgba(20,38,60,.9),rgba(9,19,32,.94));border:1px solid rgba(140,190,240,.2);border-radius:18px;padding:0 20px 18px;display:flex;flex-direction:column;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.fc:hover{transform:translateY(-4px);border-color:rgba(244,182,72,.55);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.fc.big{grid-column:span 2}
+.fc svg{display:block;width:calc(100% + 40px);margin:0 -20px 12px;height:118px;background:radial-gradient(120% 140% at 50% 0%,#12283f,#07111c 75%)}
+.fc.big svg{height:150px}
+.mt{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--glow);letter-spacing:.1em;font-weight:700}
+.mt i{width:20px;height:5px;border-radius:3px;background:rgba(160,200,240,.2)}
+.mt i.on{background:var(--glow);box-shadow:0 0 8px rgba(244,182,72,.6)}
+.mt span{margin-left:6px}
+.fc h3{font-size:23px;color:#fff;margin:6px 0 6px}
+.fc p{margin:0 0 12px;font-size:15.5px;line-height:1.72;color:#c3d3e3;flex:1}
+.fk{display:flex;gap:4px 12px;align-items:baseline;flex-wrap:wrap;border-top:1px solid rgba(140,190,240,.16);padding-top:10px}
+.fk b{font-family:var(--serif);font-weight:900;font-size:29px;color:var(--glow);white-space:nowrap;line-height:1.15}
+.fk span{font-size:14px;color:#a9bdd0;flex:1;min-width:130px;line-height:1.5}
+.fn{font-size:14.5px;color:#bfe6ff;margin:10px 0 0;line-height:1.6}
+.fn em{font-style:normal;color:#7f95ab;margin-right:8px;letter-spacing:.1em;font-size:13px}
+.fc .chips{margin-top:12px}
+.fno{margin-top:12px;font-size:14px;color:#8ea3b8;border:1px dashed rgba(160,200,240,.28);border-radius:999px;padding:2px 12px;align-self:flex-start}
+.fl{animation:flow 1.3s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-24}}
+@keyframes blink{50%{opacity:.25}}
+.bk{animation:blink 2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.fl,.bk{animation:none}}
 
 /* ===== 下半：紙本章節 ===== */
 main.paper{background:var(--paper);position:relative;z-index:2;border-radius:26px 26px 0 0;margin-top:-26px;padding-top:8px}
@@ -215,6 +248,7 @@ details.fold p{font-size:15.5px;color:#454a55;margin:8px 0 4px}
 .deb .pp i.u{background:var(--teal)}.deb .pp i.dn{background:var(--red)}
 footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
 
+@media(min-width:701px) and (max-width:1020px){.ft{grid-template-columns:repeat(2,1fr)}}
 /* ===== 手機 ===== */
 @media(max-width:700px){
   body{font-size:16.5px}
@@ -240,6 +274,11 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
   .hint{bottom:14px;font-size:14px}
   .lb{font-size:14px}
   #fb{grid-template-columns:1fr}
+  #frontier{padding:56px 0 84px}
+  #frontier h2{font-size:28px}
+  .ft{grid-template-columns:1fr}
+  .fc.big{grid-column:auto}
+  .fc.big svg{height:118px}
   main.paper{border-radius:18px 18px 0 0;margin-top:-18px}
   section.ch{padding:38px 0 6px}
   .ch-head h2{font-size:25px}
@@ -267,7 +306,7 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
 
 <nav class="top dark"><div class="wrap">
   <span class="brand">低軌衛星</span>
-  <a data-st="net">總覽</a><a data-st="s1">天空端</a><a data-st="ut">地面端</a><a data-st="d2c">手機直連</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
+  <a data-st="net">總覽</a><a data-st="s1">天空端</a><a data-st="ut">地面端</a><a data-st="d2c">手機直連</a><a data-st="mesh">前沿技術</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
 </div></nav>
 
 <div id="story">
@@ -292,6 +331,14 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
   </div>
   <div id="fb"></div>
 </div>
+
+<section id="frontier"><div class="wrap">
+  <div class="kicker">前沿技術</div>
+  <h2>接下來三年，衛星會變成什麼樣</h2>
+  <p class="sub">每一項技術走到哪、會多用哪些零件、台股誰沾得上。</p>
+  <div class="mkey"><span><b>1 格</b>還在紙上</span><span><b>2 格</b>上太空驗證中</span><span><b>3 格</b>小量部署</span><span><b>4 格</b>已經量產</span></div>
+  <div class="ft" id="ft"></div>
+</div></section>
 
 <main class="paper">
 <section class="ch" id="scale"><div class="wrap">
@@ -403,7 +450,7 @@ const ST=[
  {id:'net',nav:'總覽',eye:'總覽',t:'一張接在天上的網',d:'用戶的天線把資料往上送，衛星之間用雷射接力，最後由閘道站接進光纖。回程走同一條路的反方向。',keys:1,cam:{t:[1.5,-6.5,1],az:1.2,pol:1.5,r:46},ox:.15,my:.16},
  {id:'s1',seg:'s1',eye:'天空端',d:'整面天線由上千個小單元組成，用電子方式把波束打到地面，不用轉動。每個單元後面都要一組放大器晶片。',k:'4–5 倍',ks:'新一代每顆衛星的射頻晶片，約 7,500 顆 → 3.3 萬顆',cam:{t:[0,-.2,0],az:1.05,pol:2.5,r:7.2},an:[0,-.2,0],ox:.16,my:.17},
  {id:'s2',seg:'s2',eye:'天空端',d:'衛星對閘道站的回傳走更高的頻段。訊號靠波導送到天線，再用濾波器把各個頻道分開。',k:'8 → 30 顆',ks:'新一代高頻回傳模組，每台用的微波元件',cam:{t:[2.3,-.5,.1],az:.35,pol:1.95,r:4.4},an:[2.3,-.55,.7],ox:.16,my:.17},
- {id:'s3',seg:'s3',eye:'天空端',d:'衛星之間用雷射直接傳資料，不佔無線電頻譜。海上、沙漠沒有地面站，也能一顆接一顆送回去。',k:'3–4 個',ks:'每顆衛星的雷射終端',cam:{t:[1.5,.35,.9],az:1.05,pol:1.22,r:4.2},an:[1.75,.34,1.05],ox:.16,my:.17},
+ {id:'s3',seg:'s3',eye:'天空端',d:'衛星之間用雷射直接傳資料，不佔無線電頻譜。海上、沙漠沒有地面站，也能一顆接一顆送回去。',k:'3 個',ks:'每顆 Starlink 衛星的雷射終端；單條鏈路最高 200 Gbps',cam:{t:[1.5,.35,.9],az:1.05,pol:1.22,r:4.2},an:[1.75,.34,1.05],ox:.16,my:.17},
  {id:'s4',seg:'s4',eye:'天空端',d:'天線、射頻、運算都做在電路板上。要耐真空與冷熱循環，層數與材料等級一路往上。',k:'約 2 倍',ks:'新一代單顆電路板價值；手機直連衛星再加四到五成',e:1,cam:{t:[0,-.6,0],az:1.2,pol:2.12,r:8},an:[.9,-.55,.9],ox:.16,my:.17},
  {id:'s5',seg:'s5',eye:'天空端',d:'撐住所有零件的骨架與外殼。衛星越做越大，加工精度與公差的要求跟著提高。',k:'800 → 1,800 kg',ks:'單顆衛星重量',e:.6,extra:['s9'],cam:{t:[0,-.2,0],az:2.05,pol:1.38,r:8},an:[-1.6,.05,1.3],ox:.16,my:.17},
  {id:'s6',seg:'s6',eye:'天空端',d:'太陽能板發電、電池儲電，線束把電與訊號送到每個角落。',cam:{t:[0,3.2,-.4],az:1.32,pol:1.5,r:12.5},an:[0,3.6,-.7],ox:.17,my:.17},
@@ -412,6 +459,7 @@ const ST=[
  {id:'ut',nav:'地面端',eye:'地面端',t:'用戶終端',d:'一戶一台的碟型天線加路由器。量大、價格壓得低，是台廠衛星營收的大宗。',blocks:['u1','u2','u3','u5','u4'],e2:1,cam:{t:[3.3,-13.7,2],az:1.15,pol:1.4,r:6.6},ox:.17,my:.17},
  {id:'gw',eye:'地面端',t:'閘道站',d:'把衛星流量接進光纖的地面站。單顆衛星容量變大後，回傳改用更高的頻段，設備跟著升級。',blocks:['g1','g2'],cam:{t:[-7,-13.6,-3],az:1.75,pol:1.42,r:9.5},ox:.17,my:.17},
  {id:'d2c',nav:'手機直連',eye:'手機直連',t:'不換手機也能連衛星',d:'手機天線小、功率低，所以把難題丟給衛星：裝一面超大的天線，用電信商的低頻段直接跟一般手機通訊。',k:'2,600 → 15,000 顆',ks:'直連衛星的射頻晶片，第一代到第二代',blocks:['d1','d2'],cam:{t:[10.4,-10.3,5.7],az:1.0,pol:1.52,r:20},ox:.17,my:.2},
+ {id:'mesh',nav:'前沿技術',eye:'前沿技術',t:'雷射把整個星系織成一張網',seg:'s3',d:'每顆衛星帶三個雷射終端，跟前後左右的鄰居互連。資料可以在天上轉好幾手，再找一個方便的閘道站落地。',k:'24,000 個以上',ks:'Starlink 在軌的雷射終端；2026 年單條鏈路升到 400 Gbps',cam:{t:[0,-200,0],az:1.25,pol:1.12,r:1010},ox:.17,my:.2},
 ];
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const grpOf=c=>[...new Set(c.seg.map(s=>SEG[s].g))];
@@ -445,7 +493,7 @@ function fallback(){story.classList.add('nogl');$('#fb').innerHTML=ST.map((s,i)=
 let R=null;
 try{ if(!window.THREE)throw 0; R=new THREE.WebGLRenderer({canvas:cv,antialias:true,powerPreference:'high-performance'}); }catch(e){fallback();return;}
 R.outputEncoding=THREE.sRGBEncoding; R.setClearColor(0x050b14,1);
-const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(35,1,.1,3000);
+const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(35,1,.1,9000);
 const V=(x,y,z)=>new THREE.Vector3(x,y,z), Y=V(0,1,0);
 let seed=7; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 function ctex(w,h,fn){const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;return t;}
@@ -473,7 +521,7 @@ const pcbT=ctex(512,512,(g,w)=>{g.fillStyle='#0b3d2a';g.fillRect(0,0,w,w);g.stro
   g.fillStyle='#e8c35a';for(let i=0;i<160;i++){g.beginPath();g.arc(rnd()*w,rnd()*w,2.6,0,7);g.fill();}
   g.fillStyle='#101418';for(let i=0;i<26;i++){g.fillRect(rnd()*w,rnd()*w,18+rnd()*26,14+rnd()*20);}});
 const earthT=ctex(2048,1024,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#0a2a4a');gr.addColorStop(.5,'#0d3a63');gr.addColorStop(1,'#08233f');g.fillStyle=gr;g.fillRect(0,0,w,h);
-  for(let i=0;i<46;i++){const x=rnd()*w,y=h*.12+rnd()*h*.76,r=40+rnd()*150;g.fillStyle=`rgba(${20+rnd()*26|0},${70+rnd()*40|0},${62+rnd()*26|0},.55)`;for(let k=0;k<14;k++){g.beginPath();g.ellipse(x+(rnd()-.5)*r*1.6,y+(rnd()-.5)*r,r*(.25+rnd()*.5),r*(.15+rnd()*.35),rnd()*3,0,7);g.fill();}}
+  for(let i=0;i<46;i++){const x=rnd()*w,y=h*.12+rnd()*h*.76,r=40+rnd()*150;g.fillStyle=`rgba(${16+rnd()*22|0},${58+rnd()*34|0},${66+rnd()*28|0},.5)`;for(let k=0;k<14;k++){g.beginPath();g.ellipse(x+(rnd()-.5)*r*1.6,y+(rnd()-.5)*r,r*(.25+rnd()*.5),r*(.15+rnd()*.35),rnd()*3,0,7);g.fill();}}
   for(let i=0;i<220;i++){g.fillStyle=`rgba(255,255,255,${.03+rnd()*.06})`;g.beginPath();g.ellipse(rnd()*w,rnd()*h,60+rnd()*200,8+rnd()*26,rnd()*.6-.3,0,7);g.fill();}
   for(let i=0;i<1500;i++){g.fillStyle=`rgba(255,${200+rnd()*40|0},${130+rnd()*60|0},${.35+rnd()*.5})`;const x=rnd()*w,y=h*.18+rnd()*h*.64;g.fillRect(x,y,1.6+rnd()*1.6,1.6+rnd()*1.6);}});
 const gridT=ctex(1024,1024,(g,w)=>{g.clearRect(0,0,w,w);const r=g.createRadialGradient(512,512,40,512,512,512);r.addColorStop(0,'rgba(12,44,60,.96)');r.addColorStop(.6,'rgba(9,30,46,.9)');r.addColorStop(1,'rgba(6,20,34,0)');g.fillStyle=r;g.fillRect(0,0,w,w);
@@ -481,9 +529,9 @@ const gridT=ctex(1024,1024,(g,w)=>{g.clearRect(0,0,w,w);const r=g.createRadialGr
 const phoneT=ctex(128,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#ff6fa3');gr.addColorStop(1,'#7a1f52');g.fillStyle=gr;g.fillRect(0,0,w,h);g.fillStyle='#fff';for(let i=0;i<4;i++)g.fillRect(34+i*17,150-i*18,11,30+i*18);g.beginPath();g.arc(64,70,16,0,7);g.fill();});
 
 /* ---- 背景：星星、太陽、地球 ---- */
-{const n=MOB()?900:2200,pos=new Float32Array(n*3);for(let i=0;i<n;i++){const u=rnd()*2-1,th=rnd()*6.283,s=Math.sqrt(1-u*u),r=900;pos[i*3]=r*s*Math.cos(th);pos[i*3+1]=r*u;pos[i*3+2]=r*s*Math.sin(th);}
+{const n=MOB()?900:2200,pos=new Float32Array(n*3);for(let i=0;i<n;i++){const u=rnd()*2-1,th=rnd()*6.283,s=Math.sqrt(1-u*u),r=3200;pos[i*3]=r*s*Math.cos(th);pos[i*3+1]=r*u;pos[i*3+2]=r*s*Math.sin(th);}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));scene.add(new THREE.Points(g,new THREE.PointsMaterial({color:0xcfe3ff,size:1.7,sizeAttenuation:false,transparent:true,opacity:.85})));}
-glow(0xfff2d6,520,-560,230,-640,scene,.9);glow(0xffffff,150,-560,230,-640,scene,1);
+glow(0xfff2d6,1700,-1850,760,-2110,scene,.9);glow(0xffffff,500,-1850,760,-2110,scene,1);
 const ER=300, EC=V(0,-15-ER,0);
 const earth=sph(ER,std({map:earthT,emissiveMap:earthT,emissive:0xffffff,emissiveIntensity:.42,roughness:.95,metalness:0}),EC.x,EC.y,EC.z,scene);
 earth.geometry=new THREE.SphereGeometry(ER,160,100);earth.rotation.z=.4;
@@ -569,6 +617,22 @@ const D=V(11,-5.6,6.4);
  box(1,.3,.8,std({color:0xc4933a,metalness:.95,roughness:.4,emissive:0x3a2606,emissiveIntensity:.7}),0,.2,0,g);
  box(1.4,2.6,.03,std({color:0xffffff,map:cellT,emissive:0x1a4fae,emissiveMap:cellT,emissiveIntensity:.6,metalness:.5,roughness:.3}),0,1.7,-.3,g);}
 
+/* ---- 整個星系：衛星用雷射連成網（平常只看得到光點，最後一站才亮出連線） ---- */
+const con=new THREE.Group();con.position.copy(EC);con.rotation.set(.95,0,.25);scene.add(con);
+const spin=new THREE.Group();con.add(spin);
+const CP=20,CS=24,CR=ER+15,cpos=[],links=[];
+for(let k=0;k<CP;k++){const Om=6.2832*k/CP,ci=Math.cos(.925),si=Math.sin(.925);for(let j=0;j<CS;j++){const u=6.2832*(j+k*.5)/CS;
+  cpos.push(V(CR*(Math.cos(Om)*Math.cos(u)-Math.sin(Om)*Math.sin(u)*ci),CR*Math.sin(u)*si,CR*(Math.sin(Om)*Math.cos(u)+Math.cos(Om)*Math.sin(u)*ci)));}}
+for(let k=0;k<CP;k++)for(let j=0;j<CS;j++){const a=k*CS+j;links.push([a,k*CS+(j+1)%CS]);links.push([a,k<CP-1?(k+1)*CS+j:(j+10)%CS]);}
+spin.add(new THREE.Points(new THREE.BufferGeometry().setFromPoints(cpos),new THREE.PointsMaterial({color:0xcdefff,size:2.4,sizeAttenuation:false,transparent:true,opacity:.9,depthWrite:false})));
+const meshM=new THREE.LineBasicMaterial({color:0x62d8ff,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+spin.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(links.flatMap(l=>[cpos[l[0]],cpos[l[1]]])),meshM));
+const NPU=MOB()?70:160,pu=[],pbuf=new Float32Array(NPU*3);for(let i=0;i<NPU;i++)pu.push({l:links[(rnd()*links.length)|0],t:rnd(),s:.2+rnd()*.45});
+const pug=new THREE.BufferGeometry();pug.setAttribute('position',new THREE.BufferAttribute(pbuf,3));
+const puM=new THREE.PointsMaterial({color:0xffffff,size:4.2,sizeAttenuation:false,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+{const q=new THREE.Points(pug,puM);q.frustumCulled=false;spin.add(q);}
+const homeGlow=glow(0xf4b648,1,0,0,0,scene,0);
+
 /* ---- 地面 ---- */
 const GY=-15, T=V(3.3,GY,2), G=V(-7,GY,-3), P=V(10,GY,5.2);
 {const d=new THREE.Mesh(new THREE.CircleGeometry(24,64),new THREE.MeshBasicMaterial({map:gridT,transparent:true,depthWrite:false}));d.rotation.x=-Math.PI/2;d.position.set(1,GY+.03,1);scene.add(d);}
@@ -621,6 +685,7 @@ const headPos=o=>T.clone().add(V(0,1.02,0)).add(V(.25*o*.2,o*.9,-o*.42));
 lab(iUt,'1',T.clone().add(V(-.75,1.9,0)),1);lab(iUt,'2',headPos(.2).add(V(.86,0,.2)),1);lab(iUt,'3',headPos(-.2).add(V(.86,0,.2)),1);lab(iUt,'4',T.clone().add(V(-.5,.45,.2)),1);lab(iUt,'5',T.clone().add(V(1.5,.72,.5)),1);
 lab(iGw,'1',G.clone().add(V(0,2.6,0)),1);lab(iGw,'2',G.clone().add(V(-.3,1.15,2.3)),1);
 lab(iD,'1',D.clone().add(V(0,.5,0)),1);lab(iD,'2',Pt.clone().add(V(0,.75,0)),1);
+const iMesh=ST.findIndex(s=>s.id==='mesh');lab(iMesh,'剛才拆開的那顆',V(0,0,0));
 const mark=document.createElement('div');mark.className='mark';lbls.appendChild(mark);
 
 /* ---- 版面、捲動 ---- */
@@ -664,6 +729,8 @@ function frame(now){
   utG.forEach(l=>l.position.y=l.userData.o*cur.e2);
   plume.material.opacity=.5+Math.sin(time*9)*.08;plume.scale.x=plume.scale.z=1+Math.sin(time*13)*.04;
   earth.rotation.y=time*.006;
+  const mw=ss(.2,.85,p-(iMesh-1));meshM.opacity=.4*mw;puM.opacity=mw;spin.rotation.y=time*.01;homeGlow.material.opacity=mw;homeGlow.scale.setScalar(1+mw*34);
+  if(mw>0){for(let i=0;i<NPU;i++){const q=pu[i],t=(q.t+time*q.s)%1,a=cpos[q.l[0]],b=cpos[q.l[1]];pbuf[i*3]=a.x+(b.x-a.x)*t;pbuf[i*3+1]=a.y+(b.y-a.y)*t;pbuf[i*3+2]=a.z+(b.z-a.z)*t;}pug.attributes.position.needsUpdate=true;}
   beams.forEach(b=>b.ps.forEach((s,i)=>{let t=(time*b.sp+i/b.ps.length)%1;if(b.rev)t=1-t;s.position.copy(b.a).addScaledVector(b.d,t);}));
   R.render(scene,cam);
   // 疊在上面的字
@@ -678,6 +745,34 @@ function frame(now){
   const s=ST[ai];if(s.an&&fw>.05){const [x,y]=pr(sat.localToWorld(V(...s.an)));mark.style.opacity=fw;mark.style.transform=`translate(${x}px,${y}px)`;}else mark.style.opacity=0;
 }
 requestAnimationFrame(frame);
+})();
+
+/* ================= 前沿技術 ================= */
+/*@FT@*/
+(function(){
+  const sg=(x,y,s=1)=>`<g transform="translate(${x},${y}) scale(${s})"><rect x="-7" y="-17" width="14" height="11" rx="1" fill="#2f6fd0" stroke="#8fc0ff" stroke-width=".6"/><path d="M0-6v3" stroke="#b5c4d4" stroke-width="1.4"/><rect x="-10" y="-3" width="20" height="6" rx="2" fill="#dfe8f1"/></g>`;
+  const fl=(d,c,w=2)=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w+4}" opacity=".13" stroke-linecap="round"/><path class="fl" d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="3 9"/>`;
+  const ea=`<path d="M-20 150 Q160 78 340 150 V160 H-20Z" fill="#0c2a44"/><path d="M-20 150 Q160 78 340 150" fill="none" stroke="#4fb6e8" stroke-width="1.3" opacity=".8"/>`;
+  const wave=(y,n,c)=>{let d=`M60 ${y}`;for(let i=0;i<=200;i+=2)d+=` L${60+i} ${(y+Math.sin(i/200*n*6.283)*9).toFixed(1)}`;return `<path d="${d}" fill="none" stroke="${c}" stroke-width="1.8"/>`;};
+  const dots=(x,y,nx,ny,c)=>{let h='';for(let i=0;i<nx;i++)for(let j=0;j<ny;j++)h+=`<circle cx="${x+i*9}" cy="${y+j*9}" r="2.1" fill="${c}"/>`;return h;};
+  const IC={
+    laser:fl('M62 78 L152 34','#62d8ff')+fl('M168 34 L258 78','#62d8ff')+fl('M70 86 L250 86','#62d8ff')+fl('M160 40 L160 4','#62d8ff')+sg(52,84)+sg(160,34,1.25)+sg(268,84)+`<circle class="bk" cx="160" cy="31" r="5" fill="#62d8ff"/>`,
+    down:ea+sg(160,30,1.2)+fl('M160 36 L128 104','#62d8ff')+`<circle cx="126" cy="110" r="9" fill="#dfe8f1"/><rect x="118" y="116" width="16" height="5" fill="#3a4a5c"/><ellipse cx="205" cy="74" rx="34" ry="10" fill="#9fb3c8" opacity=".35"/><ellipse cx="226" cy="66" rx="22" ry="8" fill="#9fb3c8" opacity=".3"/>`,
+    band:wave(26,3,'#f4b648')+wave(58,7,'#4fe0b5')+wave(90,14,'#62d8ff')+`<g font-size="12" fill="#a9bdd0" font-family="sans-serif"><text x="20" y="30">Ku</text><text x="20" y="62">Ka</text><text x="14" y="94">E·V·W</text></g>`,
+    array:`<rect x="106" y="16" width="108" height="34" rx="4" fill="#143654" stroke="#62d8ff" stroke-width="1"/>`+dots(113,24,12,3,'#6fe3ff')+`<g opacity=".55"><path d="M130 50 L60 118 L96 118Z" fill="#f4b648" opacity=".35"/><path d="M160 50 L142 118 L178 118Z" fill="#f4b648" opacity=".5"/><path d="M190 50 L226 118 L262 118Z" fill="#f4b648" opacity=".35"/></g>`,
+    phone:ea+`<rect x="100" y="14" width="120" height="26" rx="3" fill="#2a1830" stroke="#ff9dbd" stroke-width="1.2"/>`+dots(106,19,13,2,'#ff9dc0')+fl('M160 42 L160 96','#ff86ad')+`<rect x="152" y="96" width="16" height="26" rx="3" fill="#0d1b2a" stroke="#e8f1fa" stroke-width="1.4"/><rect x="155" y="100" width="10" height="15" fill="#ff86ad" opacity=".6"/>`,
+    vleo:`<circle cx="160" cy="190" r="110" fill="#0c2a44" stroke="#4fb6e8" stroke-width="1.3"/><circle cx="160" cy="190" r="168" fill="none" stroke="#6f879e" stroke-width="1" stroke-dasharray="2 6"/><circle cx="160" cy="190" r="132" fill="none" stroke="#f4b648" stroke-width="1.4"/>`+sg(160,60,.9)+sg(96,40,.7)+`<path class="fl" d="M160 66 L160 82" stroke="#f4b648" stroke-width="2" stroke-dasharray="3 5" fill="none"/>`,
+    dc:`<rect x="52" y="28" width="60" height="62" rx="2" fill="#2f6fd0" stroke="#8fc0ff" stroke-width=".8"/><path d="M72 28v62M92 28v62M52 49h60M52 70h60" stroke="#0b2046"/><rect x="208" y="28" width="60" height="62" rx="2" fill="#2f6fd0" stroke="#8fc0ff" stroke-width=".8"/><path d="M228 28v62M248 28v62M208 49h60M208 70h60" stroke="#0b2046"/><rect x="124" y="36" width="72" height="46" rx="5" fill="#1b2a3b" stroke="#9cc3e6"/><g fill="#4fe0b5">`+[0,1,2].map(r=>[0,1,2,3,4].map(c=>`<rect class="bk" style="animation-delay:${(r*5+c)*.13}s" x="${132+c*12}" y="${44+r*11}" width="7" height="5"/>`).join('')).join('')+`</g><path d="M112 59h12M196 59h12" stroke="#b5c4d4" stroke-width="2"/><rect x="136" y="88" width="48" height="22" rx="2" fill="#e8eef5" opacity=".85"/><path d="M142 88v22M152 88v22M162 88v22M172 88v22" stroke="#9fb0c2"/>`,
+    rocket:ea+`<path d="M160 14 C172 30 174 52 172 84 H148 C146 52 148 30 160 14Z" fill="#dfe8f1"/><path d="M148 70 L136 92 H148Z M172 70 L184 92 H172Z" fill="#9fb0c2"/><circle cx="160" cy="44" r="5" fill="#2f6fd0"/><path class="bk" d="M152 86 L160 112 L168 86Z" fill="#f4b648"/><path class="fl" d="M214 96 C238 70 238 44 220 24" fill="none" stroke="#4fe0b5" stroke-width="2" stroke-dasharray="3 7"/><path d="M220 24 l-2 10 M220 24 l9 4" stroke="#4fe0b5" stroke-width="2" fill="none"/>`,
+    term:ea+`<rect x="118" y="62" width="70" height="8" rx="3" fill="#e8eef5" transform="rotate(-14 153 66)"/><path d="M153 70 V108" stroke="#b5c4d4" stroke-width="3"/><path d="M140 110 H166" stroke="#b5c4d4" stroke-width="3" stroke-linecap="round"/>`+fl('M150 56 L176 6','#f4b648')+`<g fill="none" stroke="#4fe0b5" stroke-width="2" stroke-linecap="round"><path class="bk" d="M214 92 a14 14 0 0 1 20 0"/><path class="bk" style="animation-delay:.3s" d="M207 84 a24 24 0 0 1 34 0"/><path class="bk" style="animation-delay:.6s" d="M200 76 a34 34 0 0 1 48 0"/></g><circle cx="224" cy="100" r="3" fill="#4fe0b5"/>`,
+    chip:`<rect x="124" y="28" width="72" height="62" rx="6" fill="#15191f" stroke="#9cc3e6"/><rect x="140" y="42" width="40" height="34" rx="3" fill="#143654" stroke="#62d8ff"/><g stroke="#d9a441" stroke-width="2">`+[0,1,2,3,4].map(i=>`<path d="M${134+i*13} 28v-10M${134+i*13} 90v10M124 ${36+i*11}h-10M196 ${36+i*11}h10"/>`).join('')+`</g><g stroke="#ff86ad" stroke-width="1.6" class="bk"><path d="M40 20 L112 46"/><path d="M36 60 L110 60"/><path d="M40 100 L112 74"/></g>`,
+  };
+  const ML=['','還在紙上','驗證中','小量部署','已量產'];
+  const by=Object.fromEntries(CO.map(c=>[c.c,c]));
+  $('#ft').innerHTML=(typeof FT==='undefined'?[]:FT).map(f=>`<article class="fc${f.big?' big':''}"><svg viewBox="0 -4 320 128" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${IC[f.ic]||''}</svg>
+    <div class="mt">${[1,2,3,4].map(i=>`<i${i<=f.m?' class="on"':''}></i>`).join('')}<span>${ML[f.m]}</span></div><h3>${f.t}</h3><p>${f.d}</p>
+    ${f.k?`<div class="fk"><b>${f.k}</b><span>${f.ks}</span></div>`:''}${f.nx?`<div class="fn"><em>下一步</em>${f.nx}</div>`:''}
+    ${f.no?`<div class="fno">${f.no}</div>`:''}${f.co&&f.co.length?`<div class="chips">${f.co.filter(c=>by[c]).map(c=>`<button class="chip${by[c].st==='dev'?' z':''}" data-go="${c}">${by[c].n}<b>${by[c].st==='dev'?'未量產':pctTxt(by[c])}</b></button>`).join('')}</div>`:''}</article>`).join('');
 })();
 
 /* ================= 下半頁 ================= */

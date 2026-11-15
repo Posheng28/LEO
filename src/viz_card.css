@@ -1,0 +1,81 @@
+/* 個股細節卡（圖像化）；class 一律 vz- 前綴 */
+.vz-card{--vz-pri:#0e6e8c;--vz-amb:#a96812;--vz-ink:#1c1f26;--vz-mut:#5b6170;--vz-rule:#e4dfd5;--vz-paper:#faf8f4;--vz-bg:#fffdf9;
+  container-type:inline-size;background:var(--vz-bg);border:1px solid var(--vz-rule);border-radius:10px;padding:14px;color:var(--vz-ink);
+  font-family:'Noto Sans TC',system-ui,sans-serif;font-size:15px;line-height:1.55;box-sizing:border-box;max-width:100%}
+.vz-card *{box-sizing:border-box}
+.vz-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@container (min-width:820px){.vz-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) minmax(0,1fr)}}
+.vz-sec{min-width:0;display:flex;flex-direction:column;gap:12px}
+@container (min-width:820px){.vz-sec+.vz-sec{border-left:1px solid var(--vz-rule);padding-left:14px}}
+@container (max-width:819px){.vz-sec+.vz-sec{border-top:1px solid var(--vz-rule);padding-top:12px}}
+.vz-h{margin:0;font-size:14px;font-weight:700;color:var(--vz-pri);letter-spacing:.06em}
+/* 數字性質：實色＝有人給數字，斜紋＝推算（跟排行榜的長條同一套語意） */
+.vz-conf{display:inline-block;margin-left:8px;padding:1px 9px;border-radius:999px;border:1px solid transparent;font-size:13px;font-weight:700;line-height:1.6;letter-spacing:0;vertical-align:1px;white-space:nowrap}
+.vz-conf-a{background:var(--vz-pri);border-color:var(--vz-pri);color:#fff}
+.vz-conf-b{background:#e3eef2;border-color:#e3eef2;color:#0b5a73}
+.vz-conf-c{background:repeating-linear-gradient(135deg,#e3eef2 0 4px,var(--vz-bg) 4px 8px);border:1px dashed var(--vz-pri);color:#0b5a73}
+.vz-t{font-size:14px;font-weight:700;color:var(--vz-mut);margin-bottom:6px}
+.vz-note{font-size:14px;color:var(--vz-mut);margin-top:6px}
+.vz-num{font-family:'Noto Serif TC',serif;font-weight:700}
+/* 標籤 */
+.vz-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:4px}
+.vz-chips em{font-style:normal;font-size:14px;color:var(--vz-mut);margin-right:2px}
+.vz-chips span{background:var(--vz-paper);border:1px solid var(--vz-rule);border-radius:999px;padding:3px 10px;font-size:14px}
+.vz-chips span.vz-em{background:var(--vz-pri);border-color:var(--vz-pri);color:#fff}
+/* 條列 */
+.vz-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.vz-list li{display:flex;gap:8px;font-size:15px}
+.vz-list li b{flex:none;font-size:14px;color:var(--vz-pri);min-width:2.6em}
+.vz-list li:not(:has(b))::before{content:'';flex:none;width:6px;height:6px;border-radius:50%;background:var(--vz-amb);margin-top:.6em}
+/* 占比環 */
+.vz-ring{display:flex;gap:12px;align-items:center}
+.vz-ring-svg{width:76px;height:76px;flex:none}
+.vz-ring b{display:block;font-size:26px;color:var(--vz-pri);line-height:1.2}
+.vz-ring span{font-size:15px}
+/* 數字磚 */
+.vz-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.vz-tile{background:#f3efe6;border-radius:8px;padding:8px 10px;min-width:0}
+.vz-tile span{display:block;font-size:14px;color:var(--vz-mut);line-height:1.4}
+.vz-tile b{display:block;font-size:21px;color:var(--vz-ink);line-height:1.25;margin:2px 0;overflow-wrap:anywhere}
+.vz-tile small{display:block;font-size:14px;color:var(--vz-mut);line-height:1.4}
+/* 走勢 */
+.vz-series{width:100%;max-width:380px;height:auto;display:block}
+.vz-sv{font-family:'Noto Serif TC',serif;font-weight:700;font-size:15px;fill:var(--vz-ink)}
+.vz-sl{font-size:14px;fill:var(--vz-mut)}
+.vz-leg{display:flex;flex-wrap:wrap;gap:12px;font-size:14px;color:var(--vz-mut);margin-top:2px}
+.vz-leg span{display:inline-flex;align-items:center;gap:5px}
+.vz-leg i{display:inline-block;width:14px;height:10px;border-radius:2px}
+.vz-k-a i{background:var(--vz-pri)}
+.vz-k-c i{background:var(--vz-pri);opacity:.32}
+.vz-k-e i{background:repeating-linear-gradient(45deg,var(--vz-pri) 0 2px,#fff 2px 4px);border:1px solid var(--vz-pri)}
+.vz-k-g i{background:repeating-linear-gradient(45deg,var(--vz-amb) 0 2px,#fff 2px 4px);border:1px solid var(--vz-amb)}
+/* 流程 */
+.vz-road{display:flex;flex-wrap:wrap;gap:6px 0;align-items:stretch}
+.vz-road em{flex-basis:100%;font-style:normal;font-size:14px;color:var(--vz-mut)}
+.vz-node{display:flex;align-items:center}
+.vz-node+.vz-node::before{content:'→';color:var(--vz-mut);font-size:18px;margin:0 6px}
+.vz-node span{display:flex;flex-direction:column;background:#f3efe6;border-radius:8px;padding:5px 10px}
+.vz-node span b{font-size:18px}
+.vz-node span small{font-size:14px;color:var(--vz-mut)}
+.vz-node span.vz-em{background:var(--vz-pri);border-color:var(--vz-pri);color:#fff}
+.vz-node span.vz-em small{color:#e3f1f5}
+/* 時間軸 */
+.vz-tl{border-left:2px solid var(--vz-rule);margin-left:4px;display:flex;flex-direction:column;gap:8px}
+.vz-tlr{display:grid;grid-template-columns:7.4em 1fr;gap:8px;position:relative;padding-left:12px}
+.vz-tlr::before{content:'';position:absolute;left:-6px;top:.45em;width:10px;height:10px;border-radius:50%;background:var(--vz-pri)}
+.vz-tlr.vz-nod::before{background:var(--vz-bg);border:2px solid var(--vz-mut);width:6px;height:6px}
+.vz-tlr time{font-family:'Noto Serif TC',serif;font-weight:700;font-size:15px;color:var(--vz-pri)}
+.vz-tlr.vz-nod time{color:var(--vz-mut);font-weight:400}
+.vz-tlr p{margin:0;font-size:15px}
+/* 組成條 */
+.vz-mixbar{display:flex;height:16px;border-radius:4px;overflow:hidden;background:var(--vz-rule)}
+.vz-mixbar i{display:block;height:100%}
+.vz-mixleg{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:3px 12px}
+.vz-mixleg li{display:flex;align-items:baseline;gap:6px;font-size:14px;min-width:0}
+.vz-mixleg li i{flex:none;width:10px;height:10px;border-radius:2px;align-self:center}
+.vz-mixleg li span{flex:1;min-width:0}
+.vz-mixleg li b{font-family:'Noto Serif TC',serif;flex:none}
+/* 不一致 */
+.vz-gap{display:flex;flex-direction:column;gap:2px;background:#f8ecd6;border-radius:8px;padding:8px 12px;font-size:14px}
+.vz-gap b{color:#8a5410;font-size:14px}
+@media (max-width:700px){.vz-card{padding:12px}.vz-grid{grid-template-columns:1fr}}

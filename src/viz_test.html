@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>個股細節卡測試</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="viz_card.css">
+<style>body{margin:0;background:#faf8f4;font-family:'Noto Sans TC',sans-serif;color:#1c1f26}
+main{max-width:1280px;margin:0 auto;padding:16px}
+h1{font-size:20px}.co{margin:0 0 24px}.co h2{font-size:17px;margin:0 0 6px}.co h2 small{color:#5b6170;font-weight:400;margin-left:6px}
+/* 預覽用：數字性質標籤的建議樣式（正式樣式由 viz_card.css 接手） */
+.vz-conf{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;font-size:14px;font-weight:400;letter-spacing:0;vertical-align:1px;border:1px solid #0e6e8c}
+.vz-conf-a{background:#0e6e8c;color:#fff}
+.vz-conf-b{background:#e3eef2;color:#0e6e8c}
+.vz-conf-c{background:repeating-linear-gradient(45deg,#e3eef2 0 3px,#fffdf9 3px 6px);color:#0e6e8c;border-style:dashed}</style>
+<style></style>
+</head><body><main><h1>個股細節卡（28 家）</h1><div id="list"></div></main>
+<script src="co_data.js"></script><script src="co_viz.js"></script><script src="viz_card.js"></script>
+<script>
+var html=CO.map(function(x){return x.c;}).filter(function(c){return CV[c];}).map(function(c){var co=CO.filter(function(x){return x.c===c;})[0]||{};
+  return '<div class="co"><h2>'+(co.n||'')+'<small>'+c+'</small></h2>'+vizCardHTML(c)+'</div>';}).join('');
+document.getElementById('list').innerHTML=html;
+</script></body></html>

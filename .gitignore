@@ -9,3 +9,9 @@ docs/
 
 # 3D 試做樣張與各版備份（正式版的場景已併入 src/template.html，模型在 models/）
 sample/
+
+# impeccable 設計 skill 的安裝檔與脈絡檔（本機工具用，不公開）
+.claude/
+.impeccable/
+PRODUCT.md
+DESIGN.md

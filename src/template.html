@@ -289,6 +289,11 @@ h3.sec{font-size:var(--fs-22);margin:30px 0 10px}
 .rk-s{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;margin:0 0 12px;font-size:var(--fs-15);color:#454a55}
 .rk-s b{font-family:var(--serif);font-weight:900;font-size:var(--fs-22);color:var(--teal)}
 .rk-d .vz-card{border:0;background:none;padding:0;border-radius:0}
+.rk-la{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;margin:12px 0 0;font-size:var(--fs-15);color:#454a55}
+.rk-la>span{color:var(--mute);font-size:var(--fs-14)}
+.rk-la a{color:inherit;text-decoration:none;background:#f1ece2;border-radius:8px;padding:3px 10px}
+.rk-la a:hover{background:#e9e1d1}
+.rk-la a b{margin-right:6px;color:var(--ink)}
 .has-d{font-size:var(--fs-13);color:var(--teal);border:1px solid #b9d5dd;border-radius:4px;padding:0 4px;margin-left:6px;font-weight:500;vertical-align:1px}
 .more-btn{font:inherit;font-size:var(--fs-15);margin:10px 0 0;border:1px dashed #b9b2a3;background:none;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--teal);width:100%}
 details.fold{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 16px;margin-top:12px}
@@ -1315,12 +1320,15 @@ let F='all'; const OPEN={t4:false,t5:false};
 const TIERS=[['t1','過半','衛星就是本業',c=>!c.geo&&c.p>=50],['t2','一到五成','衛星是主要成長來源之一',c=>!c.geo&&c.p>=10&&c.p<50],['t3','5% 到 10%','看得到，但左右不了全局',c=>!c.geo&&c.p>=5&&c.p<10],['t4','5% 以下','有出貨，槓桿小',c=>!c.geo&&c.p>0&&c.p<5],['t5','還沒量產','開發、送樣或暫停',c=>c.st==='dev'],['t6','傳統同步衛星','衛星電視、海事寬頻，不在低軌供應鏈',c=>c.geo]];
 $('#flt').innerHTML=[['all','全部'],...Object.entries(GRP)].map(([k,v])=>`<button data-f="${k}"${k==='all'?' class="on"':''}>${v}</button>`).join('');
 const HASV=c=>typeof CV!=='undefined'&&!!CV[c];
+// 客戶的衛星由誰發射：從客戶欄位的星系名稱對出來，內容跟「誰在蓋星系」的發射紀錄一致；傳統同步衛星那組不標
+const LAWHO=[[/AST/,'AST','SpaceX 為主，6 次裡 4 次；印度、Blue Origin 各 1 次'],[/Amazon|Kuiper/i,'Amazon Leo','ULA 為主，Arianespace、SpaceX 補位'],[/SpaceX|Starlink/i,'Starlink','SpaceX 自己的 Falcon 9'],[/OneWeb|Eutelsat/i,'OneWeb','早期俄羅斯 Soyuz，後來 SpaceX、印度']];
+const laWho=c=>{if(c.geo)return '';const h=LAWHO.filter(([re])=>re.test(c.cu||''));return h.length?`<p class="rk-la"><span>客戶的衛星誰發射</span>${h.map(([,n,t])=>`<a href="#players"><b>${n}</b>${t}</a>`).join('')}</p>`:'';};
 function row(c,i){
   const D=HASV(c.c);
   const g=grpOf(c), est=c.q==='c'?' est':'', geo=c.geo?' geo':'';
   const bar=c.st==='dev'?'':c.nd?`<span class="f est nd" style="left:${c.lo}%;width:${c.hi-c.lo}%"></span>`:`<span class="f${geo}${est}" style="width:${c.p}%"></span>${c.hi&&c.hi-(c.lo||0)>=2?`<span class="r" style="left:${c.lo||0}%;width:${c.hi-(c.lo||0)}%"></span>`:''}`;
   return `<button class="rk-row" data-c="${c.c}" aria-expanded="false"><span class="rk-no">${i}</span><span class="rk-name">${c.n}<small>${c.c}・${c.m}</small>${D?'<span class="has-d">細節</span>':''}<span class="tags">${g.map(x=>`<span class="tg ${x}" title="${GRP[x]}">${GTAG[x]}</span>`).join('')}</span></span><span class="rk-bar">${bar}</span><span class="rk-pct${c.p<5||c.nd?' sm':''}">${pctTxt(c)}</span></button>
-  <div class="rk-d${D?' v':''}" hidden>${D?`<p class="rk-s"><b>${pctTxt(c)}</b>${c.per?`<span>${c.per}${c.q==='c'?'・推算':''}</span>`:''}<span>${c.seg.map(s=>SEG[s].t).join('、')}</span></p>${vizCardHTML(c.c)}`:`<dl><dt>做什麼</dt><dd>${c.d}</dd>${c.cu?`<dt>客戶</dt><dd>${c.cu}</dd>`:''}${c.per?`<dt>占比</dt><dd>${pctTxt(c)}${!c.nd&&c.hi&&c.lo!=null&&c.hi!==c.lo?`（範圍 ${c.lo}–${c.hi}%）`:''}，${c.per}${c.q==='c'?'；公司沒有單獨揭露，由相關部門或產品線推算':''}</dd>`:''}<dt>位置</dt><dd>${c.seg.map(s=>SEG[s].t).join('、')}</dd>${c.w?`<dt>留意</dt><dd>${c.w}</dd>`:''}</dl>`}</div>`;
+  <div class="rk-d${D?' v':''}" hidden>${D?`<p class="rk-s"><b>${pctTxt(c)}</b>${c.per?`<span>${c.per}${c.q==='c'?'・推算':''}</span>`:''}<span>${c.seg.map(s=>SEG[s].t).join('、')}</span></p>${vizCardHTML(c.c)}`:`<dl><dt>做什麼</dt><dd>${c.d}</dd>${c.cu?`<dt>客戶</dt><dd>${c.cu}</dd>`:''}${c.per?`<dt>占比</dt><dd>${pctTxt(c)}${!c.nd&&c.hi&&c.lo!=null&&c.hi!==c.lo?`（範圍 ${c.lo}–${c.hi}%）`:''}，${c.per}${c.q==='c'?'；公司沒有單獨揭露，由相關部門或產品線推算':''}</dd>`:''}<dt>位置</dt><dd>${c.seg.map(s=>SEG[s].t).join('、')}</dd>${c.w?`<dt>留意</dt><dd>${c.w}</dd>`:''}</dl>`}${laWho(c)}</div>`;
 }
 function draw(){
   const list=CO.filter(c=>F==='all'||grpOf(c).includes(F)).sort((a,b)=>b.p-a.p);

@@ -195,6 +195,41 @@ h3.sec{font-size:var(--fs-22);margin:30px 0 10px}
 .cs-key{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:var(--fs-14);color:var(--mute);margin:0 0 10px}
 .cs-key i{display:inline-block;width:22px;height:10px;border-radius:3px;vertical-align:middle;margin-right:6px}
 .cs-key .k-a{background:var(--teal)}.cs-key .k-t{background:#e6eef0}.cs-key .k-m{width:2px;height:16px;background:var(--red);border-radius:0}
+.cs-key.k2{margin-top:-4px}
+.cs-key .k-d,.cs-key .k-o,.cs-key .k-s{width:10px;height:10px;border-radius:50%}
+.cs-key .k-d{background:var(--teal)}.cs-key .k-o{background:none;border:1.5px solid #8fb0b9}.cs-key .k-s{background:var(--amber)}
+.cs-key .k-x,.la-d i.x{width:10px;height:10px;border-radius:0;background:linear-gradient(45deg,transparent 40%,var(--red) 40% 60%,transparent 60%),linear-gradient(-45deg,transparent 40%,var(--red) 40% 60%,transparent 60%)}
+.cs-la{border-top:1px dashed #d9d2c4;padding-top:10px;display:grid;gap:8px}
+.cs-la h4{margin:0;font-size:var(--fs-14);font-family:var(--sans);font-weight:700;color:var(--mute)}
+.la-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.la-g.one{grid-template-columns:1fr}
+.la-p b{display:block;font-size:var(--fs-15);line-height:1.4}
+.la-p small{display:block;font-size:var(--fs-13);color:var(--mute);line-height:1.45}
+.la-d{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.la-d i{width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.la-d i.o{background:none;border:1.5px solid #8fb0b9}
+.la-p.sx b{color:var(--amber)}.la-p.sx .la-d i{background:var(--amber)}.la-p.sx .la-d i.o{background:none;border-color:#cfa863}
+.la-t{margin:0;font-size:var(--fs-15);font-weight:700;line-height:1.5}
+.la-x{margin:0;padding:0;list-style:none;font-size:var(--fs-15);line-height:1.6;color:#454a55;display:grid;gap:4px}
+.lb{display:grid;grid-template-columns:auto 1fr;gap:7px 12px;align-items:center;font-size:var(--fs-15)}
+.lb span.b{display:flex;align-items:center;gap:8px}
+.lb i{display:block;height:16px;border-radius:4px;background:var(--teal);min-width:3px}
+.lb i.sx{background:var(--amber)}.lb i.cn{background:#a9aeb6}
+.lb em{font-style:normal;font-variant-numeric:tabular-nums;font-weight:700}
+.mx{display:grid;grid-template-columns:auto 1fr;gap:12px 14px;margin:4px 0 0;font-size:var(--fs-15);line-height:1.6}
+.mx dt{font-family:var(--serif);font-weight:900;font-size:var(--fs-18);line-height:1.4;white-space:nowrap}
+.mx dd{margin:0;color:#454a55}
+.rc{margin-top:14px;border-top:2px solid var(--ink)}
+.rc-r{display:grid;grid-template-columns:150px 1.15fr 1fr 1.3fr;gap:14px;align-items:start;padding:11px 4px;border-bottom:1px solid var(--line);font-size:var(--fs-15);line-height:1.55}
+.rc-r.h{font-size:var(--fs-14);color:var(--mute);padding:6px 4px}
+.rc-r b.n{display:block;font-family:var(--serif);font-weight:900;font-size:var(--fs-17);line-height:1.35}
+.rc-r.sx b.n{color:var(--amber)}
+.rc-r small{display:block;font-size:var(--fs-13);color:var(--mute);line-height:1.45}
+.rc-b{display:flex;align-items:center;gap:8px;margin-top:5px}
+.rc-b i{display:block;height:12px;border-radius:3px;background:var(--teal);min-width:3px}
+.rc-r.sx .rc-b i{background:var(--amber)}
+.rc-b em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rc-k{display:none}
 .pk{font-family:var(--serif);font-weight:900;font-size:var(--fs-26);line-height:1.45;color:var(--ink);margin:30px 0 4px;text-wrap:balance}
 .pk b{color:var(--red);white-space:nowrap}
 .rl{display:grid;gap:26px}
@@ -296,6 +331,11 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:var(--fs-15)}
   section.ch{padding:38px 0 6px}
   .ch-head h2{font-size:var(--fs-26)}
   .grid2,.grid3,.cs,.deb,.nb{grid-template-columns:1fr}
+  .rc-r{grid-template-columns:1fr;gap:6px;padding:14px 2px}
+  .rc-r.h{display:none}
+  .rc-k{display:inline;color:var(--mute);font-size:var(--fs-13);margin-right:8px}
+  .mx{grid-template-columns:1fr;gap:2px}
+  .mx dd{margin-bottom:10px}
   .pk{font-size:var(--fs-22)}
   .rl-t{height:auto;margin:0;padding-left:4px}
   .rl-t::before{left:10px;right:auto;top:6px;bottom:6px;width:2px;height:auto}
@@ -621,12 +661,30 @@ main.paper :where(a,button,summary):focus-visible{outline-color:var(--teal)}
       <div class="inline" data-chips="l1">台股沾到發射的：</div>
     </div>
   </div>
+  <h3 class="sec">能選的火箭就這幾家</h3>
+  <div class="grid2">
+    <div class="card">
+      <h3>2025 年各家發射次數</h3>
+      <div class="lb" id="lb"></div>
+      <div class="cap">全球約 329 次。灰色的中國不幫西方星系發射，Rocket Lab 是小火箭；扣掉之後，能買的大火箭約九成在 SpaceX 手上（推算）。</div>
+    </div>
+    <div class="card">
+      <h3>常被搞混的三個名字</h3>
+      <dl class="mx">
+        <dt>NASA</dt><dd>美國政府的太空機構。不賣商業發射，自己也是 SpaceX 的客戶。</dd>
+        <dt>AWS</dt><dd>Amazon 的雲端部門，不發射火箭。Amazon 的衛星叫 Amazon Leo。</dd>
+        <dt>Blue Origin</dt><dd>貝佐斯自己的火箭公司，不屬於 Amazon。Amazon 是跟它簽約買發射。</dd>
+      </dl>
+    </div>
+  </div>
+  <div class="rc" id="rc"></div>
 </div></section>
 
 <section class="ch" id="players"><div class="wrap">
   <div class="ch-head"><span class="ch-no">3</span><h2>誰在蓋星系、蓋到哪</h2></div>
   <p class="ch-sub">申請不等於會發射。期限到了沒發到的部分會被收回，所以要看已核准多少、期限前要到幾顆。</p>
   <div class="cs-key"><span><i class="k-a"></i>在軌</span><span><i class="k-t"></i>已核准</span><span><i class="k-m"></i>下一個期限要到的位置</span></div>
+  <div class="cs-key k2"><span>發射紀錄，一點是一次：</span><span><i class="k-d"></i>已發射</span><span><i class="k-o"></i>已簽約、還沒飛</span><span><i class="k-x"></i>失敗</span><span><i class="k-s"></i>向 SpaceX 買的</span></div>
   <div class="cs" id="pl"></div>
   <p class="pk">對零件廠真正有約束力的，是 Amazon 的 <b>2029 年 7 月 30 日</b>。</p>
   <h3 class="sec">那套規則</h3>
@@ -1898,24 +1956,49 @@ $('#cols').innerHTML=LA.map(([y,v,f])=>`<div class="c${f?' f':''}"><b>${v.toLoca
 // 星系：ap 申請中、ok 已核准、on 在軌（顯示用字串）；bar＝在軌÷分母，mk＝下一個期限要到的顆數
 const PL=[
  {n:'Starlink',o:'SpaceX',ap:['10 萬','第三代，審查中'],ok:['約 3.4 萬','寬頻 19,408＋手機直連 15,000'],on:['約 11,100'],bar:[11100,34408],
-  dl:'2028 年 12 月前第二代 7,500 顆、2031 年 12 月前 15,000 顆',st:'訂戶 1,360 萬；照現在的發射速度碰得到期限，需求主要來自衛星約五年要汰換。'},
+  dl:'2028 年 12 月前第二代 7,500 顆、2031 年 12 月前 15,000 顆',st:'訂戶 1,360 萬；照現在的發射速度碰得到期限，需求主要來自衛星約五年要汰換。',
+  lt:'自己的 Falcon 9，不用向別人買',lx:['2025 年 Falcon 9 發了 165 次，七成多是送自己的 Starlink。','新一代 V3 太重，只能等 Starship。']},
  {n:'Amazon Leo',o:'原名 Kuiper',ap:['5,105','手機直連，審查中'],ok:['7,736','第一代 3,232＋第二代 4,504'],on:['約 390'],bar:[390,7736],mk:[3232,'2029/7/30 第一代 3,232'],hot:1,
-  dl:'<b>2029 年 7 月 30 日前第一代 3,232 顆全數，主管機關明講不放寬</b>',st:'2026 年 7 月的半數期限沒達成（要 1,616 顆），顆數沒被砍，但裁定保證金沒收、之後發的衛星暫時失去頻譜優先權；卡在火箭不夠，單季只發射 29 顆。'},
+  dl:'<b>2029 年 7 月 30 日前第一代 3,232 顆全數，主管機關明講不放寬</b>',st:'2026 年 7 月的半數期限沒達成（要 1,616 顆），顆數沒被砍，但裁定保證金沒收、之後發的衛星暫時失去頻譜優先權；卡在火箭不夠，單季只發射 29 顆。',
+  la:[['ULA','Atlas V 飛 8 次，已用完；Vulcan 還有 38 次',8,38,0],['Arianespace','Ariane 6 飛 3 次，還有 21 次',3,21,0],['SpaceX','Falcon 9 飛 3 次，還有 10 次',3,10,0,'sx'],['Blue Origin','New Glenn 約 24 到 27 次，各來源不一；還沒飛過',0,24,0]],
+  lx:['2026 年 7 月之後四個多月沒有發射：Atlas V 用完，Vulcan 和 New Glenn 都出事停飛。Vulcan 第一次幫它發射（40 顆）排在 2026 年 11 月中。','合約的運力夠，但推算每個月要發 2 到 3 次才趕得上期限；之前平均一個月不到 1 次。']},
  {n:'AST SpaceMobile',o:'手機直連',ap:['—'],ok:['248'],on:['約 13'],bar:[13,248],mk:[124,'2030/8 要 124'],
-  dl:'2030 年 8 月前 124 顆、2033 年 8 月前 248 顆',st:'與 AT&T、Verizon 試營運；台廠有廌家、事欣科、昇達科。'},
+  dl:'2030 年 8 月前 124 顆、2033 年 8 月前 248 顆',st:'與 AT&T、Verizon 試營運；台廠有廌家、事欣科、昇達科。',
+  la:[['SpaceX','Falcon 9，4 次（含 2022 年的測試星）',4,0,0,'sx'],['印度 ISRO','LVM3，1 次',1,0,0],['Blue Origin','New Glenn，1 次，失敗',0,0,1]],
+  lx:['Blue Origin 那次（2026 年 4 月）把衛星送錯軌道、整顆報廢，火箭停飛到 2027 年初。','現在只能靠 SpaceX，一次裝 3 顆；SpaceX 自己也做手機直連，是它最直接的對手。','在軌目標：原本說 2026 年 45 到 60 顆，現在是 2027 年中約 45 顆。','公司說要自己做火箭 Blacklift，引擎向 Firefly 買，目標 2028 年底首飛。']},
  {n:'OneWeb',o:'Eutelsat',ap:['6,372','第二代，原申請 47,844'],ok:['720','第一代'],on:['654'],bar:[654,720],
-  st:'第二代曾申請 47,844 顆，後來自己縮到 6,372。第一代已建置完成，做企業與政府；中華電是台灣代理。'},
+  st:'第二代曾申請 47,844 顆，後來自己縮到 6,372。第一代已建置完成，做企業與政府；中華電是台灣代理。',
+  la:[['俄羅斯 Soyuz','13 次，2022 年中斷',13,0,0],['SpaceX','Falcon 9，5 次',5,0,0,'sx'],['印度 ISRO','LVM3，2 次',2,0,0],['歐洲火箭','Ariane 6、MaiaSpace，換代衛星用；公司沒公布次數，報導說約 12 次',0,12,0]],
+  lx:['2022 年俄羅斯取消發射，36 顆衛星卡在哈薩克，改找 SpaceX 和印度補完。','換代衛星改用歐洲火箭，其中 MaiaSpace 的火箭還沒飛過。']},
  {n:'Telesat Lightspeed',o:'加拿大',ap:['—'],ok:['198','規劃'],on:['0'],bar:[0,198],
-  st:'首批發射延後，服務延到 2028 年。'},
+  st:'首批發射延後，服務延到 2028 年。',
+  la:[['SpaceX','Falcon 9，簽了 14 次，一次最多 18 顆',0,14,0,'sx']],
+  lx:['全部押在 SpaceX 一家，還沒發過。','報導說首批量產衛星最快 2027 年 9 月。']},
  {n:'國網、千帆',o:'中國',ap:['12,992','國網；千帆超過 1.5 萬（向國際電信聯盟申報）'],ok:['—','不公開'],on:['約 240','國網；千帆 274'],
-  st:'國網向國際電信聯盟申報 12,992 顆、千帆超過 1.5 萬顆；在軌國網約 240、千帆 274。自成供應鏈，台廠不供應。'},
+  st:'國網向國際電信聯盟申報 12,992 顆、千帆超過 1.5 萬顆；在軌國網約 240、千帆 274。自成供應鏈，台廠不供應。',
+  lt:'只用中國火箭，券商說以長征六號甲、長征八號甲為主',lx:['2025 年兩個星系合計發射 19 次；券商估全部建完約要 2,050 次。']},
 ];
+// 誰幫它發射：la＝[名稱, 說明, 已發射次數, 已簽還沒飛次數, 失敗次數, 'sx'＝SpaceX]；lt＝不畫點時的一句話；lx＝卡點
+const laP=([n,s,f,p,x,c])=>`<div class="la-p${c?' '+c:''}"><b>${n}</b><small>${s}</small><div class="la-d" role="img" aria-label="${n}：已發射 ${f} 次${x?`，失敗 ${x} 次`:''}${p?`，已簽約還沒飛 ${p} 次`:''}">${'<i></i>'.repeat(f)}${'<i class="x"></i>'.repeat(x)}${'<i class="o"></i>'.repeat(p)}</div></div>`;
+const laHTML=p=>`<div class="cs-la"><h4>誰幫它發射</h4>${p.la?`<div class="la-g${p.la.length<2?' one':''}">${p.la.map(laP).join('')}</div>`:`<p class="la-t">${p.lt}</p>`}<ul class="la-x">${p.lx.map(t=>`<li>${t}</li>`).join('')}</ul></div>`;
+// 2025 年各家入軌發射次數；火箭公司一覽（t＝一次送上低軌的公噸數）
+const LB=[['SpaceX',170,'sx'],['中國',92,'cn'],['Rocket Lab',18],['Arianespace',7],['ULA',6],['印度',5],['Blue Origin',2]];
+$('#lb').innerHTML=LB.map(([n,v,c])=>`<span>${n}</span><span class="b"><i${c?` class="${c}"`:''} style="width:${(v/170*86).toFixed(1)}%"></i><em>${v}</em></span>`).join('');
+const RC=[
+ {n:'SpaceX',o:'美國，馬斯克創辦',r:'Falcon 9；Starship 試飛中',t:17,tx:'約 17 公噸（回收時，券商估）',w:'Starlink、AST、Amazon、OneWeb、Telesat、美國國防星系',s:'2025 年發 170 次，自己也是最大的星系營運商。',c:'sx'},
+ {n:'ULA',o:'美國，波音與洛克希德馬丁合資',r:'Atlas V 退役中；Vulcan',t:27.2,tx:'約 27 公噸',w:'Amazon',s:'Vulcan 飛 4 次，有 2 次助推器噴嘴出問題。'},
+ {n:'Arianespace',o:'歐洲，總部在法國',r:'Ariane 6',t:21.6,tx:'約 22 公噸',w:'Amazon、OneWeb',s:'2025 年發 7 次。'},
+ {n:'Blue Origin',o:'美國，貝佐斯的私人公司',r:'New Glenn',t:45,tx:'45 公噸',w:'Amazon（還沒飛）、AST（1 次，失敗）',s:'2026 年 4 月送錯軌道、5 月發射台爆炸，預計 2027 年初復飛。'},
+ {n:'印度 ISRO',o:'印度政府',r:'LVM3',t:8,tx:'約 8 公噸',w:'OneWeb、AST',s:'2025 年全印度只發 5 次。'},
+ {n:'中國',o:'國營的航天科技，加上藍箭等民營',r:'長征六號甲、長征八號甲',t:0,tx:'',w:'國網、千帆',s:'不幫外國星系發射，2025 年發 92 次。'},
+];
+$('#rc').innerHTML=`<div class="rc-r h"><span>火箭公司</span><span>主力火箭／一次送上低軌</span><span>幫誰發射</span><span>近況</span></div>`+RC.map(r=>`<div class="rc-r${r.c?' '+r.c:''}"><div><b class="n">${r.n}</b><small>${r.o}</small></div><div>${r.r}${r.t?`<div class="rc-b" role="img" aria-label="一次送上低軌 ${r.tx}"><i style="width:${(r.t/45*70).toFixed(1)}%"></i><em>${r.tx}</em></div>`:''}</div><div><span class="rc-k">幫誰發射</span>${r.w}</div><div><span class="rc-k">近況</span>${r.s}</div></div>`).join('');
 const csN=(t,v)=>`<div><span>${t}</span><b class="num">${v[0]}</b>${v[1]?`<small>${v[1]}</small>`:''}</div>`;
 $('#pl').innerHTML=PL.map(p=>{const [a,t]=p.bar||[0,0],w=t?Math.max(a?.6:0,a/t*100):0,m=p.mk&&t?p.mk[0]/t*100:0;
   return `<div class="card${p.hot?' hot':''}"><h3>${p.n}<small>${p.o}</small></h3>
   <div class="cs-n">${csN('申請中',p.ap)}${csN('已核准',p.ok)}${csN('在軌',p.on)}</div>
   ${p.bar?`<div class="cs-bar" role="img" aria-label="在軌 ${p.on[0]}，已核准 ${p.ok[0]}${p.mk?`，下一個期限要到 ${p.mk[0].toLocaleString()} 顆`:''}"><i style="width:${w.toFixed(1)}%"></i>${p.mk?`<em style="left:${m.toFixed(1)}%"></em><span style="left:${m.toFixed(1)}%">${p.mk[1]}</span>`:''}</div>`:''}
-  ${p.dl?`<p class="cs-dl"><span>期限</span>${p.dl}</p>`:''}<p class="cs-st">${p.st}</p></div>`;}).join('');
+  ${p.dl?`<p class="cs-dl"><span>期限</span>${p.dl}</p>`:''}<p class="cs-st">${p.st}</p>${laHTML(p)}</div>`;}).join('');
 // 規則：兩條時間軌共用 0～21 年的刻度
 const RL=[
  {n:'美國',s:[[0,'核准',''],[6,'第 6 年','發射一半'],[9,'第 9 年','全部到位']],

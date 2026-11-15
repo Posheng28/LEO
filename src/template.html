@@ -206,7 +206,7 @@ h3.sec{font-size:21px;margin:30px 0 10px}
 .tier{margin-top:18px}
 .tier>h3{font-size:18px;display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:4px}
 .tier>h3 small{font-family:var(--sans);font-weight:400;font-size:14.5px;color:var(--mute)}
-.rk-row{display:grid;grid-template-columns:30px 218px 1fr 76px;gap:10px;align-items:center;width:100%;font:inherit;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 4px;cursor:pointer;color:var(--ink)}
+.rk-row{display:grid;grid-template-columns:30px 262px 1fr 76px;gap:10px;align-items:center;width:100%;font:inherit;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 4px;cursor:pointer;color:var(--ink)}
 .rk-row:hover{background:#f3efe6}
 .rk-row.hit{background:#f9e9c6;transition:background 1.2s}
 .rk-no{font-family:var(--serif);font-weight:700;color:var(--mute);font-size:15px;text-align:right}
@@ -230,6 +230,25 @@ h3.sec{font-size:21px;margin:30px 0 10px}
 .rk-d dl{display:grid;grid-template-columns:76px 1fr;gap:4px 12px;margin:0}
 .rk-d dt{color:var(--mute)}
 .rk-d dd{margin:0}
+.dt{border-top:1px dashed #cfc8b8;margin-top:12px;padding-top:12px;display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px 30px;align-items:start}
+.dt.nochart{grid-template-columns:1fr}
+.dt h5{margin:0 0 6px;font-size:13.5px;color:var(--mute);font-weight:500;font-family:var(--sans)}
+.dt-c{display:grid;gap:16px}
+.tr{display:flex;align-items:flex-end;gap:8px;height:128px}
+.tc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.tc b{font-size:13px;font-variant-numeric:tabular-nums}
+.tc i{display:block;width:100%;max-width:40px;border-radius:5px 5px 0 0;background:var(--teal)}
+.tc.k-f i{background:repeating-linear-gradient(135deg,var(--teal) 0 5px,#69a9bb 5px 9px)}
+.tc.k-c i{background:#9db9c4}
+.tc span{font-size:12.5px;color:#454a55;margin-top:3px;white-space:nowrap}
+.tc em{font-style:normal;font-size:11.5px;color:var(--mute)}
+.mx{display:flex;height:16px;border-radius:5px;overflow:hidden}
+.mxk{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:13px;color:#454a55;margin-top:6px}
+.mxk i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+.dt-l{display:grid;grid-template-columns:76px 1fr;gap:6px 12px;margin:0}
+.dt-l dt{color:var(--mute)}
+.dt-l dd{margin:0}
+.has-d{font-size:11.5px;color:var(--teal);border:1px solid #b9d5dd;border-radius:4px;padding:0 4px;margin-left:6px;font-weight:500;vertical-align:1px}
 .more-btn{font:inherit;font-size:15px;margin:10px 0 0;border:1px dashed #b9b2a3;background:none;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--teal);width:100%}
 details.fold{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 16px;margin-top:12px}
 details.fold summary{cursor:pointer;font-weight:700}
@@ -295,6 +314,8 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
   .rk-pct{font-size:18px}
   .rk-d{padding:10px 12px 12px}
   .rk-d dl{grid-template-columns:64px 1fr}
+  .dt{grid-template-columns:1fr}
+  .dt-l{grid-template-columns:64px 1fr}
   .lev{grid-template-columns:1fr;gap:4px}
   .lev .nm{margin-top:12px;font-weight:700}
   .lev .trk{margin-top:14px}
@@ -433,6 +454,7 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /*@CO@*/
+/*@CD@*/
 const SEG={
  s1:{g:'sky',t:'相位陣列天線、射頻晶片'}, s2:{g:'sky',t:'波導、濾波器'}, s3:{g:'sky',t:'星間雷射'}, s4:{g:'sky',t:'衛星板、銅箔基板'},
  s5:{g:'sky',t:'結構件'}, s6:{g:'sky',t:'太陽能、電池、線束'}, s7:{g:'sky',t:'被動元件、記憶體、時脈、感測'}, s8:{g:'sky',t:'推進、散熱'}, s9:{g:'sky',t:'整顆衛星組裝'},
@@ -794,11 +816,22 @@ $('#lev').innerHTML=LEV.map(([n,a,b,ta,tb])=>`<div class="nm">${n}</div><div cla
 let F='all'; const OPEN={t4:false,t5:false};
 const TIERS=[['t1','過半','衛星就是本業',c=>!c.geo&&c.p>=50],['t2','一到五成','衛星是主要成長來源之一',c=>!c.geo&&c.p>=10&&c.p<50],['t3','5% 到 10%','看得到，但左右不了全局',c=>!c.geo&&c.p>=5&&c.p<10],['t4','5% 以下','有出貨，槓桿小',c=>!c.geo&&c.p>0&&c.p<5],['t5','還沒量產','開發、送樣或暫停',c=>c.st==='dev'],['t6','傳統同步衛星','衛星電視、海事寬頻，不在低軌供應鏈',c=>c.geo]];
 $('#flt').innerHTML=[['all','全部'],...Object.entries(GRP)].map(([k,v])=>`<button data-f="${k}"${k==='all'?' class="on"':''}>${v}</button>`).join('');
+const MXC=['#0e6e8c','#a96812','#6b4fa8','#3d7a4a','#b0356b','#8a8f98','#2b6cb0'];
+function detailHTML(c){
+  const d=(typeof CD!=='undefined')&&CD[c.c]; if(!d)return '';
+  let ch='';
+  if(d.trend&&d.trend.length>1){const mx=Math.max(10,...d.trend.map(x=>x.v));
+    ch+=`<div><h5>衛星占營收走勢</h5><div class="tr">${d.trend.map(x=>`<div class="tc k-${x.k==='實績'?'a':x.k==='推算'?'c':'f'}"><b>${x.v}%</b><i style="height:${Math.max(4,x.v/mx*78)}%"></i><span>${x.t}</span><em>${x.k}</em></div>`).join('')}</div></div>`;}
+  if(d.mix&&d.mix.length){ch+=`<div><h5>業務組成${d.mixt?`（${d.mixt}）`:''}</h5><div class="mx">${d.mix.map((m,i)=>`<div style="width:${m[1]}%;background:${MXC[i%MXC.length]}" title="${m[0]} ${m[1]}%"></div>`).join('')}</div><div class="mxk">${d.mix.map((m,i)=>`<span><i style="background:${MXC[i%MXC.length]}"></i>${m[0]} ${m[1]}%</span>`).join('')}</div></div>`;}
+  const li=(t,v)=>v&&v.length?`<dt>${t}</dt><dd>${Array.isArray(v)?v.join('<br>'):v}</dd>`:'';
+  return `<div class="dt${ch?'':' nochart'}">${ch?`<div class="dt-c">${ch}</div>`:''}<dl class="dt-l">${li('營收規模',d.rev)}${li('衛星營收',d.sat)}${li('產品',d.prod)}${li('客戶',d.cust)}${li('產能',d.cap)}${li('接下來看',d.next)}${li('風險',d.risk)}${li('數字分歧',d.gap)}${li('數字性質',d.conf)}</dl></div>`;
+}
 function row(c,i){
+  const D=(typeof CD!=='undefined')&&CD[c.c];
   const g=grpOf(c), est=c.q==='c'?' est':'', geo=c.geo?' geo':'';
   const bar=c.st==='dev'?'':c.nd?`<span class="f est nd" style="left:${c.lo}%;width:${c.hi-c.lo}%"></span>`:`<span class="f${geo}${est}" style="width:${c.p}%"></span>${c.hi&&c.hi-(c.lo||0)>=2?`<span class="r" style="left:${c.lo||0}%;width:${c.hi-(c.lo||0)}%"></span>`:''}`;
-  return `<button class="rk-row" data-c="${c.c}" aria-expanded="false"><span class="rk-no">${i}</span><span class="rk-name">${c.n}<small>${c.c}・${c.m}</small><span class="tags">${g.map(x=>`<span class="tg ${x}" title="${GRP[x]}">${GTAG[x]}</span>`).join('')}</span></span><span class="rk-bar">${bar}</span><span class="rk-pct${c.p<5||c.nd?' sm':''}">${pctTxt(c)}</span></button>
-  <div class="rk-d" hidden><dl><dt>做什麼</dt><dd>${c.d}</dd>${c.cu?`<dt>客戶</dt><dd>${c.cu}</dd>`:''}${c.per?`<dt>占比</dt><dd>${pctTxt(c)}${!c.nd&&c.hi&&c.lo!=null&&c.hi!==c.lo?`（範圍 ${c.lo}–${c.hi}%）`:''}，${c.per}${c.q==='c'?'；公司沒有單獨揭露，由相關部門或產品線推算':''}</dd>`:''}<dt>位置</dt><dd>${c.seg.map(s=>SEG[s].t).join('、')}</dd>${c.w?`<dt>留意</dt><dd>${c.w}</dd>`:''}</dl></div>`;
+  return `<button class="rk-row" data-c="${c.c}" aria-expanded="false"><span class="rk-no">${i}</span><span class="rk-name">${c.n}<small>${c.c}・${c.m}</small>${D?'<span class="has-d">細節</span>':''}<span class="tags">${g.map(x=>`<span class="tg ${x}" title="${GRP[x]}">${GTAG[x]}</span>`).join('')}</span></span><span class="rk-bar">${bar}</span><span class="rk-pct${c.p<5||c.nd?' sm':''}">${pctTxt(c)}</span></button>
+  <div class="rk-d" hidden><dl><dt>做什麼</dt><dd>${c.d}</dd>${c.cu&&!D?`<dt>客戶</dt><dd>${c.cu}</dd>`:''}${c.per?`<dt>占比</dt><dd>${pctTxt(c)}${!c.nd&&c.hi&&c.lo!=null&&c.hi!==c.lo?`（範圍 ${c.lo}–${c.hi}%）`:''}，${c.per}${c.q==='c'?'；公司沒有單獨揭露，由相關部門或產品線推算':''}</dd>`:''}<dt>位置</dt><dd>${c.seg.map(s=>SEG[s].t).join('、')}</dd>${c.w?`<dt>留意</dt><dd>${c.w}</dd>`:''}</dl>${detailHTML(c)}</div>`;
 }
 function draw(){
   const list=CO.filter(c=>F==='all'||grpOf(c).includes(F)).sort((a,b)=>b.p-a.p);
@@ -828,7 +861,8 @@ function go(code){
   r.scrollIntoView({block:'center',behavior:'smooth'}); r.classList.add('hit'); setTimeout(()=>r.classList.remove('hit'),2600);
 }
 document.addEventListener('click',e=>{const c=e.target.closest('[data-go]');if(c)go(c.dataset.go);});
-if(new URLSearchParams(location.search).has('open')){OPEN.t4=OPEN.t5=true;draw();const r=$('.rk-row');r.nextElementSibling.hidden=false;}
+// 驗證用：?open=1 展開第一家；?open=3491,7965 展開指定代號
+{const o=new URLSearchParams(location.search).get('open');if(o!==null){OPEN.t4=OPEN.t5=true;draw();(o&&o!=='1'?o.split(','):[$('.rk-row').dataset.c]).forEach(c=>{const r=$(`.rk-row[data-c="${c}"]`);if(r)r.nextElementSibling.hidden=false;});}}
 const DEB=[
  ['SpaceX 自己做多少','驗證門檻高，打進去就不容易被換掉','約八成零組件自製，外包的份額隨時可能收回'],
  ['換代空窗多長','V3 一次能送 60 顆，放量後追得很快','2026 年第三季部署量年減 18.8%，零件廠出貨跟著停'],

@@ -206,7 +206,7 @@ h3.sec{font-size:21px;margin:30px 0 10px}
 .tier{margin-top:18px}
 .tier>h3{font-size:18px;display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:4px}
 .tier>h3 small{font-family:var(--sans);font-weight:400;font-size:14.5px;color:var(--mute)}
-.rk-row{display:grid;grid-template-columns:30px 218px 1fr 76px;gap:10px;align-items:center;width:100%;font:inherit;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 4px;cursor:pointer;color:var(--ink)}
+.rk-row{display:grid;grid-template-columns:30px 262px 1fr 76px;gap:10px;align-items:center;width:100%;font:inherit;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 4px;cursor:pointer;color:var(--ink)}
 .rk-row:hover{background:#f3efe6}
 .rk-row.hit{background:#f9e9c6;transition:background 1.2s}
 .rk-no{font-family:var(--serif);font-weight:700;color:var(--mute);font-size:15px;text-align:right}
@@ -230,6 +230,25 @@ h3.sec{font-size:21px;margin:30px 0 10px}
 .rk-d dl{display:grid;grid-template-columns:76px 1fr;gap:4px 12px;margin:0}
 .rk-d dt{color:var(--mute)}
 .rk-d dd{margin:0}
+.dt{border-top:1px dashed #cfc8b8;margin-top:12px;padding-top:12px;display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px 30px;align-items:start}
+.dt.nochart{grid-template-columns:1fr}
+.dt h5{margin:0 0 6px;font-size:13.5px;color:var(--mute);font-weight:500;font-family:var(--sans)}
+.dt-c{display:grid;gap:16px}
+.tr{display:flex;align-items:flex-end;gap:8px;height:128px}
+.tc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.tc b{font-size:13px;font-variant-numeric:tabular-nums}
+.tc i{display:block;width:100%;max-width:40px;border-radius:5px 5px 0 0;background:var(--teal)}
+.tc.k-f i{background:repeating-linear-gradient(135deg,var(--teal) 0 5px,#69a9bb 5px 9px)}
+.tc.k-c i{background:#9db9c4}
+.tc span{font-size:12.5px;color:#454a55;margin-top:3px;white-space:nowrap}
+.tc em{font-style:normal;font-size:11.5px;color:var(--mute)}
+.mx{display:flex;height:16px;border-radius:5px;overflow:hidden}
+.mxk{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:13px;color:#454a55;margin-top:6px}
+.mxk i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+.dt-l{display:grid;grid-template-columns:76px 1fr;gap:6px 12px;margin:0}
+.dt-l dt{color:var(--mute)}
+.dt-l dd{margin:0}
+.has-d{font-size:11.5px;color:var(--teal);border:1px solid #b9d5dd;border-radius:4px;padding:0 4px;margin-left:6px;font-weight:500;vertical-align:1px}
 .more-btn{font:inherit;font-size:15px;margin:10px 0 0;border:1px dashed #b9b2a3;background:none;border-radius:10px;padding:8px 14px;cursor:pointer;color:var(--teal);width:100%}
 details.fold{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:10px 16px;margin-top:12px}
 details.fold summary{cursor:pointer;font-weight:700}
@@ -295,6 +314,8 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
   .rk-pct{font-size:18px}
   .rk-d{padding:10px 12px 12px}
   .rk-d dl{grid-template-columns:64px 1fr}
+  .dt{grid-template-columns:1fr}
+  .dt-l{grid-template-columns:64px 1fr}
   .lev{grid-template-columns:1fr;gap:4px}
   .lev .nm{margin-top:12px;font-weight:700}
   .lev .trk{margin-top:14px}
@@ -511,6 +532,293 @@ const CO=[
 {c:'3466',n:'德晉',m:'上櫃',p:50,lo:30,hi:80,per:'期別不明',q:'c',geo:1,seg:['x1'],d:'衛星電視機上盒',cu:'',w:'機上盒合計約 84%，衛星盒沒有單獨揭露，區間很寬'},
 {c:'6568',n:'宏觀',m:'上櫃',p:20,lo:10,hi:30,per:'期別不明',q:'c',geo:1,seg:['x1'],d:'衛星電視接收用射頻晶片',cu:'',w:'衛星產品沒有單獨揭露，推算把握低'},
 ];
+// 個股細節：trend 衛星占合併營收的時間序列{t 期別,v %,k 實績/預估/推算/目標}；rev 營收規模；sat 衛星營收金額；mix 業務組成[[名稱,%]]＋mixt 期別；prod 產品；cust 客戶；cap 產能；next 觀察點；risk 風險；gap 數字不一致；conf 證據強度（公司資料/券商或報導/推算）。出處見 research/14_個股細節出處.md
+const CD={
+'7915':{
+  rev:'2024 年營收 0.73 億元、2025 年 5.88 億元；2026 上半年 5.53 億元，毛利率約 57%',
+  prod:['衛星用電池模組','衛星高速傳輸線纜','連接器'],
+  cust:'AST SpaceMobile，直接出貨；約九成營收來自 AST 是媒體報導的客戶集中度，公司文件還沒對到',
+  next:['2026 下半年營收能否延續上半年 5.53 億元的水準','AST 衛星發射節奏'],
+  risk:['單一客戶占約九成，AST 發射延後會直接反映在營收','興櫃，股價波動大（曾一週從 258 元漲到 800 多元）','產品比重與主要客戶要等公開說明書確認'],
+  gap:'流傳的「電池模組 66%、線纜 23%」只見搜尋摘要，查核找不到出處，不採用',
+  conf:'券商或報導'
+},
+'3491':{
+  trend:[{t:'2023',v:15,k:'實績'},{t:'2024',v:43,k:'推算'},{t:'2025',v:59,k:'實績'},{t:'2Q26',v:74,k:'實績'},{t:'2026',v:78,k:'預估'}],
+  rev:'2025 年營收 24.5 億元；2026 年預估 37.8 億元',
+  sat:'2025 年低軌衛星元件 14.5 億元；2026 年預估 29.5 億元',
+  prod:['衛星酬載與地面站用的波導、濾波器、雙工器','天線饋入件','星間雷射用高精密濾波器','E-band 酬載模組'],
+  cust:'SpaceX、Amazon Leo、AST SpaceMobile 三家都已量產，券商點名、公司沒公開點名，直接出貨',
+  next:['3Q26 客戶產品換代、營收季減約 7%，4Q26 起能否回升','2027 年地面站換機潮'],
+  risk:['客戶自製元件與新供應商加入','天空端與地面端沒有拆開','2025、2026 的占比多出自同一家券商'],
+  gap:'2026 年同一家券商有 77%、78%、80% 以上三種說法；另一家券商估 2026 年 80%、2027 年 91%；媒體曾寫 2025 年約 80%，口徑不明；「酬載 65%、地面站 35%」只見搜尋摘要',
+  conf:'券商或報導'
+},
+'7965':{
+  rev:'2025 年營收 19.02 億元；2026 上半年 11.01 億元，毛利率 47%',
+  mix:[['低軌衛星',67],['自行車',27],['AI 伺服器散熱',3],['其他',3]],
+  mixt:'2025 年',
+  prod:['衛星本體結構件','衛星通訊模組結構件','鍛造、五軸加工、摩擦焊接的精密金屬件'],
+  cust:'公司資料寫「低軌衛星營運商的重要供應商」，沒有點名，直接出貨',
+  cap:'泰國新園區 2027 年投產',
+  next:['2027 年泰國新園區投產','新一代衛星從 800 公斤加大到 1,800 公斤，結構件用量跟著放大'],
+  risk:['客戶集中','2026 上半年的衛星占比沒有揭露'],
+  conf:'公司資料'
+},
+'6980':{
+  rev:'2025 年營收 4.18 億元（年增 51.4%），毛利率 37.7%',
+  prod:['立方衛星組裝（夜鷹號、黑鳶 1 號）','Ka、Ku 頻段相位陣列天線模組','Ka 頻段地面接收站'],
+  cust:'國家太空中心委託開發立方衛星；其他客戶沒有點名',
+  risk:['公司沒有揭露產品比重，占比是推算','另有 5G 毫米波、國防、射頻測試業務','興櫃，資訊揭露少'],
+  gap:'原筆記推算 50–80%（最佳 60%），查核放寬為 30–80% 並標「無揭露」',
+  conf:'推算'
+},
+'7717':{
+  trend:[{t:'1H25',v:52,k:'實績'},{t:'1H26',v:58,k:'實績'},{t:'2Q26',v:53,k:'實績'}],
+  rev:'2Q26 營收 3.33 億元',
+  sat:'2Q26 衛星雷射通訊營收約 1.78 億元（季增 20%、年增 67%）',
+  mix:[['衛星雷射通訊元件',53.3],['高功率光纖雷射',19.1],['光通訊被動元件',14.6],['檢測設備',7.5],['智慧照明',4.9],['其他',0.6]],
+  mixt:'2Q26',
+  prod:['星間雷射終端光放大器用的光隔離器、泵浦合束器','濾波器、分光器、端帽等光纖被動元件'],
+  cust:'兩家美系低軌營運商，券商點名但沒寫公司名，直接出貨',
+  next:['2Q26 客戶調整訂單後，下半年拉貨是否恢復','每顆衛星 3 到 4 個雷射終端，衛星發射量決定出貨'],
+  risk:['客戶集中在兩家','2Q26 曾有客戶調整訂單'],
+  gap:'53% 是 2Q26 單季、58% 是 2026 上半年，原筆記當成兩家打架，查核認定是期別不同',
+  conf:'券商或報導'
+},
+'2313':{
+  trend:[{t:'2025',v:20,k:'實績'},{t:'3Q26',v:22,k:'實績'},{t:'2026',v:21,k:'預估'},{t:'2027',v:24,k:'預估'}],
+  sat:'2027 年低軌衛星營收預估 275 億元（年增 47.4%）',
+  prod:['衛星本體電路板（天上板）','用戶終端天線板（地面接收板）'],
+  cust:'SpaceX，多家券商一致點名，直接出貨',
+  next:['天上板占衛星營收從約 25–30% 升到 2027 年約一半','10 月單月衛星占比 22%，4Q26 拉貨延續性'],
+  risk:['22% 裡多數是地面板，天上板約占全公司 5–7%','地面板受終端換代影響'],
+  gap:'2026 年一家估 21%、另一家估 26%；2027 年有 22%、23%、24% 三種估法；流傳的 35% 查不到出處；天上板市占一說約 80%、一說超過 90%',
+  conf:'券商或報導'
+},
+'4916':{
+  mix:[['航太／國防',40],['博弈',37],['低軌衛星',18],['醫療／工業',5]],
+  mixt:'2026 上半年',
+  prod:['衛星本體高可靠度線束（電源面板、推進器、鏡頭、機械手臂）','AST 次世代衛星電子通訊模組','地面接收站工業電腦'],
+  cust:'SpaceX（衛星本體線束、地面站工業電腦）、AST SpaceMobile，券商點名，直接出貨',
+  next:['4Q26 AST 衛星通訊模組出貨','2027 年低軌營收預估年增 50%'],
+  risk:['18% 含地面站工業電腦，不全是天上件'],
+  gap:'另有一個 18% 是在手訂單裡「通訊（含低軌）」的比重，含非低軌通訊，不能當營收占比；2026 上半年低軌營收年增約 100%',
+  conf:'公司資料'
+},
+'6285':{
+  trend:[{t:'2025',v:10,k:'推算'},{t:'2026',v:17,k:'推算'}],
+  rev:'2026 年營收預估 1,679 億元',
+  mix:[['服務供應商（含低軌終端、5G FWA）',48],['企業',31],['車用',21],['其他',4]],
+  mixt:'3Q26 事業群（服務供應商與車用重疊 4%）',
+  prod:['Starlink 用戶終端組裝（含天線模組）','Wi-Fi 路由器','地面站設備'],
+  cust:'SpaceX 直接出貨、合作逾四年；2026 上半年有兩家低軌客戶；SpaceX 已導入第二供應商',
+  cap:'越南廠是主要產地',
+  next:['2H26 低軌地面設備放量','2027 年地面站換機潮'],
+  risk:['第二供應商分單','毛利率約 12%，零組件漲價轉嫁落後','終端換代時出貨會斷層'],
+  gap:'公司只揭露事業群，占比是媒體轉述的市場推估；2026 年低軌營收成長有 30%、40%、60% 三種說法',
+  conf:'推算'
+},
+'2367':{
+  trend:[{t:'2023',v:8,k:'實績'},{t:'2024',v:20,k:'實績'},{t:'2025',v:15,k:'實績'},{t:'1H26',v:20,k:'實績'},{t:'2H26',v:30,k:'目標'}],
+  rev:'2025 年營收 162.46 億元',
+  prod:['低軌衛星電路板（公司說以地面產品為主）'],
+  cust:'券商歸在 SpaceX 供應鏈，但沒有直接點名',
+  cap:'衛星板原在台灣生產，泰國廠 2026 年第二到第三季量產',
+  next:['2H26 衛星占比目標 30% 以上','泰國廠量產爬坡'],
+  risk:['曾受缺料干擾','天上板與地面板沒有拆開'],
+  gap:'2024 年有 20% 與「10% 提高到 15%」兩種說法；30% 是下半年目標，不是全年實績；2023、2024 的數字只見搜尋摘要',
+  conf:'券商或報導'
+},
+'5243':{
+  trend:[{t:'1H26',v:10,k:'實績'},{t:'2026',v:15,k:'預估'}],
+  prod:['衛星本體沖壓件','用戶終端接收設備機構件（鈑金、沖壓、壓鑄）'],
+  cust:'SpaceX 直接供應商，券商點名；可能新增歐系客戶',
+  next:['2H26 營收預估比上半年成長一倍以上','2027 年占比預估 15–18%'],
+  risk:['天空端與地面端沒有拆開'],
+  gap:'約 10% 是 2026 年現況、15% 是 2026 全年預估，期別不同；2025 年是「高個位數」',
+  conf:'券商或報導'
+},
+'3105':{
+  prod:['相位陣列天線用功率放大器、低雜訊放大器的砷化鎵／氮化鎵晶圓代工','地面站用射頻元件'],
+  cust:'下單的是晶片設計客戶，最終用在 SpaceX；公司沒點名',
+  next:['2027 年航太衛星營收占比預估 20–25%','手機直連可能讓旗艦手機多用一顆功率放大器'],
+  risk:['公司不單獨揭露衛星，14% 是由基礎建設產品線換算','衛星和長距離點對點通訊混在一起','天上與用戶終端分不開'],
+  gap:'一說衛星約占基礎建設產品線 40%，另一說航太衛星加長距離點對點合計才 40% 以上；原筆記約 12% 偏低，查核改 14%（10–16%）；另有 2027 年 25%、2028 年 30% 的估法',
+  conf:'推算'
+},
+'6412':{
+  mix:[['雲端智能應用（含衛星電源）',52],['電腦電源',38],['消費性電子',10]],
+  mixt:'3Q26',
+  prod:['低軌衛星家用接收器電源（用戶終端電源）'],
+  cust:'公司稱「衛星通訊客戶」，沒有點名',
+  cap:'泰國廠擴產低軌衛星電源',
+  next:['新世代接收器電源 9 月量產，4Q26 通訊電源營收預估倍數成長','2027 年伺服器加衛星電源合計占比預估約三成'],
+  risk:['衛星占比上升有一部分是電腦電源被缺料拖累、分母縮小','與光寶科競爭同一客戶'],
+  gap:'公司只揭露「伺服器加網通電源」合計約占 3Q26 營收 15–20%，衛星沒有單獨數字',
+  conf:'推算'
+},
+'6928':{
+  sat:'1Q26 衛星通訊營收 0.47 億元（年增 65%、毛利率 34%）',
+  prod:['強固型衛星通訊終端','海事電腦（主力）'],
+  cust:'海事、國防客戶',
+  next:['7 月單月衛星占比近兩成，2H26 能否維持'],
+  risk:['「衛星應用」含同步衛星終端與政府方案，不是純低軌','主力是海事電腦（1Q26 占 55%）'],
+  gap:'1Q26 為 9%；2026 年 1–7 月約 10%（讀過全文），1–8 月 10% 只見搜尋摘要',
+  conf:'券商或報導'
+},
+'1582':{
+  trend:[{t:'1H25',v:5,k:'實績'},{t:'1H26',v:7,k:'實績'}],
+  rev:'2Q26 營收 20.06 億元，年減 6.87%',
+  prod:['終端的 EMI 遮蔽降噪蓋','天線件、支架、底座、散熱片'],
+  cust:'子公司陸合 2023 年第四季打入美系低軌業者地面設備供應鏈，沒有點名',
+  cap:'越南、泰國廠生產',
+  next:['新世代接收器的品項從 2 件增加到 6–9 件','衛星本體機構件公司說 2027–2028 年才明顯放量'],
+  risk:['2Q26 本業營業虧損 0.37 億元，靠業外撐獲利','客戶拉貨時程調整','主力仍是螢幕樞紐，約 65%'],
+  gap:'媒體曾把 2025 年「20–30%」寫成占比，實際是成長率；法人估 2026 年雙位數，公司沒證實；公司原訂 2026 全年 5–10%',
+  conf:'券商或報導'
+},
+'4912':{
+  trend:[{t:'2026',v:7,k:'目標'},{t:'2027',v:9,k:'目標'}],
+  rev:'2025 年營收 62.75 億元',
+  sat:'2026 年 4 月起衛星沖壓件每月營收約 0.5–0.6 億元（只見搜尋摘要）',
+  mix:[['汽車零組件',53.9],['電子電組件（含衛星）',38.4],['互聯健身器材',7.4]],
+  mixt:'2025 年',
+  prod:['用戶終端碟型天線機構件','散熱器','沖壓件'],
+  cust:'美系低軌業者，公司自稱，沒有點名',
+  cap:'泰國新廠 2026 年 5 月量產衛星產品，2027 年起承接中國產能；墨西哥廠也有生產',
+  next:['2026 年出貨上看 550 萬片、2027 年增 50%、2028 年挑戰千萬片','2027–2028 年占比目標 9% 以上'],
+  risk:['占比個位數，衛星槓桿低','產能移到泰國的轉換成本'],
+  gap:'7% 與 9% 都是公司預估，不是實績；「過去衛星出貨每年 3–4 億元」出自另一篇報導，只見摘要',
+  conf:'券商或報導'
+},
+'6190':{
+  trend:[{t:'2025',v:3,k:'實績'},{t:'2026',v:6,k:'目標'}],
+  cap:'SpaceX 電源線月產 180 萬條',
+  prod:['Starlink 用戶終端線材','電源線'],
+  cust:'SpaceX 主力供應商；董事長說去年從二、三階升為一階供應商',
+  next:['2026 年 6% 目標可望在第三季提前達標','2026 年出貨 1,000 萬套目標有機會上修'],
+  risk:['線材門檻不高，議價力有限','占比小，衛星槓桿低'],
+  gap:'「Starlink 地面線材市占 80%」只有媒體說法，公司法說沒有',
+  conf:'券商或報導'
+},
+'3138':{
+  prod:['Ku 頻段用戶終端','Ka 頻段陣列天線模組','國家太空中心 Ka 頻段地面站標案'],
+  cust:'國家太空中心（2026 年 3 月得標 Ka 頻段案、下半年交付）、國防與海事客戶；國際低軌營運商沒有點名',
+  cap:'越南新廠 2026 年中投產、產能五倍；八德新總部 2026 年 10 月啟用',
+  next:['2027 年衛星營收目標倍增','公司說 2028 年開始發酵'],
+  risk:['「衛星業務」不分高低軌，客群偏國防海事','研發費用率 16–17%，三到五年新高'],
+  gap:'公司只說「個位數」，5% 是推算',
+  conf:'券商或報導'
+},
+'6134':{
+  prod:['手機直連衛星陣列天線之間的高速傳輸線材'],
+  cust:'公司說已和不只一家航太客戶合作，不透露客戶屬於哪個陣營',
+  risk:['公司沒有拆出衛星，只揭露「航太工控」1Q26 占 14%','航太工控混了工控產品'],
+  gap:'衛星 3–8% 是推算，證據弱',
+  conf:'推算'
+},
+'2383':{
+  rev:'3Q26 營收 609 億元',
+  sat:'2027 年低軌衛星營收預估 322.3 億元（年增 158.4%）',
+  prod:['衛星電路板用銅箔基板（天上板與地面板）','低釋氣樹脂材料'],
+  cust:'經華通等板廠供 SpaceX',
+  next:['增量來自天上板，地面板出貨預估維持 2026 年水準'],
+  risk:['另一家基板廠已通過新一代地面板驗證、成為第二供應商','占比低，市占高但對全公司影響小'],
+  gap:'「低軌占 5–10%」的分母是基礎設施營收，不是合併營收；換算到合併營收約 3.8–8%',
+  conf:'推算'
+},
+'8289':{
+  mix:[['石英振盪器',64.1],['石英振盪子',20.7],['其他',15.2]],
+  mixt:'2025 年（按產品分，看不出衛星）',
+  prod:['高階石英振盪器（OCXO、TCXO）','低軌地面接收站用時脈元件'],
+  cust:'沒有點名的美系低軌客戶',
+  next:['2026 年低軌業務回升（2025 年受美國關稅與客戶要求影響短暫衰退）'],
+  risk:['客戶要求非台灣製造，有轉單風險','公司與券商都沒有低軌占比數字'],
+  gap:'3–10% 是推算，沒有依據可以收斂',
+  conf:'推算'
+},
+'3152':{
+  mix:[['寬頻新應用（含國防、航太、衛星）',54],['無線網路',34],['手機',12]],
+  mixt:'1Q26（只見搜尋摘要）',
+  prod:['Ka、Ku 頻段射頻元件（LTCC 濾波器等）','LTCC 雙頻雙極化天線陣列模組（驗證中）','手機直連用濾波元件'],
+  cust:'公司說已打入三大衛星營運商，沒有點名',
+  next:['手機直連濾波元件 2026 年底前有機會出貨'],
+  risk:['特殊應用含國防，衛星拆不出來','推算把握低'],
+  gap:'一份筆記寫「查無出貨」，查核認定公司已說 Ka、Ku 元件出貨；3Q25「特殊應用（國防、航太、低軌）」占 43%',
+  conf:'推算'
+},
+'2301':{
+  trend:[{t:'2026',v:1.8,k:'推算'},{t:'2027',v:2,k:'推算'}],
+  sat:'2027 年低軌電源營收推算約 60 億元',
+  mix:[['雲端及物聯網',59],['資訊消費',27],['光電',14]],
+  mixt:'3Q26 部門',
+  prod:['用戶終端電源','地面站電源（電源轉接器、PoE）'],
+  cust:'兩大低軌營運商的地面站與用戶終端電源首要供應商，市占逾 50%（券商說）',
+  next:['低軌平台 2027 年預估成長 50–60%','2026 年低軌出貨預估維持倍增'],
+  risk:['所屬資訊消費部門占比下降，2027 年預估只剩約 21%'],
+  gap:'原筆記把部門當成占全公司三到四成，算出 3–4%；查核改用部門 27%（3Q26）換算，約 2%',
+  conf:'推算'
+},
+'6271':{
+  prod:['高頻無線通訊模組（功率放大器、開關）封裝測試'],
+  cust:'Skyworks 等射頻晶片客戶；衛星終端客戶沒有點名',
+  next:['4Q26 射頻模組（光通訊與低軌）季增幅度最大','2027 年動能以光通訊為主'],
+  risk:['衛星產品單價下滑'],
+  gap:'射頻模組 3Q26 占 12%，只分衛星與光通訊兩類；另一家券商估 2026 年射頻 20%（含光通訊）；衛星 4% 是推算',
+  conf:'推算'
+},
+'6526':{
+  mix:[['藍牙',40],['固網寬頻',30],['乙太網路',14],['衛星定位（GPS）',10],['光通訊',6]],
+  mixt:'2026 年預估（衛星定位是 GPS 晶片，不是低軌通訊）',
+  prod:['用戶終端與路由器的乙太網路 PHY 晶片（1G 升級到 2.5G）'],
+  cust:'公司法說稱低軌客戶已是乙太網路業務第一大客戶，沒有點名',
+  next:['3Q26 起低軌終端由 1G 升級 2.5G PHY','1Q26 低軌營收年增超過一倍，後續延續性'],
+  risk:['「第一大客戶」不等於占乙太網路多數，乙太網路還含九暘與交換器晶片'],
+  gap:'原筆記推算 4–7%，查核下修為約 4%（2–7%）',
+  conf:'推算'
+},
+'3624':{
+  trend:[{t:'2026',v:1,k:'實績'},{t:'4Q27',v:5,k:'預估'}],
+  prod:['高規薄膜精密電阻（0.01%、2ppm 規格，毛利率約 80%）'],
+  cust:'SpaceX，券商點名，直接出貨',
+  next:['2027 年需求量在 11 月議定','2027 年底 SpaceX 占比預估升到 5% 以上'],
+  risk:['數字全來自券商，公司沒有單獨揭露'],
+  gap:'航太軍規 2026 年 1–9 月合計 8%，一家券商說「以低軌客戶為主」，照字面低軌可到 4–8%；查核取 1–3%',
+  conf:'券商或報導'
+},
+'2332':{
+  rev:'2025 年營收約 134 億元',
+  mix:[['交換機（含 Starlink 交換器）',39.3],['其他產品',37.9],['行動及寬頻',11.5],['無線網路及物聯網',11.4]],
+  mixt:'2025 年',
+  prod:['Starlink 地面站網路交換器（D-Link 品牌）'],
+  cust:'執行長說直接供貨 SpaceX、沒經代理商（只見搜尋摘要）',
+  next:['2026 年 9 月起出貨，一年出貨量上看 2 萬台'],
+  risk:['仍虧損（2025 年稅後淨損約 5.4 億元）','金額與單價都沒公開'],
+  gap:'原筆記寫「首批約 2 萬台」，原文是「一年出貨量上看 2 萬台」；年營收另一份筆記寫約 150 億元級',
+  conf:'推算'
+},
+'7812':{
+  rev:'2026 上半年營收 0.71 億元，每股虧損 1.69 元',
+  mix:[['儀器設備',75],['陣列天線模組',25]],
+  mixt:'2026 上半年（衛星只在模組裡的一部分）',
+  prod:['毫米波相位陣列天線模組','多軌道衛星終端（與 Comtech 合作開發）','HAPS 地面閘道器'],
+  cust:'Comtech 策略結盟；已交付日系 HAPS 客戶；美系衛星客戶驗證中',
+  next:['印度 FWA 4Q26 試產','2027 年模組占比預估逾五成'],
+  risk:['營收小、仍虧損','衛星終端專案還在驗證'],
+  gap:'2024 年模組占比有 5.62% 與 10% 兩種說法；原筆記推算衛星 5–15%，查核下修為 0–5%',
+  conf:'推算'
+},
+'7879':{
+  rev:'2025 上半年營收約 3.68 億元（只見搜尋摘要）',
+  prod:['衛星離子推進器用氙氣、氪氣高壓氣瓶','火箭燃料槽、探空火箭結構體','主力是工業、潛水、呼吸器用氣瓶'],
+  cust:'國際低軌衛星業者（沒有點名）、國家太空中心',
+  cap:'年出貨約 40 萬支、99% 外銷；嘉義新廠有火箭廠房與大型纏繞機',
+  risk:['董事長說衛星瓶「數量不多、單價高」','產品比重沒有揭露，要等公開說明書','9 月營收年減 37.45%，原因不明'],
+  gap:'原筆記推算 3–15%，查核下修為 5% 以下、上限 10%',
+  conf:'推算'
+},
+};
 const SEG={
  s1:{g:'sky',t:'相位陣列天線、射頻晶片'}, s2:{g:'sky',t:'波導、濾波器'}, s3:{g:'sky',t:'星間雷射'}, s4:{g:'sky',t:'衛星板、銅箔基板'},
  s5:{g:'sky',t:'結構件'}, s6:{g:'sky',t:'太陽能、電池、線束'}, s7:{g:'sky',t:'被動元件、記憶體、時脈、感測'}, s8:{g:'sky',t:'推進、散熱'}, s9:{g:'sky',t:'整顆衛星組裝'},
@@ -885,11 +1193,22 @@ $('#lev').innerHTML=LEV.map(([n,a,b,ta,tb])=>`<div class="nm">${n}</div><div cla
 let F='all'; const OPEN={t4:false,t5:false};
 const TIERS=[['t1','過半','衛星就是本業',c=>!c.geo&&c.p>=50],['t2','一到五成','衛星是主要成長來源之一',c=>!c.geo&&c.p>=10&&c.p<50],['t3','5% 到 10%','看得到，但左右不了全局',c=>!c.geo&&c.p>=5&&c.p<10],['t4','5% 以下','有出貨，槓桿小',c=>!c.geo&&c.p>0&&c.p<5],['t5','還沒量產','開發、送樣或暫停',c=>c.st==='dev'],['t6','傳統同步衛星','衛星電視、海事寬頻，不在低軌供應鏈',c=>c.geo]];
 $('#flt').innerHTML=[['all','全部'],...Object.entries(GRP)].map(([k,v])=>`<button data-f="${k}"${k==='all'?' class="on"':''}>${v}</button>`).join('');
+const MXC=['#0e6e8c','#a96812','#6b4fa8','#3d7a4a','#b0356b','#8a8f98','#2b6cb0'];
+function detailHTML(c){
+  const d=(typeof CD!=='undefined')&&CD[c.c]; if(!d)return '';
+  let ch='';
+  if(d.trend&&d.trend.length>1){const mx=Math.max(10,...d.trend.map(x=>x.v));
+    ch+=`<div><h5>衛星占營收走勢</h5><div class="tr">${d.trend.map(x=>`<div class="tc k-${x.k==='實績'?'a':x.k==='推算'?'c':'f'}"><b>${x.v}%</b><i style="height:${Math.max(4,x.v/mx*78)}%"></i><span>${x.t}</span><em>${x.k}</em></div>`).join('')}</div></div>`;}
+  if(d.mix&&d.mix.length){ch+=`<div><h5>業務組成${d.mixt?`（${d.mixt}）`:''}</h5><div class="mx">${d.mix.map((m,i)=>`<div style="width:${m[1]}%;background:${MXC[i%MXC.length]}" title="${m[0]} ${m[1]}%"></div>`).join('')}</div><div class="mxk">${d.mix.map((m,i)=>`<span><i style="background:${MXC[i%MXC.length]}"></i>${m[0]} ${m[1]}%</span>`).join('')}</div></div>`;}
+  const li=(t,v)=>v&&v.length?`<dt>${t}</dt><dd>${Array.isArray(v)?v.join('<br>'):v}</dd>`:'';
+  return `<div class="dt${ch?'':' nochart'}">${ch?`<div class="dt-c">${ch}</div>`:''}<dl class="dt-l">${li('營收規模',d.rev)}${li('衛星營收',d.sat)}${li('產品',d.prod)}${li('客戶',d.cust)}${li('產能',d.cap)}${li('接下來看',d.next)}${li('風險',d.risk)}${li('數字分歧',d.gap)}${li('數字性質',d.conf)}</dl></div>`;
+}
 function row(c,i){
+  const D=(typeof CD!=='undefined')&&CD[c.c];
   const g=grpOf(c), est=c.q==='c'?' est':'', geo=c.geo?' geo':'';
   const bar=c.st==='dev'?'':c.nd?`<span class="f est nd" style="left:${c.lo}%;width:${c.hi-c.lo}%"></span>`:`<span class="f${geo}${est}" style="width:${c.p}%"></span>${c.hi&&c.hi-(c.lo||0)>=2?`<span class="r" style="left:${c.lo||0}%;width:${c.hi-(c.lo||0)}%"></span>`:''}`;
-  return `<button class="rk-row" data-c="${c.c}" aria-expanded="false"><span class="rk-no">${i}</span><span class="rk-name">${c.n}<small>${c.c}・${c.m}</small><span class="tags">${g.map(x=>`<span class="tg ${x}" title="${GRP[x]}">${GTAG[x]}</span>`).join('')}</span></span><span class="rk-bar">${bar}</span><span class="rk-pct${c.p<5||c.nd?' sm':''}">${pctTxt(c)}</span></button>
-  <div class="rk-d" hidden><dl><dt>做什麼</dt><dd>${c.d}</dd>${c.cu?`<dt>客戶</dt><dd>${c.cu}</dd>`:''}${c.per?`<dt>占比</dt><dd>${pctTxt(c)}${!c.nd&&c.hi&&c.lo!=null&&c.hi!==c.lo?`（範圍 ${c.lo}–${c.hi}%）`:''}，${c.per}${c.q==='c'?'；公司沒有單獨揭露，由相關部門或產品線推算':''}</dd>`:''}<dt>位置</dt><dd>${c.seg.map(s=>SEG[s].t).join('、')}</dd>${c.w?`<dt>留意</dt><dd>${c.w}</dd>`:''}</dl></div>`;
+  return `<button class="rk-row" data-c="${c.c}" aria-expanded="false"><span class="rk-no">${i}</span><span class="rk-name">${c.n}<small>${c.c}・${c.m}</small>${D?'<span class="has-d">細節</span>':''}<span class="tags">${g.map(x=>`<span class="tg ${x}" title="${GRP[x]}">${GTAG[x]}</span>`).join('')}</span></span><span class="rk-bar">${bar}</span><span class="rk-pct${c.p<5||c.nd?' sm':''}">${pctTxt(c)}</span></button>
+  <div class="rk-d" hidden><dl><dt>做什麼</dt><dd>${c.d}</dd>${c.cu&&!D?`<dt>客戶</dt><dd>${c.cu}</dd>`:''}${c.per?`<dt>占比</dt><dd>${pctTxt(c)}${!c.nd&&c.hi&&c.lo!=null&&c.hi!==c.lo?`（範圍 ${c.lo}–${c.hi}%）`:''}，${c.per}${c.q==='c'?'；公司沒有單獨揭露，由相關部門或產品線推算':''}</dd>`:''}<dt>位置</dt><dd>${c.seg.map(s=>SEG[s].t).join('、')}</dd>${c.w?`<dt>留意</dt><dd>${c.w}</dd>`:''}</dl>${detailHTML(c)}</div>`;
 }
 function draw(){
   const list=CO.filter(c=>F==='all'||grpOf(c).includes(F)).sort((a,b)=>b.p-a.p);
@@ -919,7 +1238,8 @@ function go(code){
   r.scrollIntoView({block:'center',behavior:'smooth'}); r.classList.add('hit'); setTimeout(()=>r.classList.remove('hit'),2600);
 }
 document.addEventListener('click',e=>{const c=e.target.closest('[data-go]');if(c)go(c.dataset.go);});
-if(new URLSearchParams(location.search).has('open')){OPEN.t4=OPEN.t5=true;draw();const r=$('.rk-row');r.nextElementSibling.hidden=false;}
+// 驗證用：?open=1 展開第一家；?open=3491,7965 展開指定代號
+{const o=new URLSearchParams(location.search).get('open');if(o!==null){OPEN.t4=OPEN.t5=true;draw();(o&&o!=='1'?o.split(','):[$('.rk-row').dataset.c]).forEach(c=>{const r=$(`.rk-row[data-c="${c}"]`);if(r)r.nextElementSibling.hidden=false;});}}
 const DEB=[
  ['SpaceX 自己做多少','驗證門檻高，打進去就不容易被換掉','約八成零組件自製，外包的份額隨時可能收回'],
  ['換代空窗多長','V3 一次能送 60 顆，放量後追得很快','2026 年第三季部署量年減 18.8%，零件廠出貨跟著停'],

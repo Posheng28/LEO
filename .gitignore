@@ -6,3 +6,6 @@ Thumbs.db
 # 研究筆記與計畫（含券商報告的整理，不公開）
 research/
 docs/
+
+# 3D 試做樣張與各版備份（正式版的場景已併入 src/template.html，模型在 models/）
+sample/

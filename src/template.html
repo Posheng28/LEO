@@ -146,6 +146,49 @@ nav.top.dark a:hover,nav.top.dark a.on{color:var(--glow);border-bottom-color:var
 .bk{animation:blink 2s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){.fl,.bk{animation:none}}
 
+/* ===== 衛星怎麼散熱（深色） ===== */
+#thermal{background:linear-gradient(#0c1c30,#0d1a2b 40%,#101827);color:#eaf2fb;padding:20px 0 120px;position:relative;z-index:1}
+#thermal .wrap{max-width:1200px}
+#thermal .kicker{font-size:14px;color:#ff9a6b}
+#thermal h2{font-size:40px;font-weight:900;color:#fff;margin-top:6px}
+#thermal .sub{color:#a9bdd0;max-width:780px;margin:8px 0 22px;font-size:17.5px}
+#thermal h3.th-h{font-size:22px;color:#fff;margin:34px 0 14px}
+#thermal .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
+#thermal .chip b{color:var(--glow)}
+#thermal .chip:hover{border-color:var(--glow);background:rgba(244,182,72,.12)}
+#thermal .chip.z,#thermal .chip.z b{color:#8ea3b8}
+.th3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.th3 div{border-left:3px solid #ff7a45;padding:4px 0 4px 16px}
+.th3 b{display:block;font-family:var(--serif);font-weight:900;font-size:34px;color:#fff;line-height:1.15}
+.th3 span{font-size:15px;color:#a9bdd0;line-height:1.6;display:block;margin-top:4px}
+.hp{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+.hs{position:relative;padding:0 14px 0 0}
+.hs:not(:last-child)::after{content:"";position:absolute;right:0;top:44px;width:28px;height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,#ff7a45 0 6px,transparent 6px 12px);background-size:24px 3px;animation:heat 1s linear infinite}
+@keyframes heat{to{background-position:24px 0}}
+.hs .box{background:linear-gradient(160deg,rgba(40,30,34,.9),rgba(14,20,32,.94));border:1px solid rgba(255,150,110,.22);border-radius:16px;padding:14px 16px 16px;margin-right:18px;height:100%;display:flex;flex-direction:column}
+.hs svg{width:100%;height:64px;display:block;margin-bottom:6px}
+.hs h4{margin:0 0 4px;font-size:18px;color:#fff;display:flex;gap:8px;align-items:center;font-family:var(--sans)}
+.hs h4 em{font-style:normal;flex:none;width:22px;height:22px;border-radius:50%;background:#ff7a45;color:#1a0d05;font-size:13px;font-weight:700;display:grid;place-items:center}
+.hs p{margin:0 0 10px;font-size:14.5px;line-height:1.65;color:#c3d3e3;flex:1}
+.hs .hk b{font-family:var(--serif);font-weight:900;font-size:22px;color:var(--glow);display:block;line-height:1.2}
+.hs .hk span{font-size:13px;color:#a9bdd0;line-height:1.45;display:block}
+.hs .chips{margin-top:10px}
+.th-g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.tcard{background:linear-gradient(160deg,rgba(20,38,60,.9),rgba(9,19,32,.94));border:1px solid rgba(140,190,240,.2);border-radius:18px;padding:18px 20px}
+.tcard h4{margin:0 0 10px;font-size:19px;color:#fff;font-family:var(--serif)}
+.tcard ul{margin:0;padding:0;list-style:none}
+.tcard li{font-size:15.5px;line-height:1.65;color:#c3d3e3;padding:5px 0 5px 16px;position:relative}
+.tcard li::before{content:"";position:absolute;left:0;top:.95em;width:6px;height:6px;border-radius:50%;background:#ff7a45}
+.tcard .cap2{font-size:13.5px;color:#8ea3b8;margin-top:10px;line-height:1.55}
+.hb{display:grid;grid-template-columns:64px 1fr 76px;gap:8px 10px;align-items:center;font-size:14.5px;color:#c3d3e3}
+.hb i{display:block;height:14px;border-radius:4px;background:linear-gradient(90deg,#b0452a,#ff9a45)}
+.hb b{font-variant-numeric:tabular-nums;color:#fff;text-align:right;font-weight:700}
+.th-tw{margin-top:22px;border:1px solid rgba(244,182,72,.35);border-radius:16px;padding:16px 20px;background:rgba(244,182,72,.06)}
+.th-tw h4{margin:0 0 8px;font-size:18px;color:var(--glow);font-family:var(--sans)}
+.th-tw p{margin:3px 0;font-size:15.5px;color:#d5e0ec;line-height:1.65}
+@media(prefers-reduced-motion:reduce){.hs::after{animation:none}}
+@media(min-width:701px) and (max-width:1020px){.hp{grid-template-columns:repeat(3,1fr);row-gap:16px}.th-g{grid-template-columns:1fr 1fr}}
+
 /* ===== 下半：紙本章節 ===== */
 main.paper{background:var(--paper);position:relative;z-index:2;border-radius:26px 26px 0 0;margin-top:-26px;padding-top:8px}
 @media(min-width:900px){main.paper{zoom:1.08}}
@@ -294,6 +337,14 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
   .lb{font-size:14px}
   #fb{grid-template-columns:1fr}
   #frontier{padding:56px 0 84px}
+  #thermal{padding:10px 0 90px}
+  #thermal h2{font-size:28px}
+  .th3,.hp,.th-g{grid-template-columns:1fr}
+  .th3{gap:12px}
+  .th3 b{font-size:27px}
+  .hs{padding:0 0 26px}
+  .hs .box{margin-right:0}
+  .hs:not(:last-child)::after{right:auto;left:26px;top:auto;bottom:0;width:3px;height:22px;background:repeating-linear-gradient(180deg,#ff7a45 0 6px,transparent 6px 12px);background-size:3px 24px;animation:none}
   #frontier h2{font-size:28px}
   .ft{grid-template-columns:1fr}
   .fc.big{grid-column:auto}
@@ -327,7 +378,7 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
 
 <nav class="top dark"><div class="wrap">
   <span class="brand">低軌衛星</span>
-  <a data-st="net">總覽</a><a data-st="s1">天空端</a><a data-st="ut">地面端</a><a data-st="d2c">手機直連</a><a data-st="mesh">前沿技術</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
+  <a data-st="net">總覽</a><a data-st="s1">天空端</a><a data-st="ut">地面端</a><a data-st="d2c">手機直連</a><a data-st="mesh">前沿技術</a><a href="#thermal">散熱</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
 </div></nav>
 
 <div id="story">
@@ -359,6 +410,38 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:14.5px}
   <p class="sub">每一項技術走到哪、會多用哪些零件、台股誰沾得上。</p>
   <div class="mkey"><span><b>1 格</b>還在紙上</span><span><b>2 格</b>上太空驗證中</span><span><b>3 格</b>小量部署</span><span><b>4 格</b>已經量產</span></div>
   <div class="ft" id="ft"></div>
+</div></section>
+
+<section id="thermal"><div class="wrap">
+  <div class="kicker">衛星怎麼散熱</div>
+  <h2>太空很冷，衛星卻怕熱</h2>
+  <p class="sub">太空沒有空氣，風扇和鰭片吹風這一套完全沒用。熱只能先在衛星裡面傳，最後變成紅外線丟出去。</p>
+  <div class="th3">
+    <div><b>只能靠輻射</b><span>沒有空氣就沒有對流，散熱只剩「在金屬裡傳」和「從表面放出紅外線」兩條路。</span></div>
+    <div><b>−70°C ↔ 80°C</b><span>繞地球一圈約 90 分鐘，同一塊板子在曬太陽與進地球影子之間來回擺。</span></div>
+    <div><b>16 倍</b><span>散熱面的絕對溫度翻一倍，能丟掉的熱變 16 倍。所以散熱面越燙越有效率。</span></div>
+  </div>
+  <h3 class="th-h">熱是怎麼被帶走的</h3>
+  <div class="hp" id="hp"></div>
+  <div class="th-g">
+    <div class="tcard"><h4>Starlink 的做法</h4><ul>
+      <li>整顆衛星是一塊鋁平板，機身本身就是散熱器。</li>
+      <li>天線與電腦直接鎖在板上，不另外裝機箱，少一層阻礙。</li>
+      <li>朝太空那面做成格狀鰭片，加大放熱面積。</li>
+      <li>朝地面那面貼鏡面膜：電波穿得過，陽光反射走。</li></ul>
+      <div class="cap2">用了多少熱管、散熱面積多大，SpaceX 沒有公開。</div></div>
+    <div class="tcard"><h4>一平方公尺能丟多少熱</h4>
+      <div class="hb"><span>0°C</span><i style="width:28%"></i><b>280 W</b><span>20°C</span><i style="width:38%"></i><b>380 W</b><span>60°C</span><i style="width:63%"></i><b>630 W</b><span>100°C</span><i style="width:99%"></i><b>990 W</b></div>
+      <div class="cap2">單面、概算。比一台電暖器還少，所以功率一大，散熱板就得很大。</div></div>
+    <div class="tcard"><h4>太空資料中心是下一個難題</h4>
+      <div class="hb"><span>太空站</span><i style="width:12%"></i><b>約 165</b><span>運算衛星</span><i style="width:99%"></i><b>約 1,400</b></div>
+      <div class="cap2">每平方公尺散熱板要帶走的瓦數。SpaceX 規劃的運算衛星是國際太空站的八倍左右，單顆要 160 平方公尺的散熱器，還得用泵浦把冷卻液打過去。</div></div>
+  </div>
+  <div class="th-tw"><h4>台股：還沒有衛星散熱的出貨</h4>
+    <p>雙鴻：樣品完成，測試認證中。</p>
+    <p>奇鋐：開發低溫熱管與熱輻射板，對象是太空資料中心，公司說量產還要兩三年。</p>
+    <p>乙盛、聯德：已經在出貨的是地面終端的散熱片，靠空氣散熱，跟太空散熱是兩回事。</p>
+    <div class="chips" data-codes="3324,3017,5243,4912" style="margin-top:10px"></div></div>
 </div></section>
 
 <main class="paper">
@@ -795,6 +878,28 @@ requestAnimationFrame(frame);
     <div class="mt">${[1,2,3,4].map(i=>`<i${i<=f.m?' class="on"':''}></i>`).join('')}<span>${ML[f.m]}</span></div><h3>${f.t}</h3><p>${f.d}</p>
     ${f.k?`<div class="fk"><b>${f.k}</b><span>${f.ks}</span></div>`:''}${f.nx?`<div class="fn"><em>下一步</em>${f.nx}</div>`:''}
     ${f.no?`<div class="fno">${f.no}</div>`:''}${f.co&&f.co.length?`<div class="chips">${f.co.filter(c=>by[c]).map(c=>`<button class="chip${by[c].st==='dev'?' z':''}" data-go="${c}">${by[c].n}<b>${by[c].st==='dev'?'未量產':pctTxt(by[c])}</b></button>`).join('')}</div>`:''}</article>`).join('');
+})();
+
+/* ================= 衛星怎麼散熱 ================= */
+(function(){
+  const by=Object.fromEntries(CO.map(c=>[c.c,c]));
+  const chip=c=>by[c]?`<button class="chip${by[c].st==='dev'?' z':''}" data-go="${c}">${by[c].n}<b>${by[c].st==='dev'?'未量產':pctTxt(by[c])}</b></button>`:'';
+  const IC={
+   src:'<rect x="92" y="12" width="56" height="40" rx="5" fill="#1b1410" stroke="#ff9a6b"/><rect x="104" y="22" width="32" height="20" rx="2" fill="#ff7a45" class="bk"/><g stroke="#d9a441" stroke-width="2"><path d="M100 12v-7M112 12v-7M124 12v-7M136 12v-7M100 52v7M112 52v7M124 52v7M136 52v7"/></g>',
+   pad:'<rect x="84" y="10" width="72" height="14" rx="3" fill="#3b5068"/><rect x="84" y="26" width="72" height="8" rx="2" fill="#ff9a6b" opacity=".85"/><rect x="70" y="36" width="100" height="18" rx="3" fill="#9fb0c2"/>',
+   pipe:'<rect x="30" y="22" width="180" height="20" rx="10" fill="#1b2a3b" stroke="#9cc3e6"/><path class="fl" d="M44 32 H196" fill="none" stroke="#ff7a45" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/><circle cx="44" cy="32" r="5" fill="#ff7a45"/><circle cx="196" cy="32" r="5" fill="#62d8ff"/>',
+   rad:'<rect x="60" y="34" width="120" height="14" rx="3" fill="#dfe8f1"/><g stroke="#ff9a6b" stroke-width="2" fill="none" stroke-linecap="round"><path class="bk" d="M80 28 q6 -6 0 -12 q-6 -6 0 -12"/><path class="bk" style="animation-delay:.4s" d="M120 28 q6 -6 0 -12 q-6 -6 0 -12"/><path class="bk" style="animation-delay:.8s" d="M160 28 q6 -6 0 -12 q-6 -6 0 -12"/></g><path d="M70 48v8M90 48v8M110 48v8M130 48v8M150 48v8M170 48v8" stroke="#9fb0c2" stroke-width="2"/>',
+   coat:'<circle cx="52" cy="16" r="9" fill="#ffd27a"/><path d="M64 22 L108 40" stroke="#ffd27a" stroke-width="2"/><path d="M110 40 L150 20" stroke="#ffd27a" stroke-width="2" stroke-dasharray="4 4"/><rect x="60" y="42" width="120" height="6" rx="2" fill="#f4f7fa"/><rect x="60" y="48" width="120" height="10" rx="2" fill="#c9a04a"/>',
+  };
+  const HP=[
+   {t:'熱源',ic:'src',d:'功率放大器、運算晶片、雷射終端、電池。電變成訊號或運算，剩下的幾乎都變成熱。'},
+   {t:'導熱墊',ic:'pad',d:'填平零件與底板之間的縫。真空裡的縫不導熱，一定要填。',no:'台股還沒看到太空出貨'},
+   {t:'均熱板、熱管',ic:'pipe',d:'管裡的液體在熱的一端蒸發、到冷的一端凝結，不用電就把熱搬走。',k:'1 kW 以上',ks:'一支迴路式熱管能搬的熱',co:['3324','3017']},
+   {t:'散熱板',ic:'rad',d:'把熱變成紅外線射向深空。功率越大板子越大，大到要做成可以展開的。',k:'約 380 W',ks:'20°C 時每平方公尺單面能丟的熱',co:['3017']},
+   {t:'表面與保溫',ic:'coat',d:'朝外的面塗白漆或貼鏡面膜，少吸陽光、多放熱；怕冷的電池包隔熱毯、貼加熱片。',k:'10–20 層',ks:'隔熱毯的鍍鋁薄膜層數',no:'台股還沒看到太空出貨'},
+  ];
+  $('#hp').innerHTML=HP.map((h,i)=>`<div class="hs"><div class="box"><svg viewBox="0 0 240 64" aria-hidden="true">${IC[h.ic]}</svg><h4><em>${i+1}</em>${h.t}</h4><p>${h.d}</p>${h.k?`<div class="hk"><b>${h.k}</b><span>${h.ks}</span></div>`:''}${h.no?`<div class="fno">${h.no}</div>`:''}${h.co?`<div class="chips">${h.co.map(chip).join('')}</div>`:''}</div></div>`).join('');
+  $$('#thermal [data-codes]').forEach(el=>el.innerHTML=el.dataset.codes.split(',').map(chip).join(''));
 })();
 
 /* ================= 下半頁 ================= */

@@ -91,6 +91,47 @@ nav.top.dark a:hover,nav.top.dark a.on{color:var(--glow);border-bottom-color:var
 @media(prefers-reduced-motion:reduce){.fl,.bk{animation:none}}
 
 /* ===== 衛星怎麼散熱（深色） ===== */
+#solar{background:#0c1c30;color:#eaf2fb;padding:20px 0 96px;position:relative;z-index:1}
+#solar .wrap{max-width:1200px;zoom:var(--ui,1)}
+#solar .kicker{font-size:var(--fs-14);color:var(--glow)}
+#solar h2{font-size:var(--fs-40);font-weight:900;color:#fff;margin-top:6px}
+#solar .sub{color:#a9bdd0;max-width:860px;margin:8px 0 22px;font-size:var(--fs-18)}
+#solar h3.th-h{font-size:var(--fs-22);color:#fff;margin:34px 0 14px}
+#solar .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
+#solar .chip b{color:var(--glow)}
+#solar .chip:hover{border-color:var(--glow);background:rgba(244,182,72,.12)}
+#solar .chip.z,#solar .chip.z b{color:#8ea3b8}
+#solar .th3 div::before,#solar .hs h4 em,#solar .tcard li::before{background:var(--glow)}
+#solar .hs .box{border-color:rgba(244,182,72,.22);background:linear-gradient(160deg,rgba(38,34,26,.9),rgba(14,20,32,.94))}
+#solar .hs:not(:last-child)::after{background:repeating-linear-gradient(90deg,var(--glow) 0 6px,transparent 6px 12px);background-size:24px 3px}
+.hp.s7{grid-template-columns:repeat(4,1fr);row-gap:18px}
+.hp.s7 .hs:nth-child(4)::after{display:none}
+.hb2{display:grid;gap:11px}
+.hb2 div{display:grid;grid-template-columns:1fr auto;gap:3px 10px;align-items:baseline;font-size:var(--fs-15);color:#c3d3e3}
+.hb2 b{color:#fff;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hb2 i{grid-column:1/-1;display:block;height:12px;border-radius:4px;background:linear-gradient(90deg,#a9741a,#f4b648);min-width:3px}
+.hb2 i.t{background:repeating-linear-gradient(135deg,#f4b648 0 5px,#8a6a2a 5px 9px)}
+.hb2 i.g{background:#5f7d9c}
+.sc3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sc{background:linear-gradient(160deg,rgba(20,38,60,.9),rgba(9,19,32,.94));border:1px solid rgba(140,190,240,.2);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.sc.on{border-color:rgba(244,182,72,.55)}
+.sc h4{margin:0;font-size:var(--fs-22);color:#fff;font-family:var(--serif);display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px}
+.sc h4 small{font-family:var(--sans);font-weight:500;font-size:var(--fs-13);color:#0c1c30;background:var(--glow);border-radius:999px;padding:1px 10px}
+.sc h4 small.q{background:#8ea3b8}
+.sc dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}
+.sc dt{font-size:var(--fs-14);color:#a9bdd0;white-space:nowrap}
+.sc dd{margin:0;font-size:var(--fs-17);color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.sc dd small{display:block;font-weight:400;font-size:var(--fs-13);color:#8ea3b8;line-height:1.4}
+.sc .ef{display:flex;align-items:center;gap:8px}
+.sc .ef i{display:block;height:12px;border-radius:3px;background:linear-gradient(90deg,#a9741a,#f4b648);flex:none}
+.sc p{margin:0;font-size:var(--fs-15);line-height:1.65;color:#c3d3e3}
+.ck{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}
+.ck article{border:1px solid rgba(140,190,240,.2);border-radius:16px;padding:16px 18px;background:rgba(255,255,255,.03)}
+.ck q{display:block;quotes:"「" "」";font-family:var(--serif);font-weight:700;font-size:var(--fs-18);color:#fff;line-height:1.45}
+.ck em{display:inline-block;font-style:normal;font-size:var(--fs-13);font-weight:700;border-radius:999px;padding:1px 10px;margin:8px 0 6px;color:#1a0d05;background:#ff9a6b}
+.ck em.ok{background:#7fd6a8}.ck em.half{background:var(--glow)}
+.ck p{margin:0;font-size:var(--fs-15);line-height:1.65;color:#c3d3e3}
+@media(min-width:701px) and (max-width:1020px){.hp.s7{grid-template-columns:repeat(2,1fr)}.hp.s7 .hs:nth-child(2n)::after{display:none}.sc3{grid-template-columns:1fr}}
 #thermal{background:linear-gradient(#0c1c30,#0d1a2b 40%,#101827);color:#eaf2fb;padding:20px 0 120px;position:relative;z-index:1}
 #thermal .wrap{max-width:1200px}
 #thermal .kicker{font-size:var(--fs-14);color:#ff9a6b}
@@ -322,7 +363,9 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:var(--fs-15)}
   #frontier{padding:56px 0 84px}
   #thermal{padding:10px 0 90px}
   #thermal h2{font-size:var(--fs-29)}
-  .th3,.hp,.th-g{grid-template-columns:1fr}
+  .th3,.hp,.hp.s7,.th-g,.sc3,.ck{grid-template-columns:1fr}
+  #solar{padding:10px 0 70px}
+  #solar h2{font-size:var(--fs-29)}
   .th3{gap:12px}
   .th3 b{font-size:var(--fs-26)}
   .hs{padding:0 0 26px}
@@ -476,7 +519,7 @@ main.paper :where(a,button,summary):focus-visible{outline-color:var(--teal)}
 
 <nav class="top dark"><div class="wrap">
   <span class="brand">低軌衛星</span>
-  <a href="#story" data-st="net">總覽</a><a href="#story" data-st="s1">天空端</a><a href="#story" data-st="ut">地面端</a><a href="#story" data-st="d2c">手機直連</a><a href="#story" data-st="mesh">前沿技術</a><a href="#thermal">散熱</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
+  <a href="#story" data-st="net">總覽</a><a href="#story" data-st="s1">天空端</a><a href="#story" data-st="ut">地面端</a><a href="#story" data-st="d2c">手機直連</a><a href="#story" data-st="mesh">前沿技術</a><a href="#solar">發電</a><a href="#thermal">散熱</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
 </div></nav>
 
 <div id="story">
@@ -507,6 +550,43 @@ main.paper :where(a,button,summary):focus-visible{outline-color:var(--teal)}
   <p class="sub">每一項技術走到哪、會多用哪些零件、台股誰沾得上。</p>
   <div class="mkey"><span><b>1 格</b>還在紙上</span><span><b>2 格</b>上太空驗證中</span><span><b>3 格</b>小量部署</span><span><b>4 格</b>已經量產</span></div>
   <div class="ft" id="ft"></div>
+</div></section>
+
+<section id="solar"><div class="wrap">
+  <div class="kicker">衛星怎麼發電</div>
+  <h2>便宜的矽，換掉了昂貴的砷化鎵</h2>
+  <p class="sub">衛星只能靠太陽能。傳統衛星用效率高、但又貴又少的砷化鎵電池；Starlink 改用地面那種矽電池，因為衛星五年多就換一批。現在 SpaceX 要自己蓋電池廠。</p>
+  <div class="th3">
+    <div><b>100 → 0.5 美元</b><span>每瓦電池的價錢。砷化鎵換成矽，便宜約兩百倍。</span></div>
+    <div><b>約 30% → 14–19%</b><span>在太空裡的發電效率。矽只有砷化鎵的一半左右，靠多鋪面積補回來。</span></div>
+    <div><b>5 年多</b><span>Starlink 衛星設計的服役年限。矽被輻射打壞得快，但衛星還沒壞到不能用就退役了。</span></div>
+  </div>
+  <h3 class="th-h">三種電池比一比</h3>
+  <div class="sc3" id="sc3"></div>
+  <h3 class="th-h">一片太陽能翼怎麼做出來</h3>
+  <div class="hp s7" id="sp"></div>
+  <div class="th-g">
+    <div class="tcard"><h4>一顆衛星要多少電</h4>
+      <div class="hb2" id="spw"></div>
+      <div class="cap2">Starlink 的功率 SpaceX 沒公布：V2 Mini 是外部估算，V3 是券商說約兩倍。運算衛星三條是運算時的峰值功率，下一代是券商預期。其中 250 kW 那顆的太陽能板約 210 kW，要鋪 800 平方公尺上下，三個網球場大（推算）。</div></div>
+    <div class="tcard"><h4>市場要放大幾倍</h4>
+      <div class="hb2" id="smk"></div>
+      <div class="cap2">刻度是對數，每長一截是十倍。斜紋是目標或申請，不是實績。</div></div>
+    <div class="tcard"><h4>SpaceX 自己蓋電池廠</h4><ul>
+      <li>2026 年 3 月：出資支持德國設備商 Singulus，當時沒有具名。</li>
+      <li>2026 年 5 月：德州年產 10 GW 電池廠的許可文件曝光。</li>
+      <li>2026 年 11 月：向 Singulus 訂第一條 HJT 整線，超過 6,000 萬歐元，2027 上半年交。</li>
+      <li>電池自己做，外面的廠商能賣的是設備與耗材，不是電池片（推論）。</li></ul>
+      <div class="cap2">這筆訂單比 Singulus 2025 年全年營收（4,830 萬歐元）還大。確定的只有第一條線。</div></div>
+  </div>
+  <h3 class="th-h">流傳的說法，查證之後</h3>
+  <div class="ck" id="sck"></div>
+  <div class="th-tw"><h4>台股：還沒有一家有太空太陽能的實質營收</h4>
+    <p><b>小量出貨</b>（券商或記者轉述）：全新的砷化鎵磊晶、中美晶的太空用矽電池、統新的鍍膜代工，占各自營收都很小。</p>
+    <p><b>規劃中</b>：宏捷科的砷化鎵太陽能電池，券商說預計 2026 年底量產。</p>
+    <p><b>洽詢中</b>：元晶。公司說有澳洲、歐洲、日本的衛星業者來接洽，今明兩年量都很小，2027 下半年才逐步上升。公司沒有提 SpaceX，「打進 SpaceX」只有法人與記者的說法。</p>
+    <p><b>只是被點名</b>：倉和（網版）、碩禾（銀漿）。倉和真正在成長的是美國地面太陽能電池廠的網版需求。</p>
+    <div class="chips" data-codes="2455,5483,6426,8086,6443" style="margin-top:10px"></div></div>
 </div></section>
 
 <section id="thermal"><div class="wrap">
@@ -646,7 +726,7 @@ main.paper :where(a,button,summary):focus-visible{outline-color:var(--teal)}
   <div class="rk-key"><span><i style="background:var(--teal)"></i>公司、券商或報導給的數字</span><span><i style="background:repeating-linear-gradient(135deg,var(--teal) 0 5px,#69a9bb 5px 9px)"></i>公司沒揭露，推算</span><span>├─┤ 各方估計的範圍</span></div>
   <div id="rk"></div>
   <details class="fold"><summary>有衛星題材、但找不到出貨證據的公司</summary>
-    <p><b>被歸進衛星概念，查不到衛星出貨：</b>聯亞、IET-KY、立積、訊芯-KY、台星科、京元電、華邦電、光聖、亞光、先進光、今國光、金居、臻鼎-KY、欣興、高技、定穎投控、敬鵬、博智、千附精密、晟田、寶一、駐龍、漢翔、長榮航太、雷虎、茂迪、聯合再生、台達電、康舒、友達、佳世達、中磊、正文、明泰、神準、建漢、仲琦、瑞昱、雍智、笙科、良維、宣德、建舜電、和碩。</p>
+    <p><b>被歸進衛星概念，查不到衛星出貨：</b>聯亞、IET-KY、立積、訊芯-KY、台星科、京元電、華邦電、光聖、亞光、先進光、今國光、金居、臻鼎-KY、欣興、高技、定穎投控、敬鵬、博智、千附精密、晟田、寶一、駐龍、漢翔、長榮航太、雷虎、茂迪、聯合再生、倉和、碩禾、國碩、台達電、康舒、友達、佳世達、中磊、正文、明泰、神準、建漢、仲琦、瑞昱、雍智、笙科、良維、宣德、建舜電、和碩。</p>
     <p><b>跟著太空題材上漲，業務不在衛星：</b>環球晶、台勝科、合晶、嘉晶（矽晶圓）；華星光、波若威、前鼎（光通訊，做的是資料中心）；廣達、緯創、和碩（接的是 SpaceX 的算力機櫃，不是衛星）；群翊（封裝設備出貨給 SpaceX，不是衛星零件）。</p>
     <p><b>還沒上市櫃的台灣衛星公司：</b>創未來（相位陣列終端、立方衛星）、芳興（立方衛星）、星相（相位陣列晶片）、濰元（地面天線模組）、円通（通訊酬載基頻模組）、正于微波與川升（天線與量測）、晉陞太空（火箭）、亞旭（終端組裝）。</p>
   </details>
@@ -1316,6 +1396,51 @@ $('#rl').innerHTML=RL.map(r=>{const end=r.s[r.s.length-1][0];
 const LEV=[['華通　衛星本體電路板',90,6,'市占逾 90%','占營收約 6%'],['光寶科　終端與地面站電源',50,2,'市占逾 50%','占營收約 2%'],['昇達科　衛星微波元件',null,74,'','占營收約 74%']];
 $('#lev').innerHTML=LEV.map(([n,a,b,ta,tb])=>`<div class="nm">${n}</div><div class="trk">${a?`<i class="ln" style="left:${b}%;width:${a-b}%"></i><i class="d a" style="left:${a}%"></i><span style="left:${a}%">${ta}</span>`:''}<i class="d b" style="left:${b}%"></i><span style="left:${Math.max(b,9)}%">${tb}</span></div>`).join('');
 
+// ===== 衛星怎麼發電 =====
+(()=>{
+  const by=Object.fromEntries(CO.map(c=>[c.c,c]));
+  const chip=c=>by[c]?`<button class="chip${by[c].st==='dev'?' z':''}" data-go="${c}">${by[c].n}<b>${by[c].st==='dev'?'未量產':pctTxt(by[c])}</b></button>`:'';
+  // 三種電池：ef＝太空效率（畫條用的中間值，滿格 35%）
+  const SC=[
+   {n:'砷化鎵多接面',tag:'傳統衛星的主流',ef:31,eft:'29.5–32%',efs:'剛做好時',c:'約 100 美元',cap:'約 2–10 MW',caps:'各方說法不一',d:'效率最高、最耐輻射，但貴，全世界一年做不了多少。原料鎵、鍺的供應受中國出口管制。'},
+   {n:'矽',tag:'Starlink 已大量使用',on:1,ef:16.5,eft:'約 14–19%',efs:'公開的太空實測',c:'約 0.5 美元',cap:'GW 級',caps:'沿用地面產線',d:'SpaceX 沒公開用的是哪一種矽電池。HJT 是其中一種做法：製程溫度低，可以做得很薄、很輕。'},
+   {n:'鈣鈦礦疊層',tag:'驗證中',q:1,ef:27.5,eft:'27.5%',efs:'實驗室小片',c:'未知',cap:'示範',caps:'',d:'效率追得上砷化鎵，但在太空能撐多久，還沒有長期的在軌數據。'},
+  ];
+  $('#sc3').innerHTML=SC.map(x=>`<article class="sc${x.on?' on':''}"><h4>${x.n}<small${x.q?' class="q"':''}>${x.tag}</small></h4><dl><dt>太空效率</dt><dd><span class="ef"><i style="width:${(x.ef/35*120).toFixed(0)}px"></i>${x.eft}</span><small>${x.efs}</small></dd><dt>每瓦電池</dt><dd>${x.c}</dd><dt>全球年產能</dt><dd>${x.cap}${x.caps?`<small>${x.caps}</small>`:''}</dd></dl><p>${x.d}</p></article>`).join('');
+  const IC={
+   wafer:'<circle cx="120" cy="32" r="25" fill="#22364d" stroke="#f4b648" stroke-width="1.5"/><path d="M104 13v38M120 7v50M136 13v38M97 22h46M95 32h50M97 42h46" stroke="#5f7d9c"/>',
+   cell:'<rect x="90" y="8" width="60" height="48" rx="4" fill="#16345c" stroke="#7fb2ff"/><rect x="90" y="8" width="60" height="9" rx="4" fill="#f4b648" opacity=".85"/><rect x="90" y="47" width="60" height="9" rx="4" fill="#7fb2ff" opacity=".55"/>',
+   print:'<rect x="88" y="8" width="64" height="48" rx="4" fill="#16345c" stroke="#7fb2ff"/><path d="M92 15h56M92 21h56M92 27h56M92 33h56M92 39h56M92 45h56M92 51h56" stroke="#dfe7ef" stroke-width=".9"/><path d="M108 8v48M132 8v48" stroke="#f4b648" stroke-width="3"/>',
+   glass:'<rect x="84" y="36" width="72" height="18" rx="3" fill="#16345c" stroke="#7fb2ff"/><rect x="80" y="24" width="80" height="8" rx="2" fill="#bfe3ff" opacity=".4" stroke="#bfe3ff"/><path d="M100 4l6 15M120 2v17M140 4l-6 15" stroke="#f4b648" stroke-width="2" stroke-linecap="round"/>',
+   string:'<g fill="#16345c" stroke="#7fb2ff"><rect x="62" y="14" width="32" height="36" rx="3"/><rect x="104" y="14" width="32" height="36" rx="3"/><rect x="146" y="14" width="32" height="36" rx="3"/></g><path d="M94 32h10M136 32h10" stroke="#f4b648" stroke-width="3"/>',
+   deploy:'<rect x="110" y="22" width="20" height="20" rx="3" fill="#9fb0c2"/><path d="M130 32l13-13 13 13 13-13 13 13M110 32l-13-13-13 13-13-13-13 13" fill="none" stroke="#7fb2ff" stroke-width="3" stroke-linejoin="round"/>',
+   batt:'<rect x="92" y="15" width="52" height="34" rx="5" fill="#16345c" stroke="#7fb2ff"/><rect x="144" y="25" width="6" height="14" rx="2" fill="#7fb2ff"/><path d="M122 19l-11 15h10l-4 11 13-17h-10z" fill="#f4b648"/>',
+  };
+  const SP=[
+   {t:'晶圓、磊晶',ic:'wafer',d:'矽：拉成晶棒、切成薄片。砷化鎵：在基板上一層一層長出發電層。',co:['2455']},
+   {t:'電池片',ic:'cell',d:'做出把光變成電的結構。太空用的要薄、要耐輻射。',co:['5483','8086','6443']},
+   {t:'印電極',ic:'print',d:'用網版把銀漿印成細線，收集電流。HJT 只能用低溫銀漿、用銀多，線印得越細越省。',no:'倉和、碩禾做的是地面產品'},
+   {t:'蓋片與鍍膜',ic:'glass',d:'每片電池貼一片薄玻璃再鍍膜，擋紫外線、質子和原子氧。',co:['6426']},
+   {t:'串接成陣列',ic:'string',d:'把電池焊成一串、貼上基板。一年進出地球影子五千多次，焊點容易疲勞。',no:'沒查到台廠'},
+   {t:'基板與展開機構',ic:'deploy',d:'硬板或可以捲的薄膜，加上鉸鏈與伸展桿。要收得小、展得開。',no:'沒查到台廠'},
+   {t:'電源與電池',ic:'batt',d:'把電調整好送出去；進地球影子時靠鋰電池撐。',co:['7915','4916']},
+  ];
+  $('#sp').innerHTML=SP.map((h,i)=>`<div class="hs"><div class="box"><svg viewBox="0 0 240 64" aria-hidden="true">${IC[h.ic]}</svg><h4><em>${i+1}</em>${h.t}</h4><p>${h.d}</p>${h.no?`<div class="fno">${h.no}</div>`:''}${h.co?`<div class="chips">${h.co.map(chip).join('')}</div>`:''}</div></div>`).join('');
+  const PW=[['Google 原型星',1,'約 1 kW'],['Starlink V2 Mini',28,'約 28 kW'],['Starlink V3',56,'約兩倍'],['SpaceX 運算衛星原型',100,'100 kW'],['SpaceX 運算衛星',250,'250 kW'],['下一代運算衛星',375,'350–400 kW','t']];
+  $('#spw').innerHTML=PW.map(([n,v,t,c])=>`<div><span>${n}</span><b>${t}</b><i${c?` class="${c}"`:''} style="width:${Math.max(1,v/400*100).toFixed(1)}%"></i></div>`).join('');
+  // 市場量級（GW／年），對數刻度 0.01～1000
+  const MK=[['現在的太空需求',.02,'約 0.02 GW'],['SpaceX 2027 年底目標（運算功率）',1,'1 GW','t'],['德州電池廠申請',10,'10 GW','t'],['馬斯克說的目標',100,'100 GW','t'],['地面太陽能一年',664,'約 660 GW','g']];
+  $('#smk').innerHTML=MK.map(([n,v,t,c])=>`<div><span>${n}</span><b>${t}</b><i${c?` class="${c}"`:''} style="width:${((Math.log10(v)+2)/5*100).toFixed(1)}%"></i></div>`).join('');
+  const CK=[
+   ['SpaceX 訂了年產能 100 GW 的 HJT 設備','half','部分對','確定的只有第一條線。設備商原文寫的是「支援超過 100 GW 的生產設備」，沒寫每年、也沒寫期限；「每年 100 GW」是馬斯克的說法。'],
+   ['HJT 在太空的效率有 20–24%','','對不上','那是地面的數字。太空裡公開實測的矽電池約 14–19%。'],
+   ['用到壽命末期還保留 95%','','查不到出處','最接近的是實驗室數據：照射後在 80°C 光照下修復到 97%。其他來源估 7 年剩 76%，也有人說 5 年只剩五到六成。'],
+   ['HJT 最耐輻射','','說太滿','耐不耐輻射主要看晶片是 P 型還是 N 型、做得多薄，沒有看到 HJT 與其他做法的正面對照。'],
+   ['台股受益：元晶、倉和','','只是被點名','名單出自一份券商報告，報告只列名、沒寫供什麼。元晶自己說的是有衛星業者來接洽、量還很小；倉和的網版是地面產品，沒有任何太空的說法。'],
+  ];
+  $('#sck').innerHTML=CK.map(([q,c,v,t])=>`<article><q>${q}</q><em${c?` class="${c}"`:''}>${v}</em><p>${t}</p></article>`).join('');
+  $$('#solar [data-codes]').forEach(el=>el.innerHTML=el.dataset.codes.split(',').map(chip).join(''));
+})();
 let F='all'; const OPEN={t4:false,t5:false};
 const TIERS=[['t1','過半','衛星就是本業',c=>!c.geo&&c.p>=50],['t2','一到五成','衛星是主要成長來源之一',c=>!c.geo&&c.p>=10&&c.p<50],['t3','5% 到 10%','看得到，但左右不了全局',c=>!c.geo&&c.p>=5&&c.p<10],['t4','5% 以下','有出貨，槓桿小',c=>!c.geo&&c.p>0&&c.p<5],['t5','還沒量產','開發、送樣或暫停',c=>c.st==='dev'],['t6','傳統同步衛星','衛星電視、海事寬頻，不在低軌供應鏈',c=>c.geo]];
 $('#flt').innerHTML=[['all','全部'],...Object.entries(GRP)].map(([k,v])=>`<button data-f="${k}"${k==='all'?' class="on"':''}>${v}</button>`).join('');

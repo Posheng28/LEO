@@ -67,7 +67,7 @@
   function tl(b){
     var rows=b.rows.filter(function(r){return r.d;}).concat(b.rows.filter(function(r){return !r.d;}));
     return '<div class="vz-blk">'+title(b)+'<div class="vz-tl">'+rows.map(function(r){
-      return '<div class="vz-tlr'+(r.d?'':' vz-nod')+'">'+(r.d?'<time>'+esc(r.d)+'</time>':'<time>—</time>')+'<p>'+esc(r.t)+'</p></div>';}).join('')+'</div></div>';
+      return '<div class="vz-tlr'+(r.d?'':' vz-nod')+'">'+(r.d?'<time>'+esc(r.d)+'</time>':'')+'<p>'+esc(r.t)+'</p></div>';}).join('')+'</div></div>';
   }
   function gap(b){return '<div class="vz-gap"><b>數字不一致</b><span>'+esc(b.t)+'</span></div>';}
   var K={chips:chips,list:list,ring:ring,stats:stats,series:series,road:road,mix:mix,tl:tl,gap:gap};

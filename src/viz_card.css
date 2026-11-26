@@ -65,7 +65,7 @@
 .vz-tlr::before{content:'';position:absolute;left:-6px;top:.45em;width:10px;height:10px;border-radius:50%;background:var(--vz-pri)}
 .vz-tlr.vz-nod::before{background:var(--vz-bg);border:2px solid var(--vz-mut);width:6px;height:6px}
 .vz-tlr time{font-family:'Noto Serif TC',serif;font-weight:700;font-size:15px;color:var(--vz-pri)}
-.vz-tlr.vz-nod time{color:var(--vz-mut);font-weight:400}
+.vz-tlr.vz-nod{grid-template-columns:1fr}
 .vz-tlr p{margin:0;font-size:15px}
 /* 組成條 */
 .vz-mixbar{display:flex;height:16px;border-radius:4px;overflow:hidden;background:var(--vz-rule)}

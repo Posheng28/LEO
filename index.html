@@ -175,6 +175,39 @@ nav.top.dark a:hover,nav.top.dark a.on{color:var(--glow);border-bottom-color:var
 @media(prefers-reduced-motion:reduce){.hs::after{animation:none}}
 @media(min-width:701px) and (max-width:1020px){.hp{grid-template-columns:repeat(3,1fr);row-gap:16px}.th-g{grid-template-columns:1fr 1fr}}
 
+/* ===== 衛星怎麼傳資料（電波＋雷射） ===== */
+#signal{background:linear-gradient(#050b14,#081628 45%,#050b14);color:#eaf2fb;padding:84px 0 30px;position:relative;z-index:1}
+#signal .wrap{max-width:1200px;zoom:var(--ui,1)}
+#signal .kicker{font-size:var(--fs-14);color:#62d8ff}
+#signal h2{font-size:var(--fs-40);font-weight:900;color:#fff;margin-top:6px}
+#signal .sub{color:#a9bdd0;max-width:880px;margin:8px 0 22px;font-size:var(--fs-18)}
+#signal h3.th-h{font-size:var(--fs-22);color:#fff;margin:38px 0 4px;display:flex;align-items:center;gap:10px}
+#signal h3.th-h i{width:12px;height:12px;border-radius:50%;background:#62d8ff;box-shadow:0 0 12px #62d8ff;flex:none}
+#signal h3.th-h.lz i{background:#ff6ec7;box-shadow:0 0 12px #ff6ec7}
+#signal .th-hs{color:#8ea3b8;font-size:var(--fs-15);margin:0 0 16px;max-width:900px}
+#signal .chip{background:rgba(255,255,255,.06);border-color:rgba(160,200,240,.28);color:#eaf2fb}
+#signal .chip b{color:var(--glow)}
+#signal .chip:hover{border-color:var(--glow);background:rgba(244,182,72,.12)}
+#signal .chip.z,#signal .chip.z b{color:#8ea3b8}
+#signal .th3 div::before,#signal .hs h4 em,#signal .tcard li::before{background:#62d8ff}
+#signal .hs .box{border-color:rgba(98,216,255,.24);background:linear-gradient(160deg,rgba(16,36,58,.92),rgba(8,16,30,.95))}
+#signal .hs:not(:last-child)::after{background:repeating-linear-gradient(90deg,#62d8ff 0 6px,transparent 6px 12px);background-size:24px 3px}
+#signal .hp.lz .hs .box{border-color:rgba(255,110,199,.26);background:linear-gradient(160deg,rgba(40,16,44,.9),rgba(10,14,30,.95))}
+#signal .hp.lz .hs h4 em{background:#ff6ec7;color:#24061a}
+#signal .hp.lz .hs:not(:last-child)::after{background:linear-gradient(90deg,rgba(255,110,199,.2),#ff6ec7 50%,rgba(255,110,199,.2));background-size:24px 3px;box-shadow:0 0 8px #ff6ec7}
+#signal .tcard.lz li::before{background:#ff6ec7}
+#signal .hs .hk b{color:#9fe8ff}
+#signal .hp.lz .hs .hk b{color:#ffb3e1}
+#signal .hp{grid-template-columns:repeat(3,1fr);row-gap:18px}
+#signal .hp .hs:nth-child(3n)::after{display:none}
+#signal .hs svg .pl{animation:sgf 1.6s linear infinite}
+@keyframes sgf{to{stroke-dashoffset:-24}}
+#signal .th-g{margin-top:22px}
+#signal .rx{margin-top:12px;font-size:var(--fs-15);color:#a9bdd0;border-left:3px solid #62d8ff;padding:2px 0 2px 12px}
+#signal .rx.lz{border-color:#ff6ec7}
+@media(min-width:701px) and (max-width:1020px){#signal .hp{grid-template-columns:repeat(2,1fr)}#signal .hp .hs:nth-child(3n):not(:last-child)::after{display:block}#signal .hp .hs:nth-child(2n)::after{display:none}}
+@media(prefers-reduced-motion:reduce){#signal .hs svg .pl{animation:none}}
+
 /* ===== 下半：紙本章節 ===== */
 main.paper{background:var(--paper);position:relative;z-index:2;padding-top:8px}
 main.paper::before{content:"";position:absolute;left:0;right:0;top:-26px;height:26px;background:var(--paper);border-radius:26px 26px 0 0}
@@ -366,6 +399,12 @@ footer{padding:40px 0 60px;color:var(--mute);font-size:var(--fs-15)}
   .th3,.hp,.hp.s7,.th-g,.sc3,.ck{grid-template-columns:1fr}
   #solar{padding:10px 0 70px}
   #solar h2{font-size:var(--fs-29)}
+  #signal{padding:56px 0 20px}
+  #signal h2{font-size:var(--fs-29)}
+  #signal .hp{grid-template-columns:1fr}
+  #signal .hp .hs:nth-child(3n):not(:last-child)::after{display:block}
+  #signal .hs:not(:last-child)::after{background:repeating-linear-gradient(180deg,#62d8ff 0 6px,transparent 6px 12px);background-size:3px 24px}
+  #signal .hp.lz .hs:not(:last-child)::after{background:linear-gradient(180deg,rgba(255,110,199,.2),#ff6ec7 50%,rgba(255,110,199,.2));background-size:3px 24px}
   .th3{gap:12px}
   .th3 b{font-size:var(--fs-26)}
   .hs{padding:0 0 26px}
@@ -599,7 +638,7 @@ main.paper :where(a,button,summary):focus-visible{outline-color:var(--teal)}
 
 <nav class="top dark"><div class="wrap">
   <span class="brand">低軌衛星</span>
-  <a href="#story" data-st="net">總覽</a><a href="#story" data-st="s1">天空端</a><a href="#story" data-st="ut">地面端</a><a href="#story" data-st="d2c">手機直連</a><a href="#story" data-st="mesh">前沿技術</a><a href="#solar">發電</a><a href="#thermal">散熱</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
+  <a href="#story" data-st="net">總覽</a><a href="#story" data-st="s1">天空端</a><a href="#story" data-st="ut">地面端</a><a href="#story" data-st="d2c">手機直連</a><a href="#story" data-st="mesh">前沿技術</a><a href="#signal">訊號</a><a href="#solar">發電</a><a href="#thermal">散熱</a><a href="#scale">規模</a><a href="#launch">發射</a><a href="#players">玩家與時程</a><a href="#rank">台股排行</a><a href="#debate">分歧</a>
 </div></nav>
 
 <div id="story">
@@ -623,6 +662,65 @@ main.paper :where(a,button,summary):focus-visible{outline-color:var(--teal)}
   </div>
   <div id="fb"></div>
 </div>
+
+<section id="signal"><div class="wrap">
+  <div class="kicker">衛星怎麼傳資料</div>
+  <h2>電波上下地面，雷射在天上接力</h2>
+  <p class="sub">Starlink 衛星對你家的天線、對地面站，都用電波；衛星和衛星之間，用雷射把資料一站一站往下傳。兩條路用的零件大不相同，台股公司也各站一段。</p>
+  <div class="th3">
+    <div><b>5 ＋ 3 ＋ 3</b><span>用 Falcon 9 發射的這一代，每顆衛星：5 面對用戶的相位陣列天線、3 面對地面站的回傳天線、3 個雷射。</span></div>
+    <div><b>4 個頻段</b><span>V3 的回傳天線，每面都支援 Ka、E、V、W 四個頻段，共 4 面，回傳容量 1.2 Tbps，是上一代的 8 倍多。</span></div>
+    <div><b>6 × 400 Gbps</b><span>V3 每顆 6 個雷射，每個 400 Gbps；上一代是 3 個、最高 200 Gbps。全星系在軌的雷射超過 2.4 萬個（2025 年）。</span></div>
+  </div>
+
+  <h3 class="th-h"><i></i>電波那條路：衛星把資料送回地面站</h3>
+  <p class="th-hs">以對地面站的回傳天線為例，這段頻率最高，最能看出波導和濾波器的用處。下面是發射的順序，收訊號時倒過來走。</p>
+  <div class="hp" id="srf"></div>
+  <div class="rx">收訊號：天線 → 饋入件 → 濾波器先擋掉頻道以外的頻率，包括自己發出去的強訊號 → 低雜訊放大器把微弱的訊號放大 → 數據機解回資料。</div>
+  <div class="th-g">
+    <div class="tcard"><h4>衛星上不只一種天線</h4><ul>
+      <li><b>對用戶：相位陣列。</b>平板上排滿小天線單元，SpaceX 自己設計的晶片調整每個單元的訊號，不用轉動天線，就能把波束指向各地的用戶。V3 一顆有 2,048 個下行波束，上一代 192 個；餵訊號給相位陣列的數據機晶片，處理量約是上一代的 64 倍。</li>
+      <li><b>對地面站：回傳天線。</b>上一代是碟形。這類天線通常用波導把放大器的大功率送到饋入件，再由碟面聚成窄波束。</li>
+      <li><b>手機直連：</b>直連衛星另外裝專用的相位陣列天線，像太空裡的基地台，收到的訊號再經雷射送到全球。</li></ul>
+      <div class="cap2">Starlink 沒公開衛星內部的線路怎麼排；上面的順序是照 NASA、歐洲太空總署說明太空船通訊的通用架構整理的示意。</div></div>
+    <div class="tcard"><h4>頻率越高，零件越難做</h4><ul>
+      <li>頻率越高的頻段，可用的頻寬越寬，一次能塞的資料越多。V3 回傳加進 V、W 頻段，W 頻段在 100 GHz 上下。</li>
+      <li>一般電線在這種頻率損耗很大，路長一點、功率大一點的地方多半改走波導；波導的寬度要跟波長差不多，頻率越高，管子越細、加工越要精準。</li>
+      <li>波導封住一段，會在特定頻率共振；把幾段這樣的空腔串起來，就能只放行某個頻率。所以毫米波的濾波器本身常就是一段特別加工的波導，叫波導濾波器。</li></ul>
+      <div class="cap2">傳統衛星是每個頻道各接一個濾波器，頻道越多、濾波器越多。V3 回傳從 2 個頻段變 4 個（Starlink 公布）；券商估 V3 高頻酬載模組每台用的昇達科元件，從 8 顆增加到 30 顆。</div></div>
+    <div class="tcard"><h4>V3 的容量從哪裡來</h4><ul>
+      <li>下行 1 Tbps、上行 160 Gbps，分別是上一代的約 10 倍、22 倍。</li>
+      <li>回傳上行可用的頻譜 60 GHz（頻率和偏振合計），是上一代的 4.3 倍。</li>
+      <li>電波回傳 1.2 Tbps、6 個雷射，上下地面和天上接力都有更寬的路。</li></ul>
+      <div class="cap2">都是 Starlink 公布的設計值。V3 的回傳天線是什麼形狀，官方沒說。</div></div>
+  </div>
+
+  <h3 class="th-h lz"><i></i>雷射那條路：衛星把資料傳給隔壁的衛星</h3>
+  <p class="th-hs">星間雷射多半用看不見的近紅外光，常見約 1550 奈米，跟地面光纖網路同一個波段（Starlink 沒公布自己用哪個波長）。終端裡走的是光纖、光放大器和鏡片，衛星之間走真空，用不到電波那套金屬波導。</p>
+  <div class="hp lz" id="slz"></div>
+  <div class="th-g">
+    <div class="tcard lz"><h4>雷射負責什麼</h4><ul>
+      <li><b>海上：</b>船上的流量經雷射在天上繞到有陸地網路的地方再下來。</li>
+      <li><b>手機直連：</b>直連衛星收到的語音、訊息，經雷射送到全球。</li>
+      <li><b>地面斷線：</b>光纖斷了、停電，衛星之間照樣接力。Starlink 舉過西班牙、葡萄牙大停電，以及阿拉斯加 Nome 海纜斷線時，用雷射繞到沒受影響的地面站的例子。</li>
+      <li>Starlink 說 V3 的雷射網，任兩點之間都有備援路徑。</li></ul></div>
+    <div class="tcard lz"><h4>雷射的限制</h4><ul>
+      <li><b>要對得極準：</b>光束很細，指向偏差不到一度的一小部分，就可能完全打不中。</li>
+      <li><b>怕雲：</b>雲裡的水氣會把雷射吃掉，有雲時就傳不了，地面站得蓋在少雲的地方或換站接。Starlink 對用戶和地面站用的是電波。</li>
+      <li><b>不用執照：</b>光的頻率目前沒有管制，電波頻率要向主管機關申請。</li></ul>
+      <div class="cap2">這三點出自 NASA 對雷射通訊的說明。</div></div>
+    <div class="tcard lz"><h4>運算衛星更靠雷射</h4><ul>
+      <li>SpaceX 的運算衛星 Starmind，美國主管機關的核准文件寫明：主要靠跟 Starlink 之間的雷射連線。</li>
+      <li>電波只准拿來做備援與緊急的遙測、指令，雷射壞掉時才用。</li></ul>
+      <div class="cap2">運算衛星自己不直接用電波對地面，一顆要配幾個雷射終端，SpaceX 還沒公布。</div></div>
+  </div>
+
+  <div class="th-tw"><h4>台股：兩條路上各站一段</h4>
+    <p><b>電波那條路</b>：穩懋代工相位陣列用的功率放大器與低雜訊放大器晶片；昇達科做濾波器、多工器、正交模態轉換器、波導元件，公司說衛星產品涵蓋 L 到 E 頻段，公司簡報把重點畫在衛星對地面站的回傳；衛星與天線用的電路板，華通做板子、台光電供板材。</p>
+    <p><b>雷射那條路</b>：萊德做光纖放大器裡的光纖被動元件，公司說雷射功率越大、放大器級數越多，用量跟著倍增；萊德說濾光片向統新、東典光電拿，用在終端哪個位置沒說。</p>
+    <p><b>還沒講清楚的</b>：昇達科被券商說切入「星間雷射用濾波器」，但公司官網列的全是微波元件，沒說這是光學還是電波用的零件。</p>
+    <div class="chips" data-codes="3105,3491,2313,2383,7717,6426" style="margin-top:10px"></div></div>
+</div></section>
 
 <section id="frontier"><div class="wrap">
   <div class="kicker">前沿技術</div>
@@ -886,7 +984,7 @@ const CO=[
 {c:'3152',n:'璟德',m:'上櫃',p:8,lo:5,hi:20,per:'2026 年',q:'c',seg:['s2'],d:'Ka、Ku 頻段射頻元件，已出貨',cu:'三大衛星營運商（未點名）',w:'公司只揭露含國防的「特殊應用」，衛星拆不出來，推算把握低'},
 {c:'6213',n:'聯茂',m:'上市',p:0,st:'dev',seg:['u2'],d:'低軌衛星電路板用的銅箔基板：先做地面設備板（M4 加 M7 混壓），太空端衛星板用的 M8 在送樣；2027 年開始貢獻',cu:'未點名（客戶要求非中國製造，由泰國廠供貨）',w:'2026 年還沒有衛星營收；公司初估 2027 年衛星占營收 5% 到高個位數（上半年小量、下半年放量），會受玻纖布供應影響'},
 {c:'6443',n:'元晶',m:'上市',p:0,st:'dev',seg:['s6'],d:'矽太陽能電池與模組；公司說有澳洲、歐洲、日本的衛星業者來接洽，2027 下半年需求才上升',cu:'',w:'今明兩年量都很小；公司沒有提 SpaceX，「打進 SpaceX」只有法人與記者的說法'},
-{c:'6426',n:'統新',m:'上市',p:2,lo:0,hi:5,lbl:'<5%',per:'2026 年第二季',q:'c',seg:['s3','s6'],d:'星間雷射通訊接收端的濾光片；衛星太陽能電池鍍膜代工',cu:'',w:'公司說濾光片已通過太空環境可靠性認證，總經理說拿到衛星間光通訊訂單（2026 年 3 月報導）；萊德 11 月法說說濾光片向統新、東典拿。公司 11 月法說簡報沒提衛星。占比只推算得到鍍膜代工那一塊（2Q26 在主動加其他 10% 裡），濾光片賣給衛星的金額沒揭露，實際可能更高'},
+{c:'6426',n:'統新',m:'上市',p:2,lo:0,hi:5,lbl:'<5%',per:'2026 年第二季',q:'c',seg:['s3','s6'],d:'星間雷射終端用的濾光片（用在終端哪個位置公司沒說）；衛星太陽能電池鍍膜代工',cu:'',w:'公司說濾光片已通過太空環境可靠性認證，總經理說拿到衛星間光通訊訂單（2026 年 3 月報導）；萊德 11 月法說說濾光片向統新、東典拿。公司 11 月法說簡報沒提衛星。占比只推算得到鍍膜代工那一塊（2Q26 在主動加其他 10% 裡），濾光片賣給衛星的金額沒揭露，實際可能更高'},
 {c:'3596',n:'智易',m:'上市',p:0,st:'dev',seg:['u1'],d:'用戶終端代工，還在爭取第一筆訂單',cu:'低軌營運商（多家來參訪，還沒下單）',w:'公司說就算拿到，2027 年貢獻也小；券商把衛星代工列為 2028 年的新動能之一'},
 {c:'2454',n:'聯發科',m:'上市',p:0,st:'dev',seg:['d2'],d:'衛星通訊晶片 2023 年已用在市售手機，但不是走低軌；2026 年 3 月跟 Starlink 展示用 M90 數據機的手機收緊急警報，還沒有低軌晶片出貨的說法',cu:'',w:'功能內建，不單獨計價；市場說 SpaceX 是它第二家 ASIC 客戶，那是 AI 晶片、跟衛星無關（券商推測，公司沒點名）'},
 {c:'6462',n:'神盾',m:'上櫃',p:0,st:'dev',seg:['d2'],d:'衛星物聯網終端（子公司神盾衛星），展示階段',cu:'',w:'查到的都是展示與試點，沒有出貨或營收的說法'},
@@ -1323,7 +1421,7 @@ const CV={
 '6426':{
   conf:'券商或報導',
   pc:[
-    {k:'chips',t:'產品',rows:[{label:'衛星用',items:['星間雷射終端接收端的濾光片','衛星太陽能電池鍍膜代工']},{label:'本業',items:['資料中心與電信骨幹用的光通訊濾光片']}]},
+    {k:'chips',t:'產品',rows:[{label:'衛星用',items:['星間雷射終端用的濾光片（位置公司沒說）','衛星太陽能電池鍍膜代工']},{label:'本業',items:['資料中心與電信骨幹用的光通訊濾光片']}]},
     {k:'list',rows:[{label:'客戶',t:'星間雷射元件廠萊德光電 2026 年 11 月法說說濾光片向統新、東典光電拿；總經理 2026 年 3 月說拿到衛星間光通訊訂單（記者轉述）'},{label:'認證',t:'公司說濾光片已通過太空環境可靠性認證（記者轉述）'}]}
   ],
   q:[
@@ -1978,7 +2076,7 @@ const ST=[
  {id:'hero',nav:'開場',cam:{t:[0,2.5,0],az:1.02,pol:1.4,r:17.5},ox:-.19,my:-.2},
  {id:'net',nav:'總覽',eye:'總覽',t:'一張接在天上的網',d:'用戶的天線把資料往上送，衛星之間用雷射接力，最後由閘道站接進光纖。回程走同一條路的反方向。',keys:1,cam:{t:[1.5,-6.5,1],az:1.2,pol:1.5,r:46},ox:.15,my:.16},
  {id:'s1',seg:'s1',eye:'天空端',d:'整面天線由上千個小單元組成，用電子方式把波束打到地面，不用轉動。每個單元後面都要一組放大器晶片。',k:'4–5 倍',ks:'新一代每顆衛星的射頻晶片，約 7,500 顆 → 3.3 萬顆',cam:{t:[0,-.2,0],az:1.05,pol:2.5,r:7.2},an:[0,-.2,0],ox:.16,my:.17},
- {id:'s2',seg:'s2',eye:'天空端',d:'衛星對閘道站的回傳走更高的頻段。訊號靠波導送到天線，再用濾波器把各個頻道分開。',k:'8 → 30 顆',ks:'新一代高頻回傳模組，每台用的微波元件',cam:{t:[2.3,-.5,.1],az:.35,pol:1.95,r:4.4},an:[2.3,-.55,.7],ox:.16,my:.17},
+ {id:'s2',seg:'s2',eye:'天空端',d:'衛星對閘道站的回傳走更高的頻段。放大器出來的訊號先經濾波器挑出各自的頻道，再沿著波導送到天線發出去；收訊號時倒過來。',k:'8 → 30 顆',ks:'券商估：V3 高頻酬載模組每台用的元件',cam:{t:[2.3,-.5,.1],az:.35,pol:1.95,r:4.4},an:[2.3,-.55,.7],ox:.16,my:.17},
  {id:'s3',seg:'s3',eye:'天空端',d:'衛星之間用雷射直接傳資料，不佔無線電頻譜。海上、沙漠沒有地面站，也能一顆接一顆送回去。',k:'3 → 6 個',ks:'每顆 Starlink 衛星的雷射終端：現役 3 個、單條最高 200 Gbps；新一代 V3 6 個、單條 400 Gbps',cam:{t:[1.5,.35,.9],az:1.05,pol:1.22,r:4.2},an:[1.75,.34,1.05],ox:.16,my:.17},
  {id:'s4',seg:'s4',eye:'天空端',d:'天線、射頻、運算都做在電路板上。要耐真空與冷熱循環，層數與材料等級一路往上。',k:'約 2 倍',ks:'新一代單顆電路板價值；手機直連衛星再加四到五成',e:1,cam:{t:[0,-.6,0],az:1.2,pol:2.12,r:8},an:[.9,-.55,.9],ox:.16,my:.17},
  {id:'s5',seg:'s5',eye:'天空端',d:'撐住所有零件的骨架與外殼。衛星越做越大，加工精度與公差的要求跟著提高。',k:'800 → 1,800 kg',ks:'單顆衛星重量',e:.6,extra:['s9'],cam:{t:[0,-.2,0],az:2.05,pol:1.38,r:8},an:[-1.6,.05,1.3],ox:.16,my:.17},
@@ -2503,9 +2601,9 @@ requestAnimationFrame(frame);
 // 前沿技術：m＝成熟度 1 還在紙上、2 驗證中、3 小量部署、4 已量產；co＝台股代號（要在 co_data.js 裡）；ic＝圖示；no＝沒有台股時顯示的一句話
 // 內容出處在 research/06_前沿技術.md
 const FT=[
-{ic:'laser',big:1,m:4,t:'衛星間通訊：星間雷射',d:'衛星之間用紅外線雷射接力傳資料，像在太空拉一條看不見的光纖。海上、沙漠沒有地面站也能服務；真空裡的光比光纖裡快約三成；雷射不用申請頻譜，也很難被干擾。SpaceX 的雷射終端自己做，台廠供的是裡面的光纖元件、濾波器、濾光片與線束。',k:'24,000 個以上',ks:'Starlink 在軌的雷射終端，現役每顆衛星 3 個；單條鏈路最高 200 Gbps',nx:'新一代 V3 每顆 6 個、單條 400 Gbps，已有 52 顆在軌、還在爬升；雷射終端開始賣給別家衛星，第一顆 2027 年初上天',co:['7717','3491','3023','6426'],no:'環科持有萊德光電約兩成，是間接關係'},
+{ic:'laser',big:1,m:4,t:'衛星間通訊：星間雷射',d:'衛星之間用紅外線雷射接力傳資料，像在太空拉一條看不見的光纖。海上、沙漠沒有地面站也能服務；真空裡的光比光纖裡快約三成；雷射不用申請頻譜，也很難被干擾。SpaceX 的雷射終端自己做，台廠供的是裡面的光纖元件、濾光片與線束；昇達科被券商點名做星間雷射用的濾波器，公司沒說是不是雷射用的零件。',k:'24,000 個以上',ks:'Starlink 在軌的雷射終端，現役每顆衛星 3 個；單條鏈路最高 200 Gbps',nx:'新一代 V3 每顆 6 個、單條 400 Gbps，已有 52 顆在軌、還在爬升；雷射終端開始賣給別家衛星，第一顆 2027 年初上天',co:['7717','3491','3023','6426'],no:'環科持有萊德光電約兩成，是間接關係'},
 {ic:'down',m:2,t:'雷射對地',d:'衛星到地面這一段也改用雷射，頻寬大、不用頻譜執照。難處是雲：雷射穿不過雲層，要在不同氣候的地方蓋好幾座站輪流接。寬頻星系的回傳目前還是走無線電。',nx:'2027 年 Google 發射兩顆配雷射通訊的衛星；歐美業者開始合建光學地面站網',co:[],no:'台股還沒看到出貨'},
-{ic:'band',m:3,t:'往更高的頻段搬',d:'頻率越高，能塞的資料越多，但越怕雨，晶片和天線也越難做。V3 對閘道站的回傳，在原本的頻段之外再加 V、W 頻段；美國也剛開放 12.7 GHz 與 42 GHz 兩段新頻譜。受惠的是氮化鎵放大器、波導與濾波器。',k:'到 110 GHz',ks:'V3 回傳用到的頻率上緣；下一代星系申請用到 275 GHz',nx:'2027 年地面站改版換機',co:['3491','3105','3221','6285']},
+{ic:'band',m:3,t:'往更高的頻段搬',d:'頻率越高，能塞的資料越多，但越怕雨，晶片和天線也越難做。V3 對閘道站的回傳，在原本的頻段之外再加 V、W 頻段；美國也剛開放 12.7 GHz 與 42 GHz 兩段新頻譜。受惠的是氮化鎵放大器、波導與濾波器。',k:'到 110 GHz',ks:'V3 回傳用到的頻率上緣（券商估）；下一代星系申請用到 275 GHz',nx:'2027 年地面站改版換機',co:['3491','3105','3221','6285']},
 {ic:'array',m:3,t:'相位陣列再進化',d:'天線單元排得更密，一片天線同時打出更多波束，衛星容量才上得去；高頻段改用氮化鎵。另一條路是用面板廠的玻璃製程做天線，友達在送樣。',k:'512 → 2,048',ks:'每片用戶天線面板的單元數，上一代到 V3（券商估）',nx:'V3 累計上看 1,000 顆（2027 年第二季，券商估）',co:['3105','2313','2383','6271','6980']},
 {ic:'phone',m:3,t:'手機直連第二代',d:'第一代只夠傳簡訊。下一代把基地台整台搬上衛星、天線再放大、頻譜再買，目標是手機直接上網看影片。AST 新一代衛星的天線，一面約 220 平方公尺。',k:'100 倍以上',ks:'Starlink 下一代直連衛星的總容量，對第一代',nx:'2027 年大量部署，2028 年初在美國擴大服務',co:['7915','4916','3491','6134','2454']},
 {ic:'vleo',m:3,t:'飛得更低',d:'軌道從 550 公里降到 350 公里上下。延遲更低、訊號更強，壞掉的衛星也更快掉下來燒掉。代價是空氣阻力大，要一直開推進器，衛星壽命短、要補更多顆。',k:'10 萬顆',ks:'SpaceX 第三代星系申請的數量，軌道最低約 325 公里',nx:'2026 年內把約 4,400 顆現役衛星降到 480 公里',co:['7879','7965','5243']},
@@ -2560,6 +2658,46 @@ const FT=[
   ];
   $('#hp').innerHTML=HP.map((h,i)=>`<div class="hs"><div class="box"><svg viewBox="0 0 240 64" aria-hidden="true">${IC[h.ic]}</svg><h4><em>${i+1}</em>${h.t}</h4><p>${h.d}</p>${h.k?`<div class="hk"><b>${h.k}</b><span>${h.ks}</span></div>`:''}${h.no?`<div class="fno">${h.no}</div>`:''}${h.co?`<div class="chips">${h.co.map(chip).join('')}</div>`:''}</div></div>`).join('');
   $$('#thermal [data-codes]').forEach(el=>el.innerHTML=el.dataset.codes.split(',').map(chip).join(''));
+})();
+
+/* ================= 衛星怎麼傳資料 ================= */
+(function(){
+  const by=Object.fromEntries(CO.map(c=>[c.c,c]));
+  const chip=c=>by[c]?`<button class="chip${by[c].st==='dev'?' z':''}" data-go="${c}">${by[c].n}<b>${by[c].st==='dev'?'未量產':pctTxt(by[c])}</b></button>`:'';
+  const C='#62d8ff',P='#ff6ec7';
+  const IC={
+   chip:`<rect x="96" y="14" width="48" height="36" rx="4" fill="#0d2234" stroke="${C}"/><rect x="108" y="24" width="24" height="16" rx="2" fill="${C}" opacity=".75"/><g stroke="#7f9bb5" stroke-width="2"><path d="M102 14v-7M114 14v-7M126 14v-7M138 14v-7M102 50v7M114 50v7M126 50v7M138 50v7"/></g><path d="M20 26h20M20 32h20M20 38h20" stroke="#7f9bb5" stroke-width="2"/><path class="pl" d="M152 32q10-14 20 0t20 0t20 0" stroke="${C}" stroke-width="2" stroke-dasharray="6 6" fill="none"/>`,
+   amp:`<path d="M30 32q8-6 16 0t16 0t16 0" stroke="#7f9bb5" stroke-width="2" fill="none"/><path d="M96 12L150 32L96 52Z" fill="#0d2234" stroke="${C}" stroke-width="2"/><path class="pl" d="M156 32q10-20 20 0t20 0t20 0" stroke="${C}" stroke-width="2.5" stroke-dasharray="6 6" fill="none"/>`,
+   flt:`<path d="M14 32h36M190 32h36" stroke="${C}" stroke-width="2"/><rect x="50" y="18" width="140" height="28" rx="4" fill="#0d2234" stroke="${C}"/><g fill="#173a55" stroke="${C}" stroke-width="1"><rect x="58" y="24" width="24" height="16" rx="2"/><rect x="88" y="24" width="24" height="16" rx="2"/><rect x="118" y="24" width="24" height="16" rx="2"/><rect x="148" y="24" width="24" height="16" rx="2"/></g><g fill="#9fe8ff"><circle cx="70" cy="18" r="2.5"/><circle cx="100" cy="18" r="2.5"/><circle cx="130" cy="18" r="2.5"/><circle cx="160" cy="18" r="2.5"/></g>`,
+   wg:`<rect x="40" y="22" width="160" height="20" rx="2" fill="#102a40" stroke="#9cc3e6"/><rect x="33" y="15" width="9" height="34" rx="1" fill="#9cc3e6"/><rect x="198" y="15" width="9" height="34" rx="1" fill="#9cc3e6"/><path class="pl" d="M50 32H190" stroke="${C}" stroke-width="3" stroke-dasharray="4 8" stroke-linecap="round" fill="none"/>`,
+   horn:`<path d="M20 32h40" stroke="#9cc3e6" stroke-width="6"/><path d="M60 25h30l56-17v48l-56-17H60z" fill="#102a40" stroke="${C}" stroke-width="2"/><path class="pl" d="M158 20q10 12 0 24M172 13q15 19 0 38M186 7q20 25 0 50" stroke="${C}" stroke-width="2" stroke-dasharray="6 6" fill="none"/>`,
+   dish:`<path d="M66 6q48 26 0 52" fill="none" stroke="#dfe8f1" stroke-width="4"/><path d="M68 32h40" stroke="#9cc3e6" stroke-width="2"/><circle cx="110" cy="32" r="4" fill="${C}"/><path class="pl" d="M118 27L222 16M118 32H224M118 37L222 48" stroke="${C}" stroke-width="2" stroke-dasharray="6 6" fill="none"/>`,
+   om:`<rect x="62" y="16" width="70" height="32" rx="4" fill="#24102a" stroke="${P}"/><g fill="${P}"><rect x="72" y="25" width="10" height="4"/><rect x="86" y="25" width="10" height="4"/><rect x="100" y="25" width="10" height="4"/><rect x="72" y="34" width="44" height="4" opacity=".5"/></g><path d="M20 26h30M20 32h30M20 38h30" stroke="#8a6f96" stroke-width="2"/><path class="pl" d="M132 32C162 32 168 20 222 20" stroke="${P}" stroke-width="2" stroke-dasharray="5 7" fill="none"/>`,
+   fa:`<path d="M20 32h66" stroke="${P}" stroke-width="2"/><g fill="none" stroke="${P}" stroke-width="2"><ellipse cx="120" cy="32" rx="34" ry="19"/><ellipse cx="120" cy="32" rx="25" ry="13"/><ellipse cx="120" cy="32" rx="16" ry="7"/></g><path class="pl" d="M154 32h68" stroke="#ffd0ec" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round" fill="none"/>`,
+   tel:`<path d="M60 22L146 13V51L60 42Z" fill="#24102a" stroke="${P}" stroke-width="2"/><ellipse cx="146" cy="32" rx="6" ry="19" fill="#3a1a44" stroke="${P}"/><path class="pl" d="M156 32H226" stroke="${P}" stroke-width="2.5" stroke-dasharray="10 6" fill="none"/><path d="M20 32h40" stroke="#8a6f96" stroke-width="2"/>`,
+   pt:`<circle cx="80" cy="32" r="22" fill="none" stroke="#8a6f96" stroke-width="2"/><path d="M58 32h44M80 10v44" stroke="#8a6f96" stroke-width="1.5"/><rect x="128" y="16" width="9" height="32" rx="2" fill="#ffd0ec" transform="rotate(22 132 32)"/><path d="M102 32H130" stroke="${P}" stroke-width="2"/><path class="pl" d="M134 30L214 12" stroke="${P}" stroke-width="2.5" stroke-dasharray="8 6" fill="none"/><circle cx="216" cy="11" r="5" fill="none" stroke="${P}" stroke-width="2"/>`,
+   pd:`<path class="pl" d="M14 32H106" stroke="${P}" stroke-width="2.5" stroke-dasharray="10 6" fill="none"/><rect x="108" y="17" width="30" height="30" rx="3" fill="#24102a" stroke="${P}"/><path d="M123 17v30M108 32h30" stroke="${P}"/><path d="M146 32q8-12 16 0t16 0t16 0t16 0" stroke="${C}" stroke-width="2" fill="none"/>`,
+   relay:`<path d="M20 32h66" stroke="${P}" stroke-width="2"/><circle cx="98" cy="32" r="12" fill="#24102a" stroke="${P}" stroke-width="2"/><circle cx="98" cy="32" r="4" fill="${P}"/><path class="pl" d="M110 27L210 10" stroke="${P}" stroke-width="2" stroke-dasharray="6 6" fill="none"/><circle cx="214" cy="9" r="5" fill="${P}"/><path class="pl" d="M110 37L210 54" stroke="${C}" stroke-width="2" stroke-dasharray="6 6" fill="none"/><circle cx="214" cy="55" r="5" fill="${C}"/>`,
+  };
+  const RF=[
+   {t:'數據機晶片',ic:'chip',d:'把要傳的資料變成電波訊號。2024 年改良的上一代，回傳天線由 SpaceX 自己設計的雙頻晶片 Doppio 驅動。'},
+   {t:'功率放大器',ic:'amp',d:'把訊號放大，才送得到幾百到上千公里外的地面站。收訊號那端換成低雜訊放大器，把微弱的訊號放大，自己加進去的雜訊盡量少。回傳這段的放大器誰做，沒有公開。'},
+   {t:'濾波器、多工器',ic:'flt',d:'每個頻道只放行自己的頻率，再把幾個頻道合到同一條路上，互不干擾。',k:'8 → 30 顆',ks:'券商估 V3 高頻酬載模組每台用的昇達科元件',co:['3491']},
+   {t:'波導',ic:'wg',d:'空心的金屬管。頻率高到幾十 GHz，一般電線損耗太大，改走波導損耗小，也扛得住大功率。',co:['3491']},
+   {t:'饋入件',ic:'horn',d:'波導的出口，像喇叭一樣把電波噴向碟面。正交模態轉換器讓兩種偏振方向的電波共用同一個喇叭：發射時合進去，收訊號時分開。',co:['3491']},
+   {t:'回傳天線',ic:'dish',d:'把電波聚成很窄的波束射向地面站。上一代是 Ka、E 雙頻碟形天線 3 面，V3 改成 Ka、E、V、W 四頻 4 面。',k:'1.2 Tbps',ks:'V3 一顆衛星的電波回傳容量，上一代的 8 倍多'},
+  ];
+  const LZ=[
+   {t:'光數據機',ic:'om',d:'把資料變成光訊號。NASA 的實驗衛星，直接拿地面光纖網路的現成收發器來用。'},
+   {t:'光纖放大器',ic:'fa',d:'把雷射放大到瓦級才射得遠。萊德說功率越大，放大器要串越多級，裡面的光纖元件跟著變多。',k:'級數 × 元件數',ks:'萊德舉例：一級若用 3 個元件，兩級 6 個、三級 9 個',co:['7717']},
+   {t:'望遠鏡',ic:'tel',d:'把光束放大成粗而平行的光再射出去，散開的角度就小；口徑越大散得越少，同樣距離下對方收到的光越強。'},
+   {t:'指向與追蹤',ic:'pt',d:'先靠整顆衛星轉向或雲台對準大方向，再用快速擺動的小鏡子抵消抖動，把光點鎖在對方的望遠鏡上。'},
+   {t:'對方接收',ic:'pd',d:'對方的望遠鏡把光收進來，光偵測器把光變回電訊號，再由光數據機解回資料。'},
+   {t:'接力或下地面',ic:'relay',d:'資料交給衛星上的交換電路，看要再用雷射傳給下一顆，還是換成電波送到地面站或用戶。怎麼轉換，SpaceX 沒公開。',k:'2.4 萬個以上',ks:'Starlink 在軌的雷射數（2025 年）'},
+  ];
+  const draw=(id,arr)=>{$(id).innerHTML=arr.map((h,i)=>`<div class="hs"><div class="box"><svg viewBox="0 0 240 64" aria-hidden="true">${IC[h.ic]}</svg><h4><em>${i+1}</em>${h.t}</h4><p>${h.d}</p>${h.k?`<div class="hk"><b>${h.k}</b><span>${h.ks}</span></div>`:''}${h.co?`<div class="chips">${h.co.map(chip).join('')}</div>`:''}</div></div>`).join('');};
+  draw('#srf',RF); draw('#slz',LZ);
+  $$('#signal [data-codes]').forEach(el=>el.innerHTML=el.dataset.codes.split(',').map(chip).join(''));
 })();
 
 /* ================= 下半頁 ================= */
